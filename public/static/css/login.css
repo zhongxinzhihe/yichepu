@@ -1,0 +1,189 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+input:focus{
+    outline: none;
+}
+.login >img{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+.login >.mask{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.3;
+}
+.login >.login-con{
+    width: 480px;
+    height: 520px;
+    background-color: #fff;
+    position: fixed;
+    left: 50%;
+    margin-left: -240px;
+    top: 50%;
+    margin-top: -260px;
+}
+.login .login-con .login-tit{
+    width: 100%;
+    height: 126px;
+}
+.login-con{
+    position: relative;
+}
+.login-tit img{
+    display: block;
+    margin: 0 auto;
+}
+.login-con .login-user{
+    width: 100%;
+    height: 85px;
+    position: relative;
+    overflow: hidden;
+}
+.login-con .login-pas{
+    width: 100%;
+    height: 85px;
+    position: relative;
+    overflow: hidden;
+}
+.login-con .login-check{
+    width: 100%;
+    height: 85px;
+    position: relative;
+    overflow: hidden;
+}
+.login-con .savepas{
+    width: 100%;
+    height: 60px;
+    position: relative;
+    overflow: hidden;
+}
+.login-con .btn{
+    width: 100%;
+    height: 105px;
+    position: relative;
+    overflow: hidden;
+}
+.login-user >input{
+    width: 420px;
+    height: 52px;
+    display: block;
+    margin: 15px auto;
+    padding-left: 15px;
+    font-size: 18px;
+    border: 1px solid #EEE;
+    box-shadow: 2px 2px 2px #F1F5F9; 
+}
+.login-pas >input{
+    width: 420px;
+    height: 52px;
+    display: block;
+    margin: 15px auto;
+    padding-left: 15px;
+    border: 1px solid #EEE;
+    font-size: 18px;
+    box-shadow: 2px 2px 2px #F1F5F9; 
+}
+.login-check .check{
+    width: 438px;
+    height: 52px;
+    display: block;
+    margin: 15px auto;
+}
+.savepas .save{
+    width: 420px;
+    height: 52px;
+    display: block;
+    margin: 15px auto;
+    margin-bottom: 0;
+    font-size: 14px;
+    color: #5D5D5D;
+}
+.btn >input{
+    display: block;
+    width: 438px;
+    height: 52px;
+    margin: 0 auto;
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+    line-height: 52px;
+    background-color: #F54236;
+    text-decoration: none;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+}
+.savepas .save >input{
+    margin-left: 0;
+    margin-right: 10px;
+}
+.login-check .check >input{
+    float: left;
+    height: 46px;
+    width: 96px;
+    padding-left: 15px;
+    font-size: 18px;
+    border: 1px solid #EEE;
+    box-shadow: 2px 2px 2px #F1F5F9;
+}
+.login-check .check >span{
+    float: right;
+    height: 52px;
+    width: 132px;
+    background-color: #e7e7e7;
+}
+.login-user >span{
+    display: block;
+    position: absolute;
+    height: 52px;
+    width: 52px;
+    background: url(../assets/img/login-user.jpg) no-repeat 15px 15px;
+    top: 17px;
+    right: 25px;
+}
+.login-pas >span{
+    display: block;
+    position: absolute;
+    height: 52px;
+    width: 52px;
+    background: url(../assets/img/login-pas.jpg) no-repeat 15px 15px;
+    top: 17px;
+    right: 25px;
+}
+.block1{
+    width: 7px;
+    height: 105px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #FD870F;
+}
+.block2{
+    width: 7px;
+    height: 105px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #FD870F;
+}
+.tip{
+    position: absolute;
+    top: 105px;
+    left: 0px;
+    width: 100%;
+    text-align: center;
+}
+.tip span{
+    color: red;
+    font-size: 14px;
+    display: block;
+}
+.chicuele{
+    width: 132px;
+    height: 52px;
+}

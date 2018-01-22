@@ -1,0 +1,224 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta name="Generator" content="IMSHOP v1.1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>首页-{$shop_name}</title>
+<meta http-equiv="keywords" content="{$imshop_config['shop_info_store_keyword']}" />
+<meta name="description" content="{$imshop_config['shop_info_store_desc']}" />
+<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css"/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/mhp.css"/>
+<link rel="stylesheet" href="__STATIC__/css/idangerous.swiper.css">
+<link rel="stylesheet" href="__STATIC__/css/swiper.css">
+<script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+<script type="text/javascript" src="__STATIC__/js/TouchSlide.1.1.js"></script>
+<script type="text/javascript" src="__STATIC__/js/jquery.json.js"></script>
+<script type="text/javascript" src="__STATIC__/js/touchslider.dev.js"></script>
+<script type="text/javascript" src="__STATIC__/js/layer.js" ></script>
+<script src="__PUBLIC__/js/global.js"></script>
+<script src="__PUBLIC__/js/mobile_common.js"></script>
+<script src="https://g.alicdn.com/aliww/h5.openim.sdk/1.0.6/scripts/wsdk.js"></script>
+<script src="__STATIC__/js/idangerous.swiper.min.js"></script>
+<script src="__STATIC__/js/swiper.min.js"></script>
+<style>
+.swiper-slide {
+  line-height: 36px;
+  color: #fff;
+  font-size: 36px;
+  text-align: center;
+}
+.swiper-slide img{
+  width: 100%;
+  height: 100%;
+}
+.swiper-wrapper{
+  height: 200px;
+}
+.vf_nav ul li:nth-child(1) a{color: #ff7171;}
+.vf_nav ul li:nth-child(1) a div svg{
+  fill: red;
+}
+</style>
+</head>
+<body>
+<div class="hp_swiper">
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+       <volist name="banners" id="v">
+        <div class="swiper-slide blue-slide">
+          <a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if> >
+            <img src="{$v.ad_code}" title="{$v[title]}">
+          </a>
+        </div>
+        </volist>                     
+    </div>
+  </div>
+<!--   <div class="hp_search">
+    <div class="search_bar">
+      <div class="search_bar_c">
+        <div class="s_input">
+          <div class="s_icon"></div>
+          <div class="s_inp">
+            <form action="{:U('Mobile/Goods/search')}">
+              <div class="s_form">
+                <input type="text" placeholder="搜索" name="q">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+</div>
+<script type="text/javascript">
+  var mySwiper = new Swiper('.swiper-container',{
+    loop: true,
+  autoplay: 3000,
+  });  
+</script>
+<!-- 门店选择开始 -->
+<section class="shopChose">
+  <div class="shopC_w">
+    <a href="" id="latlon">
+    <div class="shopC_c">
+      <h3>苏州全部门店</h3>
+      <p>园区爱客、大师钣喷、卡马仕</p>
+      <span><?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1512454024154" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1103" xmlns:xlink="http://www.w3.org/1999/xlink" width="25" height="25"><defs><style type="text/css"></style></defs><path d="M683.9808 512 267.6224 95.6672 303.8208 59.4432 720.4608 476.0832 756.3776 512 303.8208 964.5568 267.6224 928.3328Z" p-id="1104"></path></svg></span>
+    </div>
+    </a>
+  </div>
+</section>
+<!-- 门店选择结束 -->
+<!-- 推荐商品开始 -->
+<section class="topShelf">
+  <div class="curingCar_blank blank">
+    <div class="blank_w">
+      <div class="blank_con">
+        <h3>超值优选</h3>
+        <!-- <a href="{:U('/Mobile/Goods/goodsList',array('id'=>165))}">更多<em></em></a> -->
+      </div>
+    </div>
+  </div>
+  <div class="topShelf_con">
+    <div class="left"></div>
+    <div class="rt"></div>
+    <div class="rbl"></div>
+    <div class="rbr"></div>
+  </div>
+  <div style="clear: both;"></div>
+</section>
+<!-- 推荐商品结束 -->
+<!-- 汽车养护开始 -->
+<section class="whp_curingCar whp">
+  <div class="curingCar_blank blank">
+    <div class="blank_w">
+      <div class="blank_con">
+        <h3 style="color:#FF900F;">汽车养护</h3>
+        <a href="{:U('/Mobile/Goods/goodsList',array('id'=>165))}">更多<em></em></a>
+      </div>
+    </div>
+  </div>
+  <div class="curingCar_list hp_list">
+    <div class="list_w">
+      <ul>
+      <volist name="curings" id="vo" key="k">
+        <li>
+          <a href="{:U('/Mobile/Goods/goodsInfo',array('id'=>$vo[goods_id]))}">
+          <div class="curingCarBox carBox">
+            <div class="img">
+              <img src="{$vo['goods_id']|getFirstImg=373,366}" alt="">
+            </div>
+            <div class="detail">
+              <div class="det_w">
+                <h3>{$vo['goods_name']}</h3>
+                <div class="price">三品車价&nbsp;{$vo['shop_price']|calcu_goods_price}</div>
+              </div>
+            </div>
+          </div>
+          </a>
+        </li>
+        </volist>
+      </ul>
+    </div>
+  </div>
+  <div style="clear: both;"></div>
+</section>
+<!-- 汽车养护结束 -->
+<!-- 底部banner开始 -->
+<section class="mhp_footer">
+  <div class="footer_blank blank">
+    <div class="blank_w">
+      <div class="blank_con">
+        <h3>服务流程</h3>
+      </div>
+    </div>
+  </div>
+  <div class="process">
+    <img src="__STATIC__/images/mhp-process.jpg" alt="">
+    <img src="__STATIC__/images/mhp-footer.jpg" alt="">
+    <p>买车、保养、 洗车、 维修  全流程服务您的爱车</p>
+    <p>联系方式：400-877-8063</p>
+  </div>
+</section>
+<!-- 底部banner结束 -->
+
+<include file="public/footer"/>
+<script>
+function goTop(){
+  $('html,body').animate({'scrollTop':0},600);
+}
+//商品侧滑
+var mySwiper = new Swiper ('.swiper-container1', {
+    direction: 'horizontal',
+    loop: false,
+    width:330,
+    freeMode : true,
+    on:{
+      touchEnd: function(event){
+      TR=this.translate;
+      console.log(TR)
+      if(TR<-400){
+        this.setTranslate(TR);
+        location.href ="{:U('/Mobile/Goods/goodsList',array('id'=>138))}";
+      }
+    }
+  }
+}) 
+var mySwiper = new Swiper ('.swiper-container2', {
+    direction: 'horizontal',
+    loop: false,
+    width:330,
+    freeMode : true,
+    on:{
+      touchEnd: function(event){
+      TR=this.translate;
+      console.log(TR)
+      if(TR<-400){
+        this.setTranslate(TR);
+        location.href ="{:U('/Mobile/Goods/goodsList',array('id'=>164))}";
+      }
+    }
+  }
+}) 
+//标签页切换
+$('.newCarChange').click(function(){
+  $('.secCar_list').hide()
+  $('.newCar_list').show()
+  $(this).children().css("color","#FF900F")
+  $('.secCarChange').children().css("color","#000")
+})   
+$('.secCarChange').click(function(){
+  $('.secCar_list').show()
+  $('.newCar_list').hide()
+  $(this).children().css("color","#FF900F")
+  $('.newCarChange').children().css("color","#000")
+})      
+</script>
+<include file="public/footer_nav"/>
+
+<script src="__PUBLIC__/js/jqueryUrlGet.js"></script><!--获取get参数插件-->
+<script> set_first_leader(); //设置推荐人 </script>
+</body>
+</html>

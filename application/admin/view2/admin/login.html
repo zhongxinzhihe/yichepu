@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>三品車</title> 
+    <link rel="stylesheet" href="__PUBLIC__/static/css/login.css">
+    <script src="__PUBLIC__/static/assets/js/jquery-1.10.2.js"></script>
+</head>
+<body>
+    <form action="" name='theForm' id="theForm" method="">
+    <div class="login">
+        <img src="__PUBLIC__/static/images/loginbanner.jpg" alt="">
+        <div class="mask"></div>
+        <div class="login-con">
+            <div class="tip">
+                <span id="tip1"></span>
+            </div>
+            <div class="login-tit" style="text-align: center;line-height: 126px;font-size: 60px;">
+                壹车仆
+            </div>
+            <div class="login-user">
+                <input type="text" placeholder="用户名" id="userN" name="username">
+                <span></span>
+                <div class="block1" style="display: none;"></div>
+            </div>
+            <div class="login-pas">
+                <input placeholder="密码" id="pasW"  name="password" type="password"  autocomplete="off">
+                <span></span>
+                <div class="block2" style="display: none;"></div>
+            </div>
+            <div class="login-check">
+                <div class="check">
+                    <input type="text" placeholder="验证码" name="vertify" id="vertify">
+                    <span><img src="{:U('Admin/Admin/vertify')}" class="chicuele" id="imgVerify" alt="" onclick="this.src=this.src+'?'+Math.random()"></span>
+                </div>
+            </div>
+            <div class="savepas">
+                <div class="save">
+                    <input type="checkbox" id="save">记住用户名
+                </div>
+            </div>
+            <div class="btn">
+                <input type="button" value="登录">
+            </div>
+        </div>
+    </div>
+    </form>
+<script type="text/javascript" src="__PUBLIC__/static/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/js/login.js"></script>
+</body>
+</html>

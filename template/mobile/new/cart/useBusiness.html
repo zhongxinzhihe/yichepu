@@ -1,0 +1,271 @@
+<include file="public/header"/>
+<body>
+<header>
+<!-- <div class="tab_nav">
+   <div class="header">
+     <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+     <div class="h-mid">可用门店</div>
+     <div class="h-right">
+       <aside class="top_bar">
+         <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a href="javascript:;"></a> </div>
+       </aside>
+     </div>
+   </div>
+ </div> -->
+</header>
+<include file="public/menu"/>
+<link rel="stylesheet" href="__STATIC__/css/usebusiness.css">
+<div id="tbh5v0">
+   
+      
+  <div class="order ajax_return">
+  
+       <div class="order_list">
+<!--        <volist name="list" id="l">       
+              <dl style="position: relative">  
+              <dt><img src="{$l.shop_logo}"></dt>
+              <dt><img src="http://www.limecar.cn/public/upload/category/2017/06-01/ab27e271874d0565a6aef04c1e50dae4.jpg"></dt>
+              <dd class="name" style="width:80%">
+              <strong>{$l.shop_name}</strong>
+              <strong>&nbsp;</strong>
+              <strong>&nbsp;</strong>
+              
+              </dd> <br>
+              <span style="position: absolute;font-size: 12px;line-height: 12px;color: #ef8787" >距离：{$l.distance}km </span>     
+     
+              </dl>
+        </volist> -->
+       <!--  <ul style="width: 100%;">
+        <li style="width: 100%;overflow:hidden;border-bottom: 0.1px solid #e2e0e0">
+        <div style="width: 30%;float: left;"><img style="width: 90%;padding: 5%;" src="http://www.limecar.cn/public/upload/category/2017/06-01/ab27e271874d0565a6aef04c1e50dae4.jpg" ></div>
+        <div style="width: 70%;float: left;">
+        <p style="font-size: 14px;padding-left: 5px;overflow:hidden;">
+        <span>清宁养车园区点</span>
+        <span style="float: right;padding-right: 5px;color: #ef8787;font-size: 12px;">18km
+        </span>
+        </p>
+        <p style="font-size: 12px;padding-left: 5px;overflow:hidden;">
+        <span style="color: #797777">林泉街新加坡国立大学</span>
+        <button style="float: right;padding-right: 5px;border: 1px solid #ef8787;margin: 5px;background: #ef8787;color: #fff;font-size: 10px;padding: 2px;">导航
+       </button>
+       </p>
+        </div>
+        </li>
+        </ul> -->
+  <div class="nav">
+  <div class="tab_nav">
+   <div class="header">
+     <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+     <div class="h-mid">可用门店</div>
+     <div class="h-right">
+       <aside class="top_bar">
+         <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a href="javascript:;"></a> </div>
+       </aside>
+     </div>
+   </div>
+ </div>
+    <div class="nav_blank" style="display: none;">
+      <div class="nav_blank_address">
+        <p>{$area.name}<span></span></p>
+        <div class="address_block" style="display: none;">
+          <ul>
+          <volist name="areas" id="a">
+            <li>
+              <a data_id="{$a.id}" class="address_a" onclick="address_a('{$a.id}')">
+                  <p>{$a.name}<span></span></p>
+              </a>
+            </li>
+          </volist>.
+          </ul>
+        </div>
+      </div>
+      <div class="nav_blank_order">
+        <p><if condition="$sort eq 2">最近优先<else/>默认排序</if><span></span></p>
+        <div class="order_block" style="display: none;">
+          <ul>
+            <li>
+              <a data_id="1" class="order_a" onclick="order_a(1)">
+                <p>默认排序 <span></span></p>
+              </a>
+            </li>
+            <li>
+              <a data_id="2" class="order_a" onclick="order_a(2)">
+                <p>最近优先 <span></span></p>
+              </a>
+            </li>
+            <li>
+              <a  onclick="check_num()">
+                <p>单数最多 <span></span></p>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="nav_blank_screen">
+        <p>筛选<span></span></p>
+        <div class="screen_block" style="display: none;">
+          <p>店铺类型</p>
+          <ul>
+            <li>
+              <a data_id="1" class="screen_a" onclick="screen_a(1)">
+                <p>一站式</p>
+              </a>
+            </li>
+            <li>
+              <a data_id="3" class="screen_a" onclick="screen_a(3)">
+                <p>维修厂</p>
+              </a>
+            </li>
+            <li>
+              <a data_id="2" class="screen_a" onclick="screen_a(2)">
+                <p>社区式</p>
+              </a>
+            </li>
+ 
+          </ul>
+         <!--  <div class="screen_btn">
+            <a href="#">重置</a>
+            <a href="#">确定</a>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="con_list">
+      <ul>
+      <volist name="list" id="l">
+        <li>
+          <div class="con_main">
+            <div class="main_pic">
+              <img src="{$l.shop_logo}" alt="">
+              <!-- <img src="__STATIC__/images/user68.jpg" alt=""> -->
+              <div class="notes">
+                <if condition="$l['shop_type'] eq 1">一站式</if>
+                <if condition="$l['shop_type'] eq 2">社区式</if>
+                <if condition="$l['shop_type'] eq 3">维修厂</if>
+              </div>
+            </div>
+            <div class="main_p">
+              <p>{$l.shop_name}</p>
+              <p>已服务车次：<span>{$l.check_num}</span></p>
+              <div>{$l.shop_address}</div>
+              <div class="tips">
+                <volist name="$l.tags" id="tag">
+                   <span>{$tag.tag_name}</span>
+                </volist>
+               
+            <!--     <span>保养</span>
+                <span>维修</span>
+                <span>美容</span> -->
+              </div>
+              <!-- <p>{$l.shop_address}</p> -->
+              <!-- <span>距离：{$l.distance}km</span> -->
+            </div>
+            <div class="main_right">
+              <!-- <span>{$l.check_num}单</span> -->
+              <a href="/index.php/Mobile/Cart/jumpMap/id/{$l.admin_id}">导航</a>
+              <i></i>
+            </div>
+          </div>
+        </li>
+        </volist>
+      </ul>
+    </div>
+  </div>
+       </div>
+ 
+    </div>
+ 
+<form action="/index.php/Mobile/Cart/useBusiness" method="get" id="search_form">
+<input type="hidden" name="area_id" value="{$area.id}">
+<input type="hidden" name="sort" value="{$sort}">
+<input type="hidden" name="shop_type">
+<input type="hidden" name="lat" value="{$lat}">
+<input type="hidden" name="lon" value="{$lon}">
+<input type="hidden" name="check_num">
+</form>
+</div>
+
+
+<script language="javascript">
+
+$('.nav_blank_address').click(function(){
+  if ($(this).hasClass('active')) {
+    $(this).removeClass('active');
+    $('.address_block').hide();
+
+  }else{
+    $(this).addClass("active");
+    $('.address_block').show();
+    $('.order_block').hide();
+    $('.screen_block').hide();
+    $('.nav_blank_order').removeClass('active');
+    $('.nav_blank_screen').removeClass('active');
+  }
+
+
+});
+
+$('.nav_blank_order').click(function(){
+if ($(this).hasClass('active')) {
+    $(this).removeClass('active');
+    $('.order_block').hide();
+
+  }else{
+    $(this).addClass("active");
+    $('.nav_blank_address').removeClass('active');
+    $('.nav_blank_screen').removeClass('active');
+    $('.address_block').hide();
+    $('.order_block').show();
+    $('.screen_block').hide();
+  }
+
+});
+$('.nav_blank_screen').click(function(){
+  if ($(this).hasClass('active')) {
+    $(this).removeClass('active');
+    $('.screen_block').hide();
+
+  }else{
+    $(this).addClass("active");
+    $('.address_block').hide();
+    $('.order_block').hide();
+    $('.screen_block').show();
+     $('.nav_blank_address').removeClass('active');
+    $('.nav_blank_address').removeClass('active');
+  }
+  
+});
+function address_a(data_id) {
+
+  $('input[name="area_id"]').val(data_id);
+  $('#search_form').submit();
+}
+function screen_a(data_id) {
+  $('input[name="shop_type"]').val(data_id);
+  $('#search_form').submit();
+}
+function order_a(data_id) {
+  $('input[name="sort"]').val(data_id);
+  $('#search_form').submit();
+}
+
+function check_num() {
+ $('input[name="check_num"]').val(3);
+  $('#search_form').submit();
+}
+
+// $('screen_a').live('click',function(){
+//   $('input[name="shop_type"]').val($(this).attr('data_id'));
+// })
+// $('address_a').live('click',function(){
+ 
+//   $('input[name="area_id"]').val($(this).attr('data_id'));
+// })
+// $('order_a').live('click',function(){
+//   $('input[name="shop_type"]').val($(this).attr('data_id'));
+// })
+</script>
+</body>
+</html>

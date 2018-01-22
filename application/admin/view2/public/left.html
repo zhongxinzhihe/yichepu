@@ -1,0 +1,46 @@
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                    <li>
+                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-truck"></i><span>产品管理</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="{:U('Admin/goods/goodsList',array('cat_id'=>165))}"  onclick="return false"><span>车后养护</span></a>
+                            </li>
+                           
+                        </ul>
+                    </li>
+                <if condition="$admin_type eq 0">
+                    <li>
+                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-gear fa-fw"></i><span>配置中心</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level" >
+                            <li>
+                                <a href="{:U('Admin/Ad/adList')}" onclick="return false"><span>轮播图配置</span></a>
+                            </li>
+                            <li>
+                                <a href="{:U('Admin/system/navigationList')}" onclick="return false"><span>导航栏配置</span></a>
+                            </li>
+                            <li>
+                                <a href="{:U('Admin/goods/categoryList')}"  onclick="return false"><span>产品分类配置</span></a>
+                            </li>
+                             <li>
+                                <a href="{:U('Admin/goods/tagLists')}"  onclick="return false"><span>服务范围配置</span></a>
+                            </li>
+                            <li>
+                                <a href="{:U('Admin/Plugin/setting',array('type'=>'payment','code'=>'weixin'))}"  onclick="return false"><span>支付配置</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-users"></i><span>商户配置</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="{:U('Admin/business/index')}"  onclick="return false"><span>商户列表</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                </if>
+                </ul>
+            </div>
+        </nav>
+        <!-- /. NAV SIDE  -->
