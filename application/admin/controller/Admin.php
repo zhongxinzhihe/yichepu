@@ -55,6 +55,10 @@ class Admin extends Base {
                 // 将用户信息保存在session中
                 session_start();
                 session('admin_id',$admin_info['admin_id']);
+                session('act_list',$admin_info['act_list']);
+                session('type',$admin_info['type']);
+                session('shop_name',$admin_info['shop_name']);
+                session('role_id',$admin_info['role_id']);
                 //传入地址
                 $url=U('Admin/Index/index');
                 exit(json_encode(array('status'=>1,'url'=>$url)));

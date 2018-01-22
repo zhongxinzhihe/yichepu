@@ -165,54 +165,7 @@
             </ul>
           </div>
         </dd>
-      </dl>   
- 
-                        <dl class="row">
-              <dt class="tit">
-                <label for="t_mane"><em>*</em>是否指定商家</label>
-              </dt>
-              <dd class="opt">
-                <div class="onoff">
-                  <label for="is_appoint1" class="cb-enable <if condition="$goodsInfo[is_appoint] eq 1">selected</if>">是</label>
-                  <label for="is_appoint0" class="cb-disable <if condition="$goodsInfo[is_appoint] eq 0">selected</if>">否</label>
-                  <input id="is_appoint1" name="is_appoint" value="1" type="radio" <if condition="$goodsInfo[is_appoint] eq 1"> checked="checked"</if>>
-                  <input id="is_appoint0" name="is_appoint" value="0" type="radio" <if condition="$goodsInfo[is_appoint] eq 0"> checked="checked"</if>>
-                </div>
-              </dd>        
-          </dl>
-          <dl class="row" style="display: none;">
-                <dt class="tit">
-                    <label for="record_no"></label>
-                </dt>
-                <dd class="opt" >
-                   <volist name="usedShop" id="vo">
-                  <div class="shop_check"><input type="checkbox" class="shop_all" name="shops[]" value="{$vo['admin_id']}" <if condition="$vo['selected'] eq 1">checked="true"</if>><span>{$vo['shop_name']}</span></div>
-                </volist>
-                </dd>
-            </dl>
-                        <dl class="row">
-              <dt class="tit">
-                <label for="t_mane"><em>*</em>是否指定使用时间</label>
-              </dt>
-              <dd class="opt">
-                <div class="onoff">
-                  <label for="is_ctime1" class="cb-enable <if condition="$goodsInfo[is_ctime] eq 1">selected</if>">是</label>
-                  <label for="is_ctime0" class="cb-disable <if condition="$goodsInfo[is_ctime] eq 0">selected</if>">否</label>
-                  <input id="is_ctime1" name="is_ctime" value="1" type="radio" <if condition="$goodsInfo[is_ctime] eq 1"> checked="checked"</if>>
-                  <input id="is_ctime0" name="is_ctime" value="0" type="radio" <if condition="$goodsInfo[is_ctime] eq 0"> checked="checked"</if>>
-                </div>
-              </dd>        
-          </dl>
-          <dl class="row" style="display: none;">
-                <dt class="tit">
-                    <label for="record_no"></label>
-                </dt>
-                <dd class="opt" >
-                  开始日期：<input type="text" id="startTime" name="start_time" <if condition="$times['start_time'] neq 0">value="{$times['start_time']|date='Y-m-d',###}"</if>>
-                  结束日期：<input type="text" id="overTime" name="end_time" <if condition="$times['end_time'] neq 0">value="{$times['end_time']|date='Y-m-d',###}"</if>>
-                  <script type="text/javascript" src="__PUBLIC__/static/layui/layui.js"></script>
-                </dd>
-            </dl>
+      </dl>
             <dl class="row">
                 <dt class="tit">
                     <label for="record_no"><em>*</em> 商品详情描述</label>
@@ -221,7 +174,7 @@
                     <textarea class="span12 ckeditor" id="goods_content" name="goods_content" title="">{$goodsInfo.goods_content}</textarea>
                     <span class="err" id="err_goods_content" style="color:#F00; display:none;">请输入商品详情描述</span>                    
                 </dd>
-            </dl>                                                                                                                                           
+            </dl>           
         </div>
 <!-- 商品模型-->
 		<div class="ncap-form-default tab_div_3" style="display:none;">

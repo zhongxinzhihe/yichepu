@@ -40,6 +40,22 @@
                         </ul>
                     </li>
                 </if>
+            <if condition="$admin_type eq 1">
+            <li>
+                <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i><span>商家后台</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="{:U('Admin/business/checkList')}"  onclick="return false"><span>商家验券列表</span></a>
+                    </li>
+                    <li>
+                        <a href="{:U('Admin/business/checkOrder')}"  onclick="return false"><span>验券</span></a>
+                    </li>
+                    <li>
+                        <a href="{:U('Admin/Business/changeSecret')}"  onclick="return false"><span>修改密码</span></a>
+                    </li>
+                </ul>
+            </li>
+            </if>
                 </ul>
             </div>
         </nav>

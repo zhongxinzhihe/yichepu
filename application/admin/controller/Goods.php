@@ -247,7 +247,6 @@ class Goods extends Base {
             $GoodsLogic->saveGoodsTags($goods_id,$data);//处理商品服务范围
             $GoodsLogic->saveGoodsUserLevel($goods_id,$data);//处理商品会员的可见度
             $GoodsLogic->savaUsedShops($goods_id,$data);//可用门店
-            $GoodsLogic->savaConsumeTime($goods_id,$data);//指定消费时间
             $return_arr = array(
                 'status' => 1,
                 'msg' => '操作成功',
@@ -257,22 +256,15 @@ class Goods extends Base {
 
         }
         $goodsInfo = M('Goods')->where(array('goods_id'=>I('GET.id', 0),'del_status'=>0))->find();
-        //$cat_list = $GoodsLogic->goods_cat_list(); // 已经改成联动菜单
         $level_cat = $GoodsLogic->find_parent_cat($goodsInfo['cat_id']); // 获取分类默认选中的下拉框
         $level_cat2 = $GoodsLogic->find_parent_cat($goodsInfo['extend_cat_id']); // 获取分类默认选中的下拉框
         $where = array();
         $where['parent_id'] = 0;
         $cat_list = M('goods_category')->where($where)->select(); // 已经改成联动菜单
-        $brandList = $GoodsLogic->getSortBrands();
         $map = array();
         $_SESSION['type']==1?$map['shop_id']= $_SESSION['admin_id']:false;
         $goodsType = M("GoodsType")->where($map)->select();
         $suppliersList = M("suppliers")->select(); 
-        $seriesList = M('Series')->where(array('brand_id'=>$goodsInfo['brand_id']))->select();
-        $versionList = M('Version')->where(array('series_id'=>$goodsInfo['series_id']))->select();
-        $plugin_shipping = M('plugin')->where(array('type'=>array('eq','shipping')))->select();//插件物流
-        $shipping_area = D('Shipping_area')->getShippingArea();//配送区域
-        $goods_shipping_area_ids = explode(',',$goodsInfo['shipping_area_ids']);
         $goodsImages = M("GoodsImages")->where('goods_id =' . I('GET.id', 0))->select();
         $programmes = $GoodsLogic->getGoodsProgramme(I('GET.id', 0));
         $goodsTag = M('GoodsTag')->where(array('goods_id'=>I('GET.id', 0)))->field('tag_id')->select();
@@ -294,7 +286,6 @@ class Goods extends Base {
             }
         }
         $usedShop = $GoodsLogic->getUsedBusiness(I('GET.id', 0));
-        $times = M('ConsumeTime')->where(array('goods_id'=>I('GET.id', 0)))->find();
         $this->assign('times',$times);
         $this->assign('usedShop',$usedShop);
         $this->assign('goods_shipping_area_ids',$goods_shipping_area_ids);
@@ -304,9 +295,6 @@ class Goods extends Base {
         $this->assign('level_cat', $level_cat);
         $this->assign('level_cat2', $level_cat2);
         $this->assign('cat_list', $cat_list);
-        $this->assign('brandList', $brandList);
-        $this->assign('seriesList', $seriesList);
-        $this->assign('versionList', $versionList);
         $this->assign('goodsType', $goodsType);
         $this->assign('goodsInfo', $goodsInfo);  // 商品详情
         $this->assign('goodsImages', $goodsImages);  // 商品相册
@@ -359,8 +347,8 @@ class Goods extends Base {
     public function search_goods()
     {
         $GoodsLogic = new GoodsLogic;
-        $_SESSION['type']==1? $brandList = $GoodsLogic->getSortBrands('shop_id='.$_SESSION['admin_id'].' and del_status=0'):$brandList = $GoodsLogic->getSortBrands('del_status=0');
-        $this->assign('brandList', $brandList);
+        // $_SESSION['type']==1? $brandList = $GoodsLogic->getSortBrands('shop_id='.$_SESSION['admin_id'].' and del_status=0'):$brandList = $GoodsLogic->getSortBrands('del_status=0');
+        // $this->assign('brandList', $brandList);
         $_SESSION['type']==1? $categoryList = $GoodsLogic->getSortCategory('shop_id='.$_SESSION['admin_id'].' and del_status=0'):$categoryList = $GoodsLogic->getSortCategory('del_status=0');
         
         $this->assign('categoryList', $categoryList);

@@ -41,28 +41,7 @@ class Business extends Base {
     $id = I('POST.id',0);
     $admin_name = I('post.user_name');
     $shop_name = I('post.shop_name');
-    // if (empty($admin_name)) {
-    //   exit(json_encode(array('stastus'=>0,'msg'=>'用户名不能为空')));
-    // }
-    // if (empty($shop_name)) {
-    //   exit(json_encode(array('stastus'=>0,'msg'=>'商户名称不能为空')));
-    // }
-      // if (empty(I('post.shop_lat'))) {
-      //   exit(json_encode(array('stastus'=>0,'msg'=>'纬度不能为空')));
-    // }
-    // if (empty(I('post.shop_lon'))) {
-    //   exit(json_encode(array('stastus'=>0,'msg'=>'经度不能为空')));
-    // }
-    //  if (empty(I('post.shop_logo'))) {
-    //   exit(json_encode(array('stastus'=>0,'msg'=>'请上传logo')));
-    // }
-
     $name = D('Admin')->where(array('user_name'=>$admin_name))->find();
-
-    // if ($name&&empty($id)) {
-    //   exit(json_encode(array('stastus'=>0,'msg'=>'用户名已经存在')));
-    // }
-   
     $shop_admin = D('Admin')->where('admin_id='.$id)->find();
    
     $_POST['type'] = 1;
@@ -97,6 +76,7 @@ class Business extends Base {
       $_POST['add_time'] = time();
       $_POST['role_id'] = 8;
       $_POST['check_status'] = 1;
+      $_POST['password'] = encrypt($_POST['password']);
       $res =D('Admin')->add($_POST);
         if ($res) {
 

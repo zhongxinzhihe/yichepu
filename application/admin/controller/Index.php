@@ -40,7 +40,6 @@ class Index extends Base {
         $count['handle_order'] = M('order')->where("order_status=0 and (pay_status=1 or pay_code='cod')")->count();//待处理订单
         $count['new_order'] = M('order')->where("add_time>$today")->count();//今天新增订单
         $count['goods'] =  M('goods')->where("1=1")->count();//商品总数
-        $count['article'] =  M('article')->where("1=1")->count();//文章总数
         $count['users'] = M('users')->where("1=1")->count();//会员总数
         $count['today_login'] = M('users')->where("last_login>$today")->count();//今日访问
         $count['new_users'] = M('users')->where("reg_time>$today")->count();//新增会员
