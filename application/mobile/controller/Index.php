@@ -15,52 +15,12 @@ use app\home\logic\UsersLogic;
 use Think\Db;
 class Index extends MobileBase {
 
-    public function index(){
-        $where = array();
-        if($_SESSION['shop_type']==1){
-             $where['shop_id'] = $_SESSION['shop_id'];
-        }
-        $where['is_on_sale']=1;
-        $where['del_status']=0;
-        $where['is_vip']=0;
-        //新车
-        $cat_id_arr = getCatGrandson (138);
-        $where['is_recommend']=0;
-        $where['cat_id']=array('in',implode(',', $cat_id_arr));
-        $newCars = M('Goods')->where($where)->limit(4)->order('sort DESC,goods_id DESC')->select();
-
-        //二手车
-        $cat_id_arr = getCatGrandson (164);
-        $where['cat_id']=array('in',implode(',', $cat_id_arr));
-        $usedCars = M('Goods')->where($where)->limit(4)->order('sort DESC,goods_id DESC')->select();
-
-        //养护用品
-        $cat_id_arr = getCatGrandson (165);
-        $where['cat_id']=array('in',implode(',', $cat_id_arr));
-        $where['is_recommend']=0;
-        $curings = M('Goods')->where($where)->limit(4)->order('sort DESC,goods_id DESC')->select();
-       
-       //推荐的养护
-        $where['is_recommend']=1;
-        $cat_id_arr = getCatGrandson (165);
-        $where['cat_id']=array('in',implode(',', $cat_id_arr));
-        $rcurings = M('Goods')->where($where)->limit(2)->order('sort DESC,goods_id DESC')->select();
-
-        //推荐的新车
-        $cat_id_arr = getCatGrandson (138);
-        $where['cat_id']=array('in',implode(',', $cat_id_arr));
-        $where['is_recommend']=1;
-        $rnewCars = M('Goods')->where($where)->limit(1)->order('sort DESC,goods_id DESC')->select();
+    public function index(){ 
 
         //轮播
-        $banners = M('Ad')->where(array('pid'=>1,'media_type'=>0,'position_type'=>1))->order('orderby DESC')->select();
+        $banners = M('Ad')->where(array('enabled'=>1))->order('orderby DESC')->select();
 
        $this->assign('banners',$banners);
-       $this->assign('newCars',$newCars);
-       $this->assign('usedCars',$usedCars);
-       $this->assign('curings',$curings);
-       $this->assign('rcurings',$rcurings);
-       $this->assign('rnewCars',$rnewCars);
 
         return $this->fetch();
     }
