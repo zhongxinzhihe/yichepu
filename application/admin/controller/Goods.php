@@ -264,12 +264,12 @@ class Goods extends Base {
         $map = array();
         $_SESSION['type']==1?$map['shop_id']= $_SESSION['admin_id']:false;
         $goodsType = M("GoodsType")->where($map)->select();
-        $suppliersList = M("suppliers")->select(); 
+        // $suppliersList = M("suppliers")->select(); 
         $goodsImages = M("GoodsImages")->where('goods_id =' . I('GET.id', 0))->select();
         $programmes = $GoodsLogic->getGoodsProgramme(I('GET.id', 0));
         $goodsTag = M('GoodsTag')->where(array('goods_id'=>I('GET.id', 0)))->field('tag_id')->select();
         $tags = M('Tag')->where(array('del_status'=>0))->select();
-        $userLevel = M('UserLevel')->select();
+        // $userLevel = M('UserLevel')->select();
         $goodsLevel =  M('GoodsLevel')->where(array('goods_id'=>I('GET.id', 0)))->select();
         !empty($goodsInfo['cat_id'])?$cat_id = $goodsInfo['cat_id']:false;
         $gtags = array();
@@ -291,7 +291,6 @@ class Goods extends Base {
         $this->assign('goods_shipping_area_ids',$goods_shipping_area_ids);
         $this->assign('shipping_area',$shipping_area);
         $this->assign('plugin_shipping',$plugin_shipping);
-        $this->assign('suppliersList',$suppliersList);
         $this->assign('level_cat', $level_cat);
         $this->assign('level_cat2', $level_cat2);
         $this->assign('cat_list', $cat_list);
@@ -302,7 +301,6 @@ class Goods extends Base {
         $this->assign('cat_id',$cat_id);//当前添加分类的id
         $this->assign('tags',$tags);//标签
         $this->assign('gtags',$gtags);//商品已经添加的标签
-        $this->assign('userLevel',$userLevel);//会员等级
         $this->assign('gLevels',$gLevels);//会员等级
         $this->initEditor(); // 编辑器
         return $this->fetch('curingGoods');

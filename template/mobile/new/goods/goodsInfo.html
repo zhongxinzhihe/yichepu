@@ -42,10 +42,7 @@ var process_request = "正在处理您的请求...";
 <div class="tab_nav">
   <div class="header">
     <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
-    <div class="h-mid">
-    <a href="#user_goods_ka_1" id="goods_ka1" class="on">商品</a>
-    <a href="#user_goods_ka_2" id="goods_ka2">详情</a>
-    </div>
+    <div class="h-mid">详情</div>
   </div>
 </div>
 
@@ -93,8 +90,20 @@ var process_request = "正在处理您的请求...";
 
 <!-- 通用详情 -->
 <div class="mgi_detail" id="user_goods_ka_2">
+  <div class="detail_tit">
+    <a href=""><span>产品详情</span></a>
+    <a href=""><span>产品评价</span></a>
+  </div>
   <div class="detail_w">
     <div class="detail_c">{$goods['goods_content']}
+    </div>
+  </div>
+  <div class="comment">
+    <div class="comment_num">
+      <a href="">全部(250)</a>
+      <a href="">好评(250)</a>
+      <a href="">中评(250)</a>
+      <a href="">差评(250)</a>
     </div>
   </div>
   <div style="clear: both;"></div>
