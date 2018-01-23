@@ -12,6 +12,7 @@ header .newCar_banner .banner_w .search {
   width: 100%;
   position: absolute;
   top: 0;
+  max-width: 635px;
 }
 header .newCar_banner .banner_w .search .search_bar {
   width: 100%;

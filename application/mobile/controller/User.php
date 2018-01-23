@@ -35,8 +35,9 @@ class User extends MobileBase
         if (session('?user')) {
             $user = session('user');
             $user = M('users')->where("user_id", $user['user_id'])->find();
-            $user['partner'] = M('Partner')->where(array('user_id'=>$user['user_id'],'partner_status'=>1))->find();
-            session('user', $user);  //覆盖session 中的 user
+            // $user['partner'] = M('Partner')->where(array('user_id'=>$user['user_id'],'partner_status'=>1))->find();
+            // session('user', $user);  
+            //覆盖session 中的 user
             $this->user = $user;
             $this->user_id = $user['user_id'];
             $this->assign('user', $user); //存储用户信息
@@ -66,13 +67,16 @@ class User extends MobileBase
      */
     public function index()
     {
-        $goods_collect_count = M('goods_collect')->where("user_id", $this->user_id)->count(); // 我的商品收藏
-        $comment_count = M('comment')->where("user_id", $this->user_id)->count();   // 我的评论数
+        // $goods_collect_count = M('goods_collect')->where("user_id", $this->user_id)->count(); 
+        // 我的商品收藏
+        $comment_count = M('comment')->where("user_id", $this->user_id)->count();   
+        // 我的评论数
         $level_name = M('user_level')->where("level_id", $this->user['level'])->getField('level_name'); // 等级名称
         $order_count = M('order')->where("user_id", $this->user_id)->count(); //我的全部订单 (改)
         $count_return = M('return_goods')->where("user_id=$this->user_id and status<2")->count();   //退换货数量
         $wait_pay = M('order')->where("user_id=$this->user_id and pay_status =0 and order_status = 0  and pay_code != 'cod'")->count(); //我的待付款 (改)
-        $wait_receive = M('order')->where("user_id=$this->user_id and order_status= 1 and shipping_status= 1")->count(); //我的待收货 (改)
+        $wait_receive = M('order')->where("user_id=$this->user_id and order_status= 1 and shipping_status= 1")->count(); 
+        //我的待收货 (改)
         $comment = DB::query("select COUNT(1) as comment from __PREFIX__order_goods as og left join __PREFIX__order as o on o.order_id = og.order_id where o.user_id = $this->user_id and og.is_send = 1 and og.is_comment = 0 ");  //我的待评论订单
         $wait_comment = $comment[0][comment];
         $count_sundry_status = array($wait_pay, $wait_receive, $wait_comment, $count_return);
@@ -196,7 +200,7 @@ class User extends MobileBase
         $res = $logic->login($username, $password);
         if ($res['status'] == 1) {
             $res['url'] = urldecode(I('post.referurl'));
-            $$res['result']['partner'] = M('Partner')->where(array('user_id'=>$$res['result']['user_id'],'partner_status'=>1))->find();
+            // $$res['result']['partner'] = M('Partner')->where(array('user_id'=>$$res['result']['user_id'],'partner_status'=>1))->find();
             session('user', $res['result']);
             setcookie('user_id', $res['result']['user_id'], null, '/');
             setcookie('is_distribut', $res['result']['is_distribut'], null, '/');
