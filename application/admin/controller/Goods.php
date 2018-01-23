@@ -310,17 +310,6 @@ class Goods extends Base {
 
     }
 
-   
-    private function jumpType($cat_id){
-        $cateRules = array('138'=>'_goods','164'=>'_goodsUsedCar','165'=>'curingGoods');
-        $GoodsLogic = new GoodsLogic();
-        $data = $GoodsLogic->find_parent_cat($cat_id);
-        foreach ($cateRules as $key => $value) {
-            if (in_array($key, $data)) {
-                return $value;
-            }
-        }
-    }
 
 
     public function ajax_attributes()
