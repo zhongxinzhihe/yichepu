@@ -59,6 +59,10 @@ class Admin extends Base {
                 session('type',$admin_info['type']);
                 session('shop_name',$admin_info['shop_name']);
                 session('role_id',$admin_info['role_id']);
+                M('admin')->where("admin_id = ".$admin_info['admin_id'])->save(array('last_login'=>time(),'last_ip'=>  getIP()));
+                    session('last_login_time',$admin_info['last_login']);
+                    session('last_login_ip',$admin_info['last_ip']);
+                    adminLog('后台登录');
                 //传入地址
                 $url=U('Admin/Index/index');
                 exit(json_encode(array('status'=>1,'url'=>$url)));

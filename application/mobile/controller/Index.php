@@ -8,7 +8,7 @@
  * 
  * 
  +----------------------------------------------------------------------
- * $Author: 当燃 2016-01-09
+ * $Author: 
  */
 namespace app\mobile\controller;
 use app\home\logic\UsersLogic;
@@ -61,7 +61,7 @@ class Index extends MobileBase {
        $this->assign('curings',$curings);
        $this->assign('rcurings',$rcurings);
        $this->assign('rnewCars',$rnewCars);
-        return $this->fetch();
+
         return $this->fetch();
     }
 

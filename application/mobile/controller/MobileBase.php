@@ -76,8 +76,7 @@ class MobileBase extends Controller {
             $this->assign('signPackage', $signPackage);
             // var_dump($this->weixin_config['appid']);die();
         }
-         $this->difference(); 
-        $this->public_assign();
+
     }
     private function goodsInfoScan($uid)
      {
@@ -108,124 +107,13 @@ class MobileBase extends Controller {
           }
       }
      }
-    private function difference(){
-          function have($admin_info){
-              
-               session('shop_id',$admin_info['admin_id']);
-               session('shop_type',$admin_info['type']);
-               session('shop_name',$admin_info['shop_name']);
-               session('shop_logo',$admin_info['shop_logo']);
-               session('admin_name',$admin_info['user_name']);
-              
-               
-          }
-          function nosession(){
-   
-            session('shop_id',null);
-            session('shop_type',null);
-            session('shop_name',null);
-            session('admin_name',null);
-             session('shop_logo',null);
-          }
-        //区别是不是分商城  
-           $str =  strtolower(MODULE_NAME).strtolower(CONTROLLER_NAME).strtolower(ACTION_NAME);
-          
-           if ($str=='mobileindexindex') {
-               $name = I('get.shop');
 
-               if($name) {
-                 $admin_info = M('admin')->where(array('user_name'=>$name,'check_status'=>1))->find();
-                if(!is_array($admin_info)&&is_numeric($name)){
-                    $admin_info = M('admin')->where(array('admin_id'=>$name,'check_status'=>1))->find();
-                }
-              
-                if(is_array($admin_info)){
-                
-                   have($admin_info);
-                  }else{
-                   nosession();
-                  } 
-               }else{
-                   nosession();
-               }
-             }
-             // var_dump($_SESSION);die();
-             // if ($str=='mobilegoodsgoodsinfo'||$str=='homegoodsgoodsinfo') {
-
-             //     $goods_id = I('get.id');
-
-             //     if($goods_id) {
-             //    $goods_info = M('Goods')->where(array('goods_id'=>$goods_id))->find();
-             //     $admin_info = M('admin')->where(array('admin_id'=>$goods_info['shop_id'],'check_status'=>1))->find();
-
-             //    if(is_array($admin_info)){
-             //       have($admin_info);
-                   
-             //      }else{
-             //        nosession();
-             //      } 
-             //   }else{
-             //       nosession();
-             //   }
-             // }
-             // if ($str=='mobilegoodsgoodslist'||$str=='homegoodsgoodslist') {
-
-             //     $goods_id = I('get.id');
-
-             //     if($goods_id) {
-             //    $goods_info = M('GoodsCategory')->where(array('id'=>$goods_id))->find();
-             //     $admin_info = M('admin')->where(array('admin_id'=>$goods_info['shop_id'],'check_status'=>1))->find();
-
-             //    if(is_array($admin_info)){
-             //       have($admin_info);
-                   
-             //      }else{
-             //        nosession();
-             //      } 
-             //   }else{
-             //       nosession();
-             //   }
-             // }
-         if (session('shop_id')) {
-
-           $this->assign('shop_id',session('shop_id'));
-           $this->assign('shop_name',session('shop_name'));
-         }else{
-           $this->assign('shop_id',0);
-           $this->assign('shop_name','三品車');
-         } 
-        $this->assign('shop_type',session('shop_type'));
-        $this->assign('admin_name',session('admin_name'));
-
-    }
 
     private function  distinction_session($admin_info)
     {
        
     }
-    /**
-     * 保存公告变量到 smarty中 比如 导航 
-     */   
-    public function public_assign()
-    {
-        
-       $imshop_config = array();
-       $tp_config = M('config')->cache(true,TPSHOP_CACHE_TIME)->select();       
-       foreach($tp_config as $k => $v)
-       {
-       	  if($v['name'] == 'hot_keywords'){
-       	  	 $imshop_config['hot_keywords'] = explode('|', $v['value']);
-       	  }       	  
-          $imshop_config[$v['inc_type'].'_'.$v['name']] = $v['value'];
-       }                        
-       
-       $goods_category_tree = get_goods_category_tree();
-       $this->cateTrre = $goods_category_tree;
-       $this->assign('goods_category_tree', $goods_category_tree);                     
-       $brand_list = M('brand')->cache(true,TPSHOP_CACHE_TIME)->field('id,cat_id,logo,is_hot')->where("cat_id>0")->select();              
-       $this->assign('brand_list', $brand_list);
-       $this->assign('imshop_config', $imshop_config);
-    }      
+     
 
     // 网页授权登录获取 OpendId
     public function GetOpenid()
