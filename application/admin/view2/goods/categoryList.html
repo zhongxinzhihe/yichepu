@@ -40,8 +40,7 @@
                                     <td class="center">{$vo.name}</td>
                                     <td class="center">
                                         <a href="{:U('Goods/addEditCategory',array('id'=>$vo['id']))}">编辑</a> /
-                                        <a href="javascript:del_fun('{:U('Goods/delGoodsCategory',array('id'=>$vo['id']))}');">删除</a> /
-                                        <a href="{:U('Goods/catAttributeList',array('cat_id'=>$vo['id']))}">属性</a>
+                                        <a href="javascript:del_fun('{:U('Goods/delGoodsCategory',array('id'=>$vo['id']))}');">删除</a>
                                     </td>
                                 </tr>
                                </foreach>

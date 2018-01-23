@@ -23,17 +23,17 @@
         <div class="ncap-form-default tab_div_1">
             <dl class="row">
                 <dt class="tit">
-                    <label for="record_no"><em>*</em> 车后养护名称</label>
+                    <label for="record_no"><em>*</em> 产品名称</label>
                 </dt>
                 <dd class="opt">
                     <input type="text" value="{$goodsInfo.goods_name}" name="goods_name" class="input-txt request"/>
-                    <span class="err" id="err_goods_name" style="color:#F00; display:none;">请输入车后养护名称</span>
+                    <span class="err" id="err_goods_name" style="color:#F00; display:none;">请输入产品名称</span>
                 </dd>
             </dl>
  
             <dl class="row">
                 <dt class="tit">
-                    <label for="store_name">产品简介</label>
+                    <label for="store_name"><em>*</em>产品简介</label>
                 </dt>
                 <dd class="opt">
                     <textarea rows="3" cols="80" name="goods_remark" class="input-txt">{$goodsInfo.goods_remark}</textarea>
@@ -42,7 +42,7 @@
             </dl> 
          <dl class="row">
                 <dt class="tit">
-                    <label for="record_no">商品分类</label>
+                    <label for="record_no"><em>*</em>商品分类</label>
                 </dt>
                 <dd class="opt" >
                       <select name="cat_id" id="cat_id" onChange="get_category(this.value,'cat_id_2','0');" class="small form-control request">
@@ -222,7 +222,8 @@
             <div class="bot">            
                 <input type="hidden" name="goods_id" value="{$goodsInfo.goods_id}">
                 <input type="hidden" name="__token__" value="{$Request.token}" />
-                <a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green" onClick="ajaxSubmitForm('addEditGoodsForm','{:U('Goods/addEditGoods?is_ajax=1')}');">确认提交</a>
+                <!-- <a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green" onClick="ajaxSubmitForm('addEditGoodsForm','{:U('Goods/addEditGoods?is_ajax=1')}');">确认提交</a> -->
+                <a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green" onclick="submit()">确认提交</a>
             </div>
         </div> 
      </form>
@@ -234,6 +235,11 @@
 
 /** 以下是编辑时默认选中某个商品分类*/
 $(document).ready(function(){
+    function submit(){
+        var goods_name=$('input[name="goods_name"]').val(),goods_remark=$('input[name="goods_remark"]').val(),
+    }
+
+
 
 	<if condition="$level_cat['2'] gt 0">
 		 // 商品分类第二个下拉菜单

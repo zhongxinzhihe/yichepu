@@ -41,7 +41,7 @@
                 </dt>
                 <dd class="opt">
                     <input type="text" value="{$navigation.name}" name="name" id="name" class="input-txt">
-                    <span class="err" id="name_err" style="display: none">导航名称不能为空!!</span>
+                    <span class="err" id="name_err" style="display: none;color: #F00">导航名称不能为空!!</span>
                     <p class="notic"></p>
                 </dd>
             </dl>
@@ -51,7 +51,7 @@
                 </dt>
                 <dd class="opt">
                     <input type="text" value="{$navigation.url}" name="url" id="url" class="input-txt">
-                    <span class="err"></span>
+                    <span class="err" id="url_err" style="display: none;color: #F00"></span>
                     <p class="notic"></p>
                 </dd>
             </dl>
@@ -61,7 +61,7 @@
                 </dt>
                 <dd class="opt">
                     <input type="text" value="{$navigation.sort}" name="sort" id="sort" class="input-txt">
-                    <span class="err"></span>
+                    <span class="err" id="sort_err" style="display: none;color: #F00"></span>
                     <p class="notic"></p>
                 </dd>
             </dl>
@@ -73,13 +73,21 @@
 <script type="text/javascript">
     // 判断输入框是否为空
     function checkForm(){
-        var name = $("#addEditNavForm").find("input[name='name']").val();
-        if($.trim(name) == '')
-        {
+        var name=$("#name").val(),url=$("#url").val(),sort=$("#sort").val();
+        $("#name_err,#url_err,#sort_err").hide();
+        if (name=="") {
+            console.log(1)
             $("#name_err").show();
             return false;
+        }else if (url=="") {
+            $("#url_err").html("链接不能为空").show();
+            return false;
+        }else if (sort=="") {
+            $("#sort_err").html("默认排序不能为空").show();
+            return false;
+        }else{
+            $('#addEditNavForm').submit();
         }
-        $('#addEditNavForm').submit();
     }
     // 更改系统内容
     $("#system_nav").change(function(){

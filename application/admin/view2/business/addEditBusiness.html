@@ -23,22 +23,13 @@
 <div id="ajaxwaitid"></div>
 <div class="page">
   <div class="fixed-bar">
-    <div class="item-title"><!-- <a class="back" href="javascript:history.back();" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a> -->
+    <div class="item-title">
       <div class="subject">
         <h3>商户 - 添加修改商户</h3>
         <h5>添加或编辑商户</h5>
       </div>
     </div>
   </div>
-  <!-- <div class="explanation" id="explanation">
-    <div class="title" id="checkZoom"><i class="fa fa-lightbulb-o"></i>
-      <h4 title="提示相关设置操作时应注意的要点">操作提示</h4>
-      <span id="explanationZoom" title="收起提示"></span>
-    </div>
-    <ul>
-      <li>请正确填写商户信息</li>
-    </ul>
-  </div> -->
   <form action="{:U('Business/addEditBusiness')}" method="post" class="form-horizontal" id="business_form">
     <div class="ncap-form-default">
       <dl class="row">
@@ -83,21 +74,21 @@
       </dl>
       <dl class="row">
         <dt class="tit">
-          <label for="t_mane"><em>*</em>经度</label>
+          <label for="t_mane"><em>*</em>纬度</label>
         </dt>
         <dd class="opt">
-          <input type="text" placeholder="经度" class="input-txt" name="shop_lon" value="{$data.shop_lon}">
-          <span class="err" id="err_name2" style="color:#F00; display:none;"></span>
+          <input type="text" placeholder="纬度" class="input-txt" name="shop_lat" value="{$data.shop_lat}" onkeyup="value=value.replace(/[^\-?\d.]/g,'')">
+          <span class="err" id="err_name3" style="color:#F00; display:none;"></span>
           <p class="notic"></p>
         </dd>
       </dl>
       <dl class="row">
         <dt class="tit">
-          <label for="t_mane"><em>*</em>纬度</label>
+          <label for="t_mane"><em>*</em>经度</label>
         </dt>
         <dd class="opt">
-          <input type="text" placeholder="纬度" class="input-txt" name="shop_lat" value="{$data.shop_lat}">
-          <span class="err" id="err_name3" style="color:#F00; display:none;"></span>
+          <input type="text" placeholder="经度" class="input-txt" name="shop_lon" value="{$data.shop_lon}"  onkeyup="value=value.replace(/[^\-?\d.]/g,'')"> 
+          <span class="err" id="err_name2" style="color:#F00; display:none;"></span>
           <p class="notic"></p>
         </dd>
       </dl>
@@ -107,7 +98,7 @@
         </dt>
         <dd class="opt">
           <input type="text" placeholder="商户管理员" class="input-txt" name="user_name" value="{$data.user_name}">
-          <span class="err" id="err_name" style="color:#F00; display:none;"></span>
+          <span class="err" id="err_name4" style="color:#F00; display:none;"></span>
           <p class="notic"></p>                          
         </dd>
       </dl>
@@ -117,105 +108,12 @@
         </dt>
         <dd class="opt">
           <input type="password" placeholder="密码" class="input-txt" name="password" value="">
-          <span class="err" id="err_name" style="color:#F00; display:none;"></span>
+          <span class="err" id="err_name5" style="color:#F00; display:none;"></span>
           <p class="notic"></p>
         </dd>
       </dl>
       <dl class="row">
-        <dt class="tit">
-          <label for="t_mane"><em>*</em>法人姓名</label>
-        </dt>
-        <dd class="opt">
-          <input type="text" placeholder="法人" class="input-txt" name="legal_person" value="{$data.legal_person}">
-          <span class="err" id="err_name" style="color:#F00; display:none;"></span>
-          <p class="notic"></p>
-        </dd>
-      </dl>
-      <dl class="row">
-        <dt class="tit">
-          <label for="t_mane">法人手机号</label>
-        </dt>
-        <dd class="opt">
-          <input type="text" placeholder="手机号" class="input-txt" name="phone" value="{$data.phone}">
-          <span class="err" id="err_name" style="color:#F00; display:none;"></span>
-          <p class="notic"></p>
-        </dd>
-      </dl>
-      <dl class="row">
-        <dt class="tit">
-          <label for="t_mane"><em>*</em>法人身份证号</label>
-        </dt>
-        <dd class="opt">
-          <input type="text" placeholder="法人身份证号" class="input-txt" name="legal_id" value="{$data.legal_id}">
-          <span class="err" id="err_name" style="color:#F00; display:none;"></span>
-          <p class="notic"></p>
-        </dd>
-      </dl>
-        <dl class="row">
-        <dt class="tit">法人身份证正面</dt>
-        <dd class="opt">
-          <div class="input-file-show" id="divComUploadContainer">
-            <span class="show">
-                <a class="nyroModal" rel="gal" href="{$data.card_font}">
-                    <i class="fa fa-picture-o" onmouseover="layer.tips('<img src={$data.card_font}>',this, {tips: [1, '#fff']});" onmouseout="layer.closeAll();"></i>
-                </a>
-            </span>           
-            <span class="type-file-box">            
-            <input type="text" id="card_font" name="card_font" value="{$data.card_font}" class="type-file-text">            
-            <input type="button" class="type-file-button" onClick="GetUploadify(1,'card_font','category','')" value="上传图片" hidefocus="true" nc_type="change_site_logo" title="点击前方预览图可查看大图，点击按钮选择文件并提交表单后上传生效"/> 
-            </span>
-          </div>
-          <div id="thumbnails" class="ncap-thumb-list">
-            <h5><i class="fa fa-exclamation-circle"></i> 请上传图片格式文件。</h5>
-            <ul>
-            </ul>
-          </div>
-        </dd>
-      </dl>
-       <dl class="row">
-        <dt class="tit">法人身份证反面</dt>
-        <dd class="opt">
-          <div class="input-file-show" id="divComUploadContainer">
-            <span class="show">
-                <a class="nyroModal" rel="gal" href="{$data.card_back}">
-                    <i class="fa fa-picture-o" onmouseover="layer.tips('<img src={$data.card_back}>',this, {tips: [1, '#fff']});" onmouseout="layer.closeAll();"></i>
-                </a>
-            </span>           
-            <span class="type-file-box">            
-            <input type="text" id="card_back" name="card_back" value="{$data.card_back}" class="type-file-text">            
-            <input type="button" class="type-file-button" onClick="GetUploadify(1,'card_back','category','')" value="上传图片" hidefocus="true" nc_type="change_site_logo" title="点击前方预览图可查看大图，点击按钮选择文件并提交表单后上传生效"/> 
-            </span>
-          </div>
-          <div id="thumbnails" class="ncap-thumb-list">
-            <h5><i class="fa fa-exclamation-circle"></i> 请上传图片格式文件。</h5>
-            <ul>
-            </ul>
-          </div>
-        </dd>
-      </dl>
-       <dl class="row">
-        <dt class="tit">营业执照</dt>
-        <dd class="opt">
-          <div class="input-file-show" id="divComUploadContainer">
-            <span class="show">
-                <a class="nyroModal" rel="gal" href="{$data.business_licence}">
-                    <i class="fa fa-picture-o" onmouseover="layer.tips('<img src={$data.business_licence}>',this, {tips: [1, '#fff']});" onmouseout="layer.closeAll();"></i>
-                </a>
-            </span>           
-            <span class="type-file-box">            
-            <input type="text" id="business_licence" name="business_licence" value="{$data.business_licence}" class="type-file-text">            
-            <input type="button" class="type-file-button" onClick="GetUploadify(1,'business_licence','category','')" value="上传图片" hidefocus="true" nc_type="change_site_logo" title="点击前方预览图可查看大图，点击按钮选择文件并提交表单后上传生效"/> 
-            </span>
-          </div>
-          <div id="thumbnails" class="ncap-thumb-list">
-            <h5><i class="fa fa-exclamation-circle"></i> 请上传图片格式文件。</h5>
-            <ul>
-            </ul>
-          </div>
-        </dd>
-      </dl>
-      <dl class="row">
-        <dt class="tit">商家logo</dt>
+        <dt class="tit"><em>*</em>商家logo</dt>
         <dd class="opt">
           <div class="input-file-show" id="divComUploadContainer">
             <span class="show">
@@ -229,7 +127,7 @@
             </span>
           </div>
           <div id="thumbnails" class="ncap-thumb-list">
-            <h5><i class="fa fa-exclamation-circle"></i> 请上传图片格式文件。</h5>
+            <h5 style="display: none;" id="shopLogo"><i class="fa fa-exclamation-circle"></i> 请上传图片格式文件。</h5>
             <ul>
             </ul>
           </div>
@@ -256,78 +154,9 @@
         </dd>
         
       </dl>
-
-      
-      <dl class="row">
-        <dt class="tit">
-          <label for="t_mane">百度糯米</label>
-        </dt>
-        <dd class="opt">
-          <input type="text" placeholder="百度糯米号" class="input-txt" name="baidu" value="{$data.baidu}">
-          <input type="text" placeholder="百度糯密码" class="input-txt" name="baidupsw" value="{$data.baidupsw}">
-          <span class="err" id="err_name" style="color:#F00; display:none;"></span>
-          <p class="notic"></p>
-        </dd>
-      </dl>
-      <dl class="row">
-        <dt class="tit">
-          <label for="t_mane">美团</label>
-        </dt>
-        <dd class="opt">
-          <input type="text" placeholder="美团号" class="input-txt" name="meituan" value="{$data.meituan}">
-          <input type="text" placeholder="美团密码" class="input-txt" name="meituanpsw" value="{$data.meituanpsw}">
-          <span class="err" id="err_name" style="color:#F00; display:none;"></span>
-          <p class="notic"></p>
-        </dd>
-      </dl>
-      <dl class="row">
-        <dt class="tit">
-          <label for="t_mane">固话</label>
-        </dt>
-        <dd class="opt">
-          <input type="text" placeholder="固话" class="input-txt" name="tel" value="{$data.tel}">
-          <span class="err" id="err_name" style="color:#F00; display:none;"></span>
-          <p class="notic"></p>
-        </dd>
-      </dl>
-       <dl class="row">
-        <dt class="tit">
-          <label for="t_mane">验卷数</label>
-        </dt>
-        <dd class="opt">
-          <input type="text" placeholder="固话" class="input-txt" name="check_num" value="{$data.check_num}">
-          <span class="err" id="err_name" style="color:#F00; display:none;"></span>
-          <p class="notic"></p>
-        </dd>
-      </dl>
-      <dl class="row">
-        <dt class="tit">
-          <label for="t_mane"><em>*</em>服务范围</label>
-        </dt>
-          <dd class="opt">
-            <div class="goods_check" checked=""><input type="checkbox" class="all"><span>全选</span></div>
-            <volist name="tags" id="vo">
-                    <in name="vo.id" value="$stags" >
-                     <div class="goods_check"><input type="checkbox" name="tags[]" value="{$vo.id}" checked="true"><span>{$vo.name}</span></div>
-                     </in>
-                     <notin  name="vo.id" value="$stags">
-                      <div class="goods_check"><input type="checkbox" name="tags[]" value="{$vo.id}" ><span>{$vo.name}</span></div>
-                    </notin>
-             </volist>
-            <!-- <div class="goods_check"><input type="checkbox"><span>新车</span></div>
-            <div class="goods_check"><input type="checkbox"><span>二手车</span></div>
-            <div class="goods_check"><input type="checkbox"><span>保养</span></div>
-            <div class="goods_check"><input type="checkbox"><span>洗车</span></div>
-            <div class="goods_check"><input type="checkbox"><span>打蜡</span></div>
-            <div class="goods_check"><input type="checkbox"><span>抛光</span></div>
-            <div class="goods_check"><input type="checkbox"><span>钣喷</span></div>
-            <div class="goods_check"><input type="checkbox"><span>空调清洗</span></div>
-            <div class="goods_check"><input type="checkbox"><span>空调加氟</span></div> -->
-          </dd>
-      </dl>
 	  <dl class="row">
         <dt class="tit">
-          <label for="t_mane"><em>*</em>是否使用</label>
+          <label for="t_mane"><em></em>是否使用</label>
         </dt>
         <dd class="opt">
           <div class="onoff">
@@ -339,9 +168,6 @@
           <p class="notic">商户是否能使用</p>
         </dd>        
     </dl>
-                        
-     <!--  <div class="bot"><a id="submitBtn" class="ncap-btn-big ncap-btn-green" href="JavaScript:void(0);" onClick="ajax_submit_form('category_form','{:U('Goods/addEditCategory?is_ajax=1')}');">确认提交</a></div>
-    </div> -->
      <div class="bot"><a id="submitBtn" class="ncap-btn-big ncap-btn-green" href="JavaScript:void(0);">确认提交</a></div>
     </div>
     <input type="hidden" name="id" value="{$data.admin_id}">
@@ -352,28 +178,25 @@
 /** 以下是编辑时默认选中某个商品分类*/
 $(document).ready(function(){
 	$('#submitBtn').click(function () {
-  $("#err_name1,#err_name2,#err_name3").hide();
+  $("#err_name1,#err_name2,#err_name3,#err_name4,#err_mobile_name,#err_name5,#shopLogo").hide();
   var form  = $('#business_form');
   var _url = form.attr('action');
-  var shop_name=$("input[name='shop_name']").val();
-  var shop_lat=$("input[name='shop_lat']").val();
-  var shop_lon=$("input[name='shop_lon']").val();
-  var shop_logo=$("input[name='shop_logo']").val();
+  var shop_name=$("input[name='shop_name']").val(),shop_lat=$("input[name='shop_lat']").val(),shop_lon=$("input[name='shop_lon']").val(),shop_logo=$("input[name='shop_logo']").val(),shop_address=$("input[name='shop_address']").val(),user_name=$("input[name='user_name']").val(),password=$("input[name='password']").val();
   if (shop_name=="") {
-    $("#err_name1").html("商户名称不能为空").show();
-    location.href="#append_parent"
-    return false;
+    $("#err_name1").html("商户名称不能为空").show();return false;
+  }else if (shop_address=="") {
+    $("#err_mobile_name").html("商户地址不能为空").show();return false;
   }else if (shop_lat=="") {
-    $("#err_name3").html("纬度不能为空").show();
-    location.href="#append_parent"
-    return false;
+    $("#err_name3").html("纬度不能为空").show();return false;
   }else if (shop_lon=="") {
-    $("#err_name2").html("经度不能为空").show();;
-    location.href="#append_parent"
-    return false;
+    $("#err_name2").html("经度不能为空").show();return false;
+  }else if (user_name=="") {
+    $("#err_name4").html("商户管理员名称不能为空").show();return false;
+  }else if (password=="") {
+    console.log(32)
+    $("#err_name5").html("密码不能为空").show();return false;
   }else if (shop_logo=="") {
-    location.href="#divComUploadContainer"
-    return false;
+    $("#shopLogo").show();return false;
   }else{
     $.ajax({
       url:_url,
@@ -382,11 +205,12 @@ $(document).ready(function(){
       dataType:'json',
       success:function (res) {
        alert(res.msg);
-       window.location.reload(); 
+       window.location.href="{:U('Business/index')}"; 
       }
     });
   }
   });
+
   $('select[name="province"]').change(function () {
     var val = $(this).val();
     $.ajax({

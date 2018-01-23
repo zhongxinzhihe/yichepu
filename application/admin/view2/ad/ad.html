@@ -26,7 +26,7 @@
       </dl>	   
       <dl class="row">
         <dt class="tit">
-          <label for="ac_name"><em>*</em>广告链接：</label>
+          <label for="ac_name"><em></em>广告链接：</label>
         </dt>
         <dd class="opt">
           <input type="text" placeholder="广告链接" class="input-txt" name="ad_link" value="{$info.ad_link}">
@@ -62,11 +62,11 @@
       </dl>  -->                		 		       
       <dl class="row">
         <dt class="tit">
-          <label for="ac_sort">默认排序：</label>
+          <label for="ac_sort"><em>*</em>默认排序：</label>
         </dt>
         <dd class="opt">
           <input type="text" placeholder="排序" name="orderby" value="{$info.orderby}" class="input-txt">
-          <span class="err"></span>
+          <span class="err" id="err_orderby" style="color: #F00;"></span>
           <p class="notic"></p>
         </dd>
       </dl>
@@ -81,7 +81,15 @@
  <script>
 	 function adsubmit(){
 		$('#handleposition').click(function(){
-    }).submit()
+      $("#err_orderby").hide();
+      var orderby=$("input[name='orderby']").val();
+      if (orderby=="") {
+        $("#err_orderby").html("默认排序不能为空").show();
+        return false;
+      }else{
+        $('#handleposition').submit()
+      }
+    })
 	}
 	
     $(document).ready(function(){

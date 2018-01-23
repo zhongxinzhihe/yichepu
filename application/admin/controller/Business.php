@@ -105,14 +105,13 @@ class Business extends Base {
             $stags[] = $tag['tag_id'];
             }
         }
-   $this->assign('data',$shop_admin);
+   $this->assign('data',$shop_admin); 
    $this->assign('stags',$stags);
   }
     $tags = M('Tag')->where(array('del_status'=>0))->select();
     $provinces = M('Area')->where(array('type'=>'1'))->select();
     $this->assign('provinces',$provinces);
     $this->assign('tags',$tags);
-    
     return $this->fetch();
   }
 public function checkBusiness()

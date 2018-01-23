@@ -120,8 +120,10 @@ class System extends Base{
      */
     public function delNav()
     {     
+        $data = I('post.');
         // 删除导航
-        M('Navigation')->where("id",I('id'))->delete();
+        M('Navigation')->where("id",$data['id'])->delete();
+        // M('Navigation')->where("id",I('id'))->delete();
         $this->success("操作成功!!!",U('Admin/System/navigationList'));
     }
     
