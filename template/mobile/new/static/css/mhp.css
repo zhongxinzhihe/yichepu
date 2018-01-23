@@ -165,6 +165,7 @@ body {
 }
 .topShelf .topShelf_con .ts_c_w .left img {
   width: 100%;
+  max-width: 112px;
   margin-left: -10px;
   margin-top: 20px;
 }
@@ -205,6 +206,7 @@ body {
   position: absolute;
   right: 5px;
   top: 5px;
+  max-width: 160px;
 }
 .topShelf .topShelf_con .ts_c_w .rb {
   background-color: orange;
@@ -236,6 +238,7 @@ body {
 }
 .topShelf .topShelf_con .ts_c_w .rb .rbl img {
   width: 52%;
+  max-width: 70px;
   position: absolute;
   right: 0px;
   top: 5px;
@@ -265,6 +268,7 @@ body {
   position: absolute;
   right: 0px;
   top: 5px;
+  max-width: 70px;
 }
 .topShelf .bigBtns {
   width: 100%;
