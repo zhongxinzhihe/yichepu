@@ -130,23 +130,17 @@ width: 0;height: 0;border-style: solid;border-color: transparent transparent #56
 // .vf_nav ul li a:active .vf_5{
 // 	background:url(../images/mfooter.png) no-repeat 0px -175px;
 // }
-.getNewCar a div svg{
-	fill:red;
+.discount div svg{
+	fill: red;
 }
-.getNewCar a span{
-	color: #ff7171;
+.discount span{
+	color: red;
 }
-.getSecCar a div svg{
-	fill:red;
+.Preferred div svg{
+	fill: red;
 }
-.getSecCar a span{
-	color: #ff7171;
-}
-.getCuringCar a div svg{
-	fill:red;
-}
-.getCuringCar a span{
-	color: #ff7171;
+.Preferred span{
+	color: red;
 }
 
 // .vf_nav ul li a:active .vf_6{
