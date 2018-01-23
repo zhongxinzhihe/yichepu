@@ -2,7 +2,7 @@
 	margin-top: 0px;
 	.nva_w{
 		padding: 20px;
-		padding-top: 10px;
+		padding-top: 20px;
 		ul{
 			width: 100%;
 			li{
@@ -29,8 +29,11 @@
 				}
 			}
 			li:nth-child(2),li:nth-child(5),li:nth-child(8){
-				// border-left: 1px solid #DBDBDB;
-				// border-right: 1px solid #DBDBDB;
+				border-left: 1px solid #eee;
+				border-right: 1px solid #eee;
+			}
+			li:nth-child(1),li:nth-child(2),li:nth-child(3){
+				border-bottom: 1px solid #eee;
 			}
 		}
 	}
@@ -40,4 +43,12 @@
 	height: 10px;
 	background-color: #F7F7F7;
 	margin-top: 80px;
+}
+.v_nav .vf_nav ul li:nth-child(4){
+	svg{
+		fill: red;
+	}
+	span{
+		color: red;
+	}
 }
