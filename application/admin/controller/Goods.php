@@ -555,12 +555,8 @@ class Goods extends Base {
         M("Goods")->where('goods_id ='.$goods_id)->delete();  //商品表
         M("cart")->where('goods_id ='.$goods_id)->delete();  // 购物车
         M("comment")->where('goods_id ='.$goods_id)->delete();  //商品评论
-        M("goods_consult")->where('goods_id ='.$goods_id)->delete();  //商品咨询
         M("goods_images")->where('goods_id ='.$goods_id)->delete();  //商品相册
-        M("spec_goods_price")->where('goods_id ='.$goods_id)->delete();  //商品规格
-        M("spec_image")->where('goods_id ='.$goods_id)->delete();  //商品规格图片
-        M("goods_attr")->where('goods_id ='.$goods_id)->delete();  //商品属性     
-        M("goods_collect")->where('goods_id ='.$goods_id)->delete();  //商品收藏          
+        M("goods_attr")->where('goods_id ='.$goods_id)->delete();  //商品属性             
                      
         $return_arr = array('status' => 1,'msg' => '操作成功','data'  =>'',);   //$return_arr = array('status' => -1,'msg' => '删除失败','data'  =>'',);        
         $this->ajaxReturn($return_arr);
