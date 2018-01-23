@@ -38,7 +38,6 @@ class Goods extends MobileBase {
         $where = array();
         $where['del_status']=0;
         $where['is_on_sale']=1;
-        $where['is_vip']=0;
         $where['cat_id']=array('in',implode(',', $cat_id_arr));
         if(!empty($q)) $where['goods_name']=array('like','%'.$q.'%');
         if($_SESSION['shop_type']==1) $where['shop_id']=$_SESSION['shop_id'];
@@ -54,9 +53,6 @@ class Goods extends MobileBase {
     	$this->assign('cat_id',$id);
         $this->assign('q',$q);
     	$this->assign('page',$page);// 赋值分页输出
-        $this->assign('newCates',getCatGrandson (138));// xinche
-        $this->assign('usedCates',getCatGrandson (164));// xinche
-        $this->assign('curingCates',getCatGrandson (165));// xinche
     	C('TOKEN_ON',false);
         if(input('is_ajax'))
             return $this->fetch('ajaxGoodsList');
@@ -68,7 +64,7 @@ class Goods extends MobileBase {
      * 商品列表页 ajax 翻页请求 搜索
      */
     public function ajaxGoodsList() {
-        $where =' WHERE is_vip=0';
+        $where =' WHERE 1=1';
 
         $cat_id  = I("id/d",0); // 所选择的商品分类id
         if($cat_id > 0)
@@ -164,22 +160,6 @@ class Goods extends MobileBase {
         $this->assign('filter_spec',$filter_spec);//规格参数
         $this->assign('goods_images_list',$goods_images_list);//商品缩略图
         $this->assign('goods',$goods);
-        $this->assign('newCates',getCatGrandson (138));// xinche
-        $this->assign('usedCates',getCatGrandson (164));// xinche
-        $this->assign('curingCates',getCatGrandson (165));// xinche
-       
-        if($goods['shop_id']==0){
-             $shop['shop_name']= '三品車';
-             $shop['shop_address']= '林泉街399号';
-             $this->assign('shop_name','三品車');
-             $this->assign('shop',$shop);
-        }else{
-            $shop = M('Admin')->where(array('admin_id'=>$goods['shop_id']))->find();
-
-            $this->assign('shop_name',$shop['shop_name']);
-            $this->assign('shop',$shop);
-        }
-
         $this->assign('infos',$infos);
         return $this->fetch();
     }

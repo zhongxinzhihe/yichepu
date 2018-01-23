@@ -30,22 +30,7 @@
                     <span class="err" id="err_goods_name" style="color:#F00; display:none;">请输入车后养护名称</span>
                 </dd>
             </dl>
-            <dl class="row">
-                <dt class="tit">
-                  <em>*</em><label for="record_no">服务范围</label>
-                </dt>
-                <dd class="opt">
-                  <div class="goods_check" checked=""><input type="checkbox" class="all"><span>全选</span></div>
-                  <volist name="tags" id="vo">
-                    <in name="vo.id" value="$gtags" >
-                     <div class="goods_check"><input type="checkbox" name="tags[]" value="{$vo.id}" checked="true"><span>{$vo.name}</span></div>
-                     </in>
-                     <notin  name="vo.id" value="$gtags">
-                      <div class="goods_check"><input type="checkbox" name="tags[]" value="{$vo.id}" ><span>{$vo.name}</span></div>
-                    </notin>  
-                  </volist>
-                </dd>
-            </dl> 
+ 
             <dl class="row">
                 <dt class="tit">
                     <label for="store_name">产品简介</label>
@@ -55,36 +40,28 @@
                     <span id="err_goods_remark" class="err" style="color:#F00; display:none;"></span>                   
                 </dd>
             </dl> 
-            <dl class="row">
-              <dt class="tit">
-                <label for="t_mane"><em>*</em>是否成为会员产品</label>
-              </dt>
-              <dd class="opt">
-                <div class="onoff">
-                  <label for="goods_category1" class="cb-enable <if condition="$goodsInfo[is_vip] eq 1">selected</if>">是</label>
-                  <label for="goods_category0" class="cb-disable <if condition="$goodsInfo[is_vip] eq 0">selected</if>">否</label>
-                  <input id="goods_category1" name="is_vip" value="1" type="radio" <if condition="$goodsInfo[is_vip] eq 1"> checked="checked"</if>>
-                  <input id="goods_category0" name="is_vip" value="0" type="radio" <if condition="$goodsInfo[is_vip] eq 0"> checked="checked"</if>>
-                </div>
-              </dd>        
-          </dl>
-             <dl class="row" style="display: none;">
+         <dl class="row">
                 <dt class="tit">
-                    <label for="record_no">会员类型</label>
+                    <label for="record_no">商品分类</label>
                 </dt>
                 <dd class="opt" >
-                  <div class="vip_check"><input type="checkbox" class="vip_all"><span>全部</span></div>
-                  <volist name="userLevel" id="vo">
-                    <in name="vo.level_id" value="$gLevels">
-                        <div class="vip_check vip"><input type="checkbox"  name="levels[]" value="{$vo.level_id}"  checked="true"><span>{$vo.level_name}</span></div>
-                    </in>
-                    <notin name="vo.level_id" value="$gLevels">
-                         <div class="vip_check vip"><input type="checkbox"  name="levels[]" value="{$vo.level_id}"><span>{$vo.level_name}</span></div>
-                    </notin>  
-                </volist>
-                    <span class="err" id="err_cat_id" style="color:#F00; display:none;">会员范围必选</span>
+                      <select name="cat_id" id="cat_id" onChange="get_category(this.value,'cat_id_2','0');" class="small form-control request">
+                        <option value="0">请选择商品分类</option>                                      
+                             <foreach name="cat_list" item="v" key="k" >                                                                                          
+                               <option value="{$v['id']}" <if condition="$v['id'] eq $level_cat['1']">selected="selected"</if> <if condition="$cat_id eq $v['id']">selected="selected"</if>>
+                                    {$v['name']}
+                               </option>
+                             </foreach>
+                      </select>
+                      <select name="cat_id_2" id="cat_id_2" onChange="get_category(this.value,'cat_id_3','0');" class="small form-control" style="display: none">
+                        <option value="0">请选择商品分类</option>
+                      </select>
+                      <select name="cat_id_3" id="cat_id_3" class="small form-control" style="display: none">
+                        <option value="0">请选择商品分类</option>
+                      </select>                      
+                    <span class="err" id="err_cat_id" style="color:#F00; display:none;">商品分类必选</span>
                 </dd>
-            </dl>
+            </dl> 
 			
             <dl class="row">
                 <dt class="tit">
