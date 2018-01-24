@@ -39,14 +39,6 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-users"></i><span>统计</span><span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="{:U('Admin/business/index')}"  onclick="return false"><span>订单列表</span></a>
-                            </li>
-                        </ul>
-                    </li>
                 </if>
             <if condition="$admin_type eq 1">
             <li>
@@ -60,6 +52,14 @@
                     </li>
                     <li>
                         <a href="{:U('Admin/Business/changeSecret')}"  onclick="return false"><span>修改密码</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="waves-effect waves-dark"><i class="fa fa-users"></i><span>统计</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="{:U('Admin/order/index')}"  onclick="return false"><span>订单列表</span></a>
                     </li>
                 </ul>
             </li>
