@@ -69,7 +69,7 @@ class Business extends Base {
         exit(json_encode(array('stastus'=>0,'msg'=>'修改失败')));
       }
      }else{
-          $sname = D('Admin')->where(array('shop_name'=>$shop_name))->find();
+          $sname = D('Admin')->where(array('shop_name'=>$shop_name,'del_status'=>0))->find();
       if ($sname) {
       exit(json_encode(array('stastus'=>0,'msg'=>'商户已经存在')));
     }

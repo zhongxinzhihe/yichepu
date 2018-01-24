@@ -176,8 +176,9 @@ class Goods extends Base {
         //搜索条件
         $key_words=I("key_words");
         $condition="1=1";
+        if ($_SESSION['type']==1) $condition.=" AND shop_id=".$_SESSION['admin_id'];
         //模糊搜索
-        empty($key_words)?($condition=""):($condition="goods_name like '%".$key_words."%' or goods_name like '%".$key_words."' or goods_name like '".$key_words."%'");
+        empty($key_words)?($condition=""):($condition.=" AND goods_name like '%".$key_words."%'");
         //分页设置
         $count= $data
             ->where($condition)
