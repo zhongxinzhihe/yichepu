@@ -91,14 +91,14 @@ var process_request = "正在处理您的请求...";
 <!-- 通用详情 -->
 <div class="mgi_detail" id="user_goods_ka_2">
   <div class="detail_tit">
-    <a href=""><span>产品详情</span></a>
-    <a href=""><span>产品评价</span></a>
+    <a href="javascript:void(0);" id="goodsDetail"><span>产品详情</span></a>
+    <a href="javascript:void(0);" id="goodsComment"><span>产品评价</span></a>
   </div>
   <div class="detail_w">
     <div class="detail_c">{$goods['goods_content']}
     </div>
   </div>
-  <div class="comment">
+  <div class="comment" style="display: none;">
     <div class="comment_num">
       <a href="">全部(250)</a>
       <a href="">好评(250)</a>
@@ -138,14 +138,7 @@ var process_request = "正在处理您的请求...";
   </ul>
   <dl>
   <in name="goods.cat_id" value="$usedCates">
-    <dd class="flow"><a class="button active_button" href="{:U('/Mobile/Goods/subscribe',array('goods_id'=>$goods['goods_id']))}" >预约到店</a> </dd>
-    </in>
-    <in name="goods.cat_id" value="$newCates">
-    <dd class="flow"><a class="button active_button" href="{:U('/Mobile/Goods/subscribe',array('goods_id'=>$goods['goods_id']))}" >预约到店</a> </dd>
-    </in>
-    <in name="goods.cat_id" value="$curingCates">
-    <dd class="flow"><a class="button active_button" href="javascript:void(0);" onClick="submit_buy()">立即购买</a> </dd>
-    </in>
+    <dd class="flow"><a class="button active_button" href="javascript:void(0);" onClick="submit_buy()">立即购买</a></dd>
   </dl>
 </section>
 <!-- 底部导航栏开始 -->
@@ -164,27 +157,37 @@ var process_request = "正在处理您的请求...";
     $('#num').val(num);
   })
 
-  var ka1=$('#user_goods_ka_1').height()+$('#user_goods_ka_1_1').height()+$('#user_goods_ka_1_2').height();
-  var ka2=$('#user_goods_ka_2');
-  var win=$(window);
-  win.scroll(function(){
-    if (win.scrollTop()<=ka1) {
-      $("#goods_ka1").addClass("on");
-      $("#goods_ka2").removeClass("on");
-    }else{
-      $("#goods_ka2").addClass("on");
-      $("#goods_ka1").removeClass("on");
-    }
-})
+// 评论+详情
+  $("#goodsDetail").click(function(){
+    $(".detail_w").show();
+    $(".comment").hide();
+  })
+  $("#goodsComment").click(function(){
+    $(".comment").show();
+    $(".detail_w").hide();
+  })
 
-  $('#goods_ka1').click(function(){
-    $('#goods_ka1').addClass('on');
-    $('#goods_ka2').removeClass("on");
-  })
-  $('#goods_ka2').click(function(){
-    $('#goods_ka2').addClass('on');
-    $('#goods_ka1').removeClass("on");
-  })
+//   var ka1=$('#user_goods_ka_1').height()+$('#user_goods_ka_1_1').height()+$('#user_goods_ka_1_2').height();
+//   var ka2=$('#user_goods_ka_2');
+//   var win=$(window);
+//   win.scroll(function(){
+//     if (win.scrollTop()<=ka1) {
+//       $("#goods_ka1").addClass("on");
+//       $("#goods_ka2").removeClass("on");
+//     }else{
+//       $("#goods_ka2").addClass("on");
+//       $("#goods_ka1").removeClass("on");
+//     }
+// })
+
+//   $('#goods_ka1').click(function(){
+//     $('#goods_ka1').addClass('on');
+//     $('#goods_ka2').removeClass("on");
+//   })
+//   $('#goods_ka2').click(function(){
+//     $('#goods_ka2').addClass('on');
+//     $('#goods_ka1').removeClass("on");
+//   })
 
 
   function submit_buy() {

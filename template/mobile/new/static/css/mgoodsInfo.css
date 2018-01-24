@@ -414,6 +414,9 @@ body {
   line-height: 20px;
   padding-left: 60px;
 }
+.mgi_detail .comment .comment_con .com_c {
+  margin-bottom: 10px;
+}
 .mgi_detail .comment .comment_con .com_c p {
   font-size: 14px;
   color: #444;
@@ -425,6 +428,17 @@ body {
 .mgi_detail .comment .comment_con .com_img img {
   width: 23%;
   float: left;
+  height: 75px;
+}
+.mgi_detail .comment .comment_con .com_img img:nth-child(1),
+.mgi_detail .comment .comment_con .com_img img:nth-child(2),
+.mgi_detail .comment .comment_con .com_img img:nth-child(3) {
+  margin-right: 1%;
+}
+.mgi_detail .comment .comment_con .com_img img:nth-child(2),
+.mgi_detail .comment .comment_con .com_img img:nth-child(3),
+.mgi_detail .comment .comment_con .com_img img:nth-child(4) {
+  margin-left: 1%;
 }
 .footer_nav {
   height: 50px;
