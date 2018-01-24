@@ -175,10 +175,10 @@ class Goods extends Base {
         $data=M('Goods');
         //搜索条件
         $key_words=I("key_words");
-        $condition="1=1";
-        if ($_SESSION['type']==1) $condition.=" AND shop_id=".$_SESSION['admin_id'];
+        $condition=array();
+        if ($_SESSION['type']==1) $condition['shop_id']=$_SESSION['admin_id'];
         //模糊搜索
-        empty($key_words)?($condition=""):($condition.=" AND goods_name like '%".$key_words."%'");
+        if (!empty($key_words)) $condition['goods_name']=array('like','%'.$key_words.'%');
         //分页设置
         $count= $data
             ->where($condition)
