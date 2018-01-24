@@ -37,7 +37,7 @@
                 </dt>
                 <dd class="opt">
                     <textarea rows="3" cols="80" name="goods_remark" class="input-txt">{$goodsInfo.goods_remark}</textarea>
-                    <span id="err_goods_remark" class="err" style="color:#F00; display:none;"></span>                   
+                    <span id="err_goods_remark" class="err" style="color:#F00; display:none;">请填写产品简介</span>                   
                 </dd>
             </dl> 
          <dl class="row">
@@ -62,7 +62,6 @@
                     <span class="err" id="err_cat_id" style="color:#F00; display:none;">商品分类必选</span>
                 </dd>
             </dl> 
-			
             <dl class="row">
                 <dt class="tit">
                     <label for="record_no"><em>*</em> 产品价格</label>
@@ -72,7 +71,6 @@
                     <span class="err" id="err_shop_price" style="color:#F00; display:none;">请输入产品价格</span>
                 </dd>
             </dl>             
-            
             <dl class="row">
                 <dt class="tit">
                     <label for="record_no"><em>*</em> 库存数量</label>
@@ -116,7 +114,7 @@
                             </table>
                         </div>
           <div id="thumbnails" class="ncap-thumb-list">
-            <h5><i class="fa fa-exclamation-circle"></i> 请上传图片格式文件。</h5>
+            <h5 id="err_goods_images" style="display: none;"><i class="fa fa-exclamation-circle"></i> 请上传图片格式文件。</h5>
             <ul>
             </ul>
           </div>
@@ -137,7 +135,7 @@
             </span>
           </div>
           <div id="thumbnails" class="ncap-thumb-list">
-            <h5><i class="fa fa-exclamation-circle"></i> 请上传图片格式文件。</h5>
+            <h5 id="err_original_img" style="display: none;"><i class="fa fa-exclamation-circle"></i> 请上传图片格式文件。</h5>
             <ul>
             </ul>
           </div>
@@ -153,71 +151,6 @@
                 </dd>
             </dl>           
         </div>
-<!-- 商品模型-->
-		<div class="ncap-form-default tab_div_3" style="display:none;">
-            <dl class="row">
-
-                        <div class="tab-pane" id="tab_goods_spec">
-                            <table class="table table-bordered" id="goods_spec_table">                                
-                                <tr>
-                                    <td>商品模型:</td>
-                                    <td>                                        
-                                      <select name="goods_type" id="spec_type" class="form-control" style="width:250px;">
-                                        <option value="0">选择商品模型</option>
-                                        <foreach name="goodsType" item="vo" key="k" >
-                                            <option value="{$vo.id}"<if condition="$goodsInfo[goods_type] eq $vo[id]"> selected="selected" </if> >{$vo.name}</option>
-                                        </foreach>                                        
-                                      </select>
-                                    </td>
-                                </tr>                            
-                            </table>
-                            <div class="row">
-                            	<!-- ajax 返回规格-->
-                            	<div id="ajax_spec_data" class="col-xs-8" ></div>
-                            	<div id="" class="col-xs-4" >
-                            	    <table class="table table-bordered" id="goods_attr_table">                                
-		                                <tr>
-		                                    <td><b>商品属性</b>：</td>
-		                                </tr>                                
-		                            </table>
-                            	</div>
-                            </div>
-                        </div>
-                
-            </dl>             
-        </div>   
-<!-- 商品模型-->         
-<!-- 商品物流-->
-		<div class="ncap-form-default tab_div_4" style="display:none;">
-            <dl class="row">
-                        <div class="tab-pane" id="tab_goods_shipping">
-                            <h4><b>物流配送：</b><input type="checkbox" onClick="choosebox(this)">全选</h4>
-                            <table class="table table-bordered table-striped dataTable" id="goods_shipping_table">
-                                <foreach name="plugin_shipping" item="shipping" key="kk">
-                                    <tr>
-                                        <td class="title left" style="padding-right:50px;">
-                                            <b>{$shipping[name]}：</b>
-                                            <label class="right"><input type="checkbox" value="1" cka="mod-{$kk}">全选</label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <ul class="group-list">
-                                                <foreach name="shipping_area" item="vv">
-                                                    <if condition="$vv[shipping_code] eq $shipping[code]">
-                                                        <li><label><input type="checkbox" name="shipping_area_ids[]" value="{$vv.shipping_area_id}" <if condition="in_array($vv['shipping_area_id'],$goods_shipping_area_ids)">checked='checked='</if> ck="mod-{$kk}">{$vv.shipping_area_name}</label></li>
-                                                    </if>
-                                                </foreach>
-                                                <div class="clear-both"></div>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                </foreach>
-                            </table>
-                        </div>                
-            </dl>             
-        </div>   
-<!-- 商品物流-->
 		<div class="ncap-form-default">        
             <div class="bot">            
                 <input type="hidden" name="goods_id" value="{$goodsInfo.goods_id}">
@@ -235,11 +168,29 @@
 
 /** 以下是编辑时默认选中某个商品分类*/
 $(document).ready(function(){
-    function submit(){
-        var goods_name=$('input[name="goods_name"]').val(),goods_remark=$('input[name="goods_remark"]').val(),
+    submit = function(){
+        var goods_name=$('input[name="goods_name"]').val(),goods_remark=$('textarea[name="goods_remark"]').val(),category=$("#cat_id option:selected").val(),shop_price=$("input[name='shop_price']").val(),store_count=$('input[name="store_count"]').val(),goods_images=$('input[name="goods_images[]"]').val(),original_img=$('input[name="original_img"]').val(),goods_content=$('textarea[name="goods_content"]').val();
+        $("#err_goods_name,#err_goods_remark,#err_cat_id,#err_shop_price,#err_store_count,#err_goods_images,#err_original_img,#err_goods_content").hide();
+        if (goods_name=="") {
+            $("#err_goods_name").show();$('html , body').animate({scrollTop: 0},'fast');return false;
+        }else if (goods_remark=="") {
+            $("#err_goods_remark").show();$('html , body').animate({scrollTop: 0},'fast');return false;
+        }else if (category==0) {
+            $("#err_cat_id").show();$('html , body').animate({scrollTop: 0},'fast');return false;
+        }else if (shop_price=="") {
+            $("#err_shop_price").show();$('html , body').animate({scrollTop: 0},'fast');return false;
+        }else if (store_count=="") {
+            $("#err_store_count").show();$('html , body').animate({scrollTop: 0},'fast');return false;
+        }else if (goods_images=="") {
+            $("#err_goods_images").show();$('html , body').animate({scrollTop: 0},'fast');return false;
+        }else if (original_img=="") {
+            $("#err_original_img").show();$('html , body').animate({scrollTop: 0},'fast');return false;
+        }else if (goods_content=="") {
+            $("#err_goods_content").show();return false;
+        }else{
+            ajaxSubmitForm('addEditGoodsForm','{:U("Goods/addEditGoods?is_ajax=1")}');
+        }
     }
-
-
 
 	<if condition="$level_cat['2'] gt 0">
 		 // 商品分类第二个下拉菜单

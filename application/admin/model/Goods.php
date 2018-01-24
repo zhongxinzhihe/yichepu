@@ -21,7 +21,8 @@ class Goods extends Model {
      * @param int $goods_id 商品id
      */
     public function afterSave($goods_id)
-    {            
+    {    
+
          // 商品货号
          $goods_sn = "TP".str_pad($goods_id,7,"0",STR_PAD_LEFT);   
          $this->where("goods_id = $goods_id and goods_sn = ''")->save(array("goods_sn"=>$goods_sn)); // 根据条件更新记录
@@ -54,6 +55,7 @@ class Goods extends Model {
                  }
              }
          }
+          
          // 查看主图是否已经存在相册中
          $original_img = I('original_img');
          $c = M('GoodsImages')->where("goods_id = $goods_id and image_url = '{$original_img}'")->count(); 
@@ -63,40 +65,40 @@ class Goods extends Model {
          }
          delFile("./public/upload/goods/thumb/$goods_id"); // 删除缩略图
          
-         // 商品规格价钱处理        
-         M("SpecGoodsPrice")->where('goods_id = '.$goods_id)->delete(); // 删除原有的价格规格对象         
-         if(I('item/a'))
-         {
-             $spec = M('Spec')->getField('id,name'); // 规格表
-             $specItem = M('SpecItem')->getField('id,item');//规格项
+         // // 商品规格价钱处理        
+         // M("SpecGoodsPrice")->where('goods_id = '.$goods_id)->delete(); // 删除原有的价格规格对象         
+         // if(I('item/a'))
+         // {
+         //     $spec = M('Spec')->getField('id,name'); // 规格表
+         //     $specItem = M('SpecItem')->getField('id,item');//规格项
                           
-             foreach(I('item/a') as $k => $v)
-             {
-                   // 批量添加数据
-                   $v['price'] = trim($v['price']);
-                   $store_count = $v['store_count'] = trim($v['store_count']); // 记录商品总库存
-                   $v['sku'] = trim($v['sku']);
-                   $dataList[] = ['goods_id'=>$goods_id,'key'=>$k,'key_name'=>$v['key_name'],'price'=>$v['price'],'store_count'=>$v['store_count'],'sku'=>$v['sku']];
-                    // 修改商品后购物车的商品价格也修改一下
-                    M('cart')->where("goods_id = $goods_id and spec_key = '$k'")->save(array(
-                            'market_price'=>$v['price'], //市场价
-                            'goods_price'=>$v['price'], // 本店价
-                            'member_goods_price'=>$v['price'], // 会员折扣价                        
-                            ));                   
-             }            
-             M("SpecGoodsPrice")->insertAll($dataList);             
+         //     foreach(I('item/a') as $k => $v)
+         //     {
+         //           // 批量添加数据
+         //           $v['price'] = trim($v['price']);
+         //           $store_count = $v['store_count'] = trim($v['store_count']); // 记录商品总库存
+         //           $v['sku'] = trim($v['sku']);
+         //           $dataList[] = ['goods_id'=>$goods_id,'key'=>$k,'key_name'=>$v['key_name'],'price'=>$v['price'],'store_count'=>$v['store_count'],'sku'=>$v['sku']];
+         //            // 修改商品后购物车的商品价格也修改一下
+         //            M('cart')->where("goods_id = $goods_id and spec_key = '$k'")->save(array(
+         //                    'market_price'=>$v['price'], //市场价
+         //                    'goods_price'=>$v['price'], // 本店价
+         //                    'member_goods_price'=>$v['price'], // 会员折扣价                        
+         //                    ));                   
+         //     }            
+         //     M("SpecGoodsPrice")->insertAll($dataList);             
              
-         }   
+         // }   
          
          // 商品规格图片处理
-         if(I('item_img/a'))
-         {    
-             M('SpecImage')->where("goods_id = $goods_id")->delete(); // 把原来是删除再重新插入
-             foreach (I('item_img/a') as $key => $val)
-             {                 
-                 M('SpecImage')->insert(array('goods_id'=>$goods_id ,'spec_image_id'=>$key,'src'=>$val));
-             }                                                    
-         }
-         refresh_stock($goods_id); // 刷新商品库存
+         // if(I('item_img/a'))
+         // {    
+         //     M('SpecImage')->where("goods_id = $goods_id")->delete(); // 把原来是删除再重新插入
+         //     foreach (I('item_img/a') as $key => $val)
+         //     {                 
+         //         M('SpecImage')->insert(array('goods_id'=>$goods_id ,'spec_image_id'=>$key,'src'=>$val));
+         //     }                                                    
+         // }
+         // refresh_stock($goods_id); // 刷新商品库存
     }
 }
