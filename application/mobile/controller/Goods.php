@@ -179,6 +179,13 @@ class Goods extends MobileBase {
     /*
      * 商品评论
      */
+    public function doComment(){
+        
+        return $this->fetch();
+    }
+    /*
+     * 商品评论
+     */
     public function comment(){
         $goods_id = I("goods_id/d",0);
         $this->assign('goods_id',$goods_id);
