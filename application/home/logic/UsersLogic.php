@@ -417,13 +417,14 @@ class UsersLogic extends Model
      * @return array
      */
     public function add_comment($add){
+       
         if(!$add['order_id'] || !$add['goods_id'])
             return array('status'=>-1,'msg'=>'非法操作','result'=>'');
         
-        //检查订单是否已完成
-        $order = M('order')->where("order_id", $add['order_id'])->where('user_id', $add['user_id'])->find();
-        if($order['order_status'] != 2)
-            return array('status'=>-1,'msg'=>'该笔订单还未确认收货','result'=>'');
+        //检查商品是否已经全部验卷
+        $order = M('order_goods')->where(array("order_id"=>$add['order_id'],'goods_id'=>$add['goods_id']))->find();
+        if($order['check_status'] != 1)
+            return array('status'=>-1,'msg'=>'该商品还未验完','result'=>'');
 
         //检查是否已评论过
         $goods = M('comment')->where("order_id", $add['order_id'])->where('goods_id', $add['goods_id'])->find();

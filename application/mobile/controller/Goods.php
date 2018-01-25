@@ -200,25 +200,26 @@ class Goods extends MobileBase {
      */
     public function ajaxComment(){        
         $goods_id = I("goods_id/d",0);
-        $commentType = I('commentType','1'); // 1 全部 2好评 3 中评 4差评
-        if($commentType==5){
-        	$where = "goods_id = :goods_id and parent_id = 0 and img !='' ";
-        }else{
-        	$typeArr = array('1'=>'0,1,2,3,4,5','2'=>'4,5','3'=>'3','4'=>'0,1,2');
-        	$where = "goods_id = :goods_id and parent_id = 0 and ceil((deliver_rank + goods_rank + service_rank) / 3) in($typeArr[$commentType])";
+
+        $commentType = I('commentType',0); // 0 全部 1好评 2 中评 3差评
+        $where['is_show']=1;
+        $where['goods_id']=$goods_id;
+        if($commentType!=0){
+        	$where['ctype'] = $commentType;
         }
-        $count = M('Comment')->where($where)->bind(['goods_id'=>$goods_id])->count();
+        $count = M('Comment')->where($where)->count();
 		$page_count = 5;
         $page = new AjaxPage($count,$page_count);
         $list = M('Comment')
 				->alias('c')
 				->join('__USERS__ u','u.user_id = c.user_id','LEFT')
 				->where($where)
-				->bind(['goods_id'=>$goods_id])
 				->order("add_time desc")
 				->limit($page->firstRow.','.$page->listRows)
 				->select();
+
 		$replyList = M('Comment')->where(['goods_id'=>$goods_id,'parent_id'=>['>',0]])->order("add_time desc")->select();
+
         foreach($list as $k => $v){
             $list[$k]['img'] = unserialize($v['img']); // 晒单图片            
         }

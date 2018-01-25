@@ -91,7 +91,7 @@
       <if condition="$vo['check_status'] eq 1">
       <div class="blank"></div>
       <h2>
-        <a href="{:U('Mobile/User/add_comment')}" style="display: block;">
+        <a href="{:U('Mobile/User/add_comment',array('rec_id'=>$vo['rec_id']))}" style="display: block;">
           <span>产品评价</span>
           <span style="float: right;margin-right: 25px;font-family: 宋体;font-weight: 700;">&gt;</span>
         </a>

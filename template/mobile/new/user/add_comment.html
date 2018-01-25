@@ -41,59 +41,20 @@
 <input type="hidden" name="goods_id" value="{$order_goods.goods_id}">
 <div class="pj">
 <div class="pj_tit">
-	<img src="__STATIC__/images/top-rbl.png" alt="">
-	<h3>产品名称</h3>
+	<img src="{$order_goods.goods_id|goods_thum_images=200,200}" alt="">
+	<h3>{$order_goods.goods_name}</h3>
 	<div class="pj_label">
-		<a href="javascript:void(0);" class="current">好评</a>
-		<a href="javascript:void(0);">中评</a>
-		<a href="javascript:void(0);">差评</a>
+		<a href="javascript:void(0);" class="current" data-type="1">好评</a>
+		<a href="javascript:void(0);" data-type="2">中评</a>
+		<a href="javascript:void(0);" data-type="3">差评</a>
 	</div>
 </div>
-<dl>
-	<dt><img src="{$order_goods.goods_id|goods_thum_images=200,200}" width="50"/></dt>
-	<dd>
-	<p>{$order_goods.goods_name}</p>
-	<span> {$order_goods.spec_key_name}</span>
-	</dd>
-</dl>
+
 <div class="pingfen">
 <div class="w600 content"> 
 	 <textarea id="content_13" name="content" placeholder="评价内容" required=""></textarea> 
 </div>
-<!-- <h2>评分:</h2>
-<ul>	
-<li>与描述相符：</li>
-    <ul class="jsstar" style=" width:80%"> <span></span>
-    <input name="goods_rank" value="0" type="hidden">
-        <li  title="1"></li>
-        <li  title="2"></li>
-        <li  title="3"></li>
-        <li  title="4"></li>
-        <li  title="5"></li>
-    </ul>
-</ul>
- <ul>	
-<li>客服服务质量：</li> 
-    <ul class="jsstar" style=" width:80%"> <span></span>
-    <input name="service_rank" value="0" type="hidden">
-        <li title="1"></li>
-        <li title="2"></li>
-        <li title="3"></li>
-        <li title="4"></li>
-        <li title="5"></li>
-    </ul>
-</ul>
- <ul>	
-<li>物流发货速度：</li>
-    <ul class="jsstar" style=" width:80%"><span></span>
-    <input name="deliver_rank" value="0" type="hidden">
-        <li title="1"></li>
-        <li title="2"></li>
-        <li title="3"></li>
-        <li title="4"></li>
-        <li title="5"></li>
-    </ul>
-</ul> -->
+
 </div>
 <div class="p_main">
 <a href="javascript:;" class="file"><div id="fileList0" style="width:60px;height:60px;"><img width="60" height="60"></div><input type="file" onChange="handleFiles(this,0)" name="comment_img_file[]" accept="image/*"></a>
@@ -109,6 +70,7 @@
 	</span>
 </div>
 </div>
+<input type="hidden" name="ctype" value="1">
 </form>
 </body>
 <script>
@@ -174,6 +136,8 @@ $(document).ready(function(){
     });
 
     $(".pj_label a").click(function(){
+    	var data =$(this).data('type');
+    	$('input[name="ctype"]').val(data)
     	$(this).addClass("current").siblings().removeClass("current");
     })
 });

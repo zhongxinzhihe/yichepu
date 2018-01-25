@@ -1,50 +1,25 @@
  <!---晒单end-->
 <if condition="$count gt 0">
-<div class="comment_list" id="commentList">
-    <ul>
-      <foreach name="commentlist" item="v" key="k">
-      <if condition="$v.is_show eq 1">
-          <li class="comment_item">
-            <div class="content_head" <if condition="($k+1) eq count($comment_list)"> style="border-bottom:0px solid #CCC;"<else/>style="border-bottom:1px solid #CCC;"</if>>
-                  <div class="info">
-                    <div class=" comment_star">
-                      <div class="one"><em>		<img src="{$v['head_pic']|default='__STATIC__/images/user68.jpg'}" style="width: 50px"><span>{$user['nickname']}</span></em></div>
-                      <div class="name">
-                            {$v.username}
-                            <em><img src="__STATIC__/images/stars{$v.service_rank}.png" alt="" /></em>
-                      </div>
-                       <div class="two">{$v.add_time|date='Y-m-d H:i',###}</div>
-                    </div>
-                  </div>
-                  <p> {$v['content']|htmlspecialchars_decode}</p>
-                 <!---晒单-->
-                <if condition="$v['img'] neq ''">
-                    <!--<div class="shaidan">
-                      <h4>{$value.title}</h4>
-                      <p>{$value.content}</p>
-                    </div>-->
-                        <div class="sd_img">
-                        <dl id="gallery">
-                            <foreach name="v['img']" key="key" item="v2">
-                                <dd>
-                                    <a href="{$v2}"><img src="{$v2}" width="100px" heigth="100px"></a>
-                                </dd>
-                            </foreach>
-                        </dl>
-                        </div>
-                </if>
-
-                <!--管理员回复-->
-                <foreach name="replyList" item="val">
-                    <if condition="$val['parent_id']  eq $v['comment_id']">
-                        <p style=" color:#F60; border-top:1px dashed #e5e5e5; padding-top:8px; margin-top:10px"><span>管理员{$val.username}回复：<br></span>{$val.content}</p>
-                    </if>
-                </foreach>
-            </div>
-          </li>
-     </if>
-     </foreach>
-	</ul>
+  <volist name="commentlist" id="v">
+      <div class="comment_con">
+      <div class="com_tit">
+        <img src="{$v['head_pic']|default='__STATIC__/images/user68.jpg'}" alt="">
+        <h3>{$v.username}</h3>
+        <p>{$v.add_time|date='Y-m-d H:i',###}</p>
+        <div style="clear: both;"></div>
+      </div>
+      <div class="com_c">
+        <p>{$v['content']}</p>
+      </div>
+      <div class="com_img">
+         <if condition="$v['img'] neq ''">
+          <foreach name="v['img']" key="key" item="v2">
+        <img src="{$v2}" alt="">
+      </foreach>
+      </if>
+      </div>
+    </div>
+  </volist>
 <else/>
 	<script>
 		ajax_sourch_submit_hide();
@@ -53,7 +28,9 @@
 	<div class="score">暂时还没有任何用户评论</div>
 </div>
 </if>
-</div>
+<div class="getmore" style="font-size:.24rem;text-align: center;color:#888;padding:.25rem .24rem .4rem; clear:both">
+    <a href="javascript:void(0)" onClick="ajax_comment(1);">点击加载更多</a>
+  </div>
  <if condition="($count gt $current_count) AND (count($commentlist) eq $page_count)">
 	<div class="getmore" style="font-size:.24rem;text-align: center;color:#888;padding:.25rem .24rem .4rem; clear:both">
 		<a href="javascript:void(0)" onClick="ajax_sourch_submit();">点击加载更多</a>

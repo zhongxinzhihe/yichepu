@@ -92,21 +92,22 @@ var process_request = "正在处理您的请求...";
 <div class="mgi_detail" id="user_goods_ka_2">
   <div class="detail_tit">
     <a href="javascript:void(0);" id="goodsDetail"><span>产品详情</span></a>
-    <a href="javascript:void(0);" id="goodsComment"><span>产品评价</span></a>
+    <a href="javascript:void(0);" id="goodsComment" onclick="ajax_sourch_submit(0)"><span>产品评价</span></a>
   </div>
   <div class="detail_w">
     <div class="detail_c">{$goods['goods_content']}
     </div>
   </div>
-  <div class="comment" style="display: none;">
+  <div class="comment" style="display: none;"  >
     <div class="comment_num">
-      <a href="">全部(250)</a>
-      <a href="">好评(250)</a>
-      <a href="">中评(250)</a>
-      <a href="">差评(250)</a>
+      <a href="javascript:void(0);" onclick="ajax_sourch_submit(0)">全部(250)</a>
+      <a href="javascript:void(0);" onclick="ajax_sourch_submit(1)">好评(250)</a>
+      <a href="javascript:void(0);" onclick="ajax_sourch_submit(2)">中评(250)</a>
+      <a href="javascript:void(0);" onclick="ajax_sourch_submit(3)">差评(250)</a>
       <div style="clear: both;"></div>
     </div>
-    <div class="comment_con">
+    <div id="commentList">
+<!--       <div class="comment_con">
       <div class="com_tit">
         <img src="__STATIC__/images/user68.jpg" alt="">
         <h3>XXXXXXXXXX</h3>
@@ -122,7 +123,9 @@ var process_request = "正在处理您的请求...";
         <img src="__STATIC__/images/carlist-banner1.jpg" alt="">
         <img src="__STATIC__/images/carlist-banner1.jpg" alt="">
       </div>
+    </div> -->
     </div>
+    
   </div>
   <div style="clear: both;"></div>
 </div>
@@ -141,6 +144,7 @@ var process_request = "正在处理您的请求...";
     <dd class="flow"><a class="button active_button" href="javascript:void(0);" onClick="submit_buy()">立即购买</a></dd>
   </dl>
 </section>
+<input type="hidden" name="ctype" value="0">
 <!-- 底部导航栏开始 -->
 <script>
   //购买数量控制
@@ -168,34 +172,45 @@ var process_request = "正在处理您的请求...";
   })
 
 
-//   var ka1=$('#user_goods_ka_1').height()+$('#user_goods_ka_1_1').height()+$('#user_goods_ka_1_2').height();
-//   var ka2=$('#user_goods_ka_2');
-//   var win=$(window);
-//   win.scroll(function(){
-//     if (win.scrollTop()<=ka1) {
-//       $("#goods_ka1").addClass("on");
-//       $("#goods_ka2").removeClass("on");
-//     }else{
-//       $("#goods_ka2").addClass("on");
-//       $("#goods_ka1").removeClass("on");
-//     }
-// })
-
-//   $('#goods_ka1').click(function(){
-//     $('#goods_ka1').addClass('on');
-//     $('#goods_ka2').removeClass("on");
-//   })
-//   $('#goods_ka2').click(function(){
-//     $('#goods_ka2').addClass('on');
-//     $('#goods_ka1').removeClass("on");
-//   })
-
 
   function submit_buy() {
-    // alert('该功能开发中');
   $('#buy_form').submit();
 }
+var page=1;
+function ajax_sourch_submit(commentType) {
+   $('input[name="ctype"]').val(commentType)
+   page=1;
+   alert(commentType)
+   ajax_comment(0)
 
+   
+    
+  }
+
+
+  function ajax_comment(havepage) {
+    if (havepage==1) {
+      page++
+    }
+    var commentType = $('input[name="ctype"]').val()
+    alert(commentType)
+    $.ajax({
+      async:false,
+      type: "GET",
+      url:"/index.php?m=Mobile&c=Goods&a=ajaxComment&goods_id={$goods['goods_id']}&commentType="+commentType+"&p="+page,//+tab,
+      success: function (data) {
+        $('.getmore').hide();
+        if ($.trim(data) != ''){
+          if (havepage==1) {
+            $("#commentList").append(data);
+           }else{
+            $("#commentList").html(data);
+           }
+          
+        }
+      }
+    });
+  }
 </script>
 
 <if condition="$signPackage neq null">
