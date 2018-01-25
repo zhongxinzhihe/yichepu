@@ -319,14 +319,50 @@ border-radius: 3px;}
 .sd_img dl dd{ float:left;width:50px; height:50px; margin:5px;}
 .sd_img dl dd img{ width:50px; height:50px;}
 /*----评价comment_order.dwt----*/
-.pj{ width:100%; margin:auto; padding-top:10px; padding-bottom:10px; background:#FFF}
+.pj{ width:calc(100% - 20px); margin:auto; padding-top:10px; padding-bottom:10px; background:#FFF}
 .pj dl{ width:95%; overflow:hidden; margin:auto}
 .pj dl dt{ width:20%; float:left; overflow:hidden;}
 .pj dl dt img{ display:block; width:100%; }
 .pj dl dd{ width:80%; float:left; overflow:hidden;}
 .pj dl dd p{ width:95%; margin-left:5%; font-size:14px; color:#000; line-height:150%;}
 .pj dl dd span{ display:block; width:95%; margin-left:5%; font-size:14px; color:#F60; line-height:150%;}
-
+.pj_tit{
+	width: 100%;
+}
+.pj_tit img{
+	float: left;
+	width: 75px;
+	height: 75px;
+}
+.pj_tit h3{
+	font-size: 16px;
+	color: #000;
+	font-weight: 700;
+}
+.pj_tit .pj_label a{
+	display: block;
+	float: left;
+	border:1px solid #B6B6B6;
+	border-radius: 50px;
+	width: 60px;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	-webkit-tap-highlight-color: transparent;
+}
+.pj_tit .pj_label a:nth-child(2){
+	margin: 0 10px;
+}
+.pj_tit .pj_label a:active{
+	color: #000;
+}
+.pj_tit .pj_label a:hover{
+	color: #000;
+}
+.pj_tit .pj_label a.current{
+	background-color: #FFECE9;
+	border-color: #FFECE9;
+}
 .haoping{ width:95%; overflow:hidden; text-align:center; margin:auto; margin-top:15px;}
 .haoping a{ display:inline-block;padding-left:10px; padding-right:15px; overflow:hidden; border-radius:20px; font-size:16px; line-height:25px; margin-left:10px; margin-right:10px;}
 .haoping a em{ display:inline-block; width:25px; height:25px; margin-right:5px;}
@@ -340,9 +376,9 @@ border-radius: 3px;}
 .p_main{ width:95%;margin:auto; margin-top:15px; overflow:hidden; }
 .pj .inputBorder{ border: 1px solid #DFDFDF; line-height:150%; padding-top:5px; padding-bottom:5px; padding-left: 5px; -webkit-appearance: none; -webkit-box-flex: 1; -webkit-flex: 1; flex: 1; border-radius: 0; -webkit-rtl-ordering: logical; -webkit-user-select: text; cursor: auto; background:#f4f3f3; font-size:14px; width:95%; margin:auto;}
 
-.m_pingjia{display:block; margin:auto; background:#FF3300; font-size:16px; line-height:40px; 
- border:0px; color:#FFF; width:100%; margin:auto;margin-top:10px; margin-bottom:10px;border-radius:5px; }
-.pingfen{ width:100%; padding-top:10px; padding-bottom:10px; overflow:hidden; margin:auto; margin-top:10px; background:#FFF; border-top:1px solid #eeeeee}
+.m_pingjia{display:block; margin:auto; background:#FDA313; font-size:16px; line-height:40px; 
+ border:0px; color:#FFF; width:50%; margin:auto;margin-top:10px; margin-bottom:10px;border-radius:5px; }
+.pingfen{ width:100%; padding-top:10px; padding-bottom:10px; overflow:hidden; margin:auto; margin-top:10px; background:#FFF;}
 .pingfen h2{ width:95%; margin:auto; height:40px; font-size:16px; color:#000; line-height:40px; font-weight:normal;}
 .pingfen ul{ width:95%; margin:auto; overflow:hidden}
 .pingfen ul li{ float:left; font-size:14px; line-height:30px; color:#666; }

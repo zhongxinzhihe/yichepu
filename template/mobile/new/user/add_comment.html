@@ -18,6 +18,7 @@
     width: 100%;height: 120px;display: block; border: 0; background: none;
     font-size: 16px;line-height: 24px;;padding: 8px; resize: none;
     border-bottom: 1px solid #e6e6e6;word-break: break-all;
+    border:none;
 }
 </style>
 <body>
@@ -39,6 +40,15 @@
 <input type="hidden" name="order_id" value="{$order_goods.order_id}">
 <input type="hidden" name="goods_id" value="{$order_goods.goods_id}">
 <div class="pj">
+<div class="pj_tit">
+	<img src="__STATIC__/images/top-rbl.png" alt="">
+	<h3>产品名称</h3>
+	<div class="pj_label">
+		<a href="javascript:void(0);" class="current">好评</a>
+		<a href="javascript:void(0);">中评</a>
+		<a href="javascript:void(0);">差评</a>
+	</div>
+</div>
 <dl>
 	<dt><img src="{$order_goods.goods_id|goods_thum_images=200,200}" width="50"/></dt>
 	<dd>
@@ -50,7 +60,7 @@
 <div class="w600 content"> 
 	 <textarea id="content_13" name="content" placeholder="对你购买的商品进行评价" required=""></textarea> 
 </div>
-<h2>评分:</h2>
+<!-- <h2>评分:</h2>
 <ul>	
 <li>与描述相符：</li>
     <ul class="jsstar" style=" width:80%"> <span></span>
@@ -83,16 +93,15 @@
         <li title="4"></li>
         <li title="5"></li>
     </ul>
-</ul>
+</ul> -->
 </div>
 <div class="p_main">
-<h2>上传图片：</h2>
 <a href="javascript:;" class="file"><div id="fileList0" style="width:60px;height:60px;"><img width="60" height="60"></div><input type="file" onChange="handleFiles(this,0)" name="comment_img_file[]" accept="image/*"></a>
 <a href="javascript:;" class="file"><div id="fileList1" style="width:60px;height:60px;"><img width="60" height="60"></div><input type="file" onChange="handleFiles(this,1)" name="comment_img_file[]" accept="image/*"></a>
 <a href="javascript:;" class="file"><div id="fileList2" style="width:60px;height:60px;"><img width="60" height="60"></div><input type="file" onChange="handleFiles(this,2)" name="comment_img_file[]" accept="image/*"></a>
 <a href="javascript:;" class="file"><div id="fileList3" style="width:60px;height:60px;"><img width="60" height="60"></div><input type="file" onChange="handleFiles(this,3)" name="comment_img_file[]" accept="image/*"></a>
 <span style=" font-size:14px; display:block; width:100%; overflow:hidden">
-<input type="checkbox" name="hide_username" value="1">匿名评价</span> 
+<!-- <input type="checkbox" name="hide_username" value="1">匿名评价</span>  -->
 </div>
 <div class="p_main">
 	<span style=" display:block; width:90%; overflow:hidden; margin:auto; margin-bottom:20px; margin-top:20px;">
@@ -163,6 +172,10 @@ $(document).ready(function(){
    	 	$(this).parent().find("input").val($(this).attr("title"));
    	 	$(this).parent().find("span").html($(this).attr("title")+"星");
     });
+
+    $(".pj_label a").click(function(){
+    	$(this).addClass("current").siblings().removeClass("current");
+    })
 });
 
 window.URL = window.URL || window.webkitURL;
