@@ -1,7 +1,7 @@
 .dotm_btn2{background:url(../images/all.png) no-repeat;background-size: auto 16px; }
 /*个人中心欢迎页*/
 .user_com{ width:100%; overflow:hidden; background:#F5F5F5}
-.com_top{ width:100%; height:185px; background:#FFBB00 ; position:relative; z-index:9999;
+.com_top{ width:100%; height:185px; background:#FFBB00 url(../images/user-banner.jpg) no-repeat center bottom; position:relative; z-index:9999;
 background-size: 100%;}
 .com_top h2{ width:100%; height:40px;}
 .com_top h2 a{ text-align: center;width:40px;height: 40px; display:block; margin-top:8px; float:right; margin-right:10px; }
@@ -17,9 +17,9 @@ background-size: 100%;}
 	-webkit-border-radius: 50%; 
 	-moz-border-radius: 50%; 
 	border-radius: 50%;
-	top: 40px;
+	top: 90px;
 	left: 50%;
-	margin-left: -35px;
+	margin-left: -45px;
 }
 .com_top dl dt span{ display:block; float:left; text-indent:10px; font-size:18px; color:#FFF;}
 .com_top dl dd{ float:right;font-size:14px; color:#fff; text-align:right; padding-right:10px; margin-left:-10px;}
@@ -50,40 +50,30 @@ background-size: 100%;}
 .sec_endor{width: 70%;}
 .com_top_phone{
 			position: absolute;
-			top: 140px;
+			top: 195px;
 			width: 100%;
 }
-.tuij_cas{ 	
-	color:#fff;
+.tuij_cas{ 	color:#000;
 			display: block;
 			text-align:left;
 			font-size:16px; 
 			white-space:nowrap; 
 			overflow:hidden; 
-			text-overflow:ellipsis;  
+			text-overflow:ellipsis; 
+			// width:80%; 
+			// margin:0 auto; 
 			line-height:26px;
-			margin-top: 0px;
-			padding-left: 0px;
-			text-align: center;
-}
-.tuij_cas span{
-	display: inline-block;
-	font-size: 12px;
-	color: #fff;
-	border: 1px solid #fff;
-	line-height: 21px;
-	text-align: center;
-	border-radius: 25px;
-	margin-left: 10px;
-	padding: 0 5px;
+			margin-top: -10px;
+			/*padding-left: 35px;*/
+
 }
 .tuij_cas em{
 	display: inline-block;
 	width: 42px;
 	height: 20px;
 	font-size: 12px;
-	color: #458BFD;
-	border: 1px solid #458BFD;
+	color: #fff;
+	border: 1px solid #fff;
 	line-height: 21px;
 	text-align: center;
 	border-radius: 3px;
@@ -155,25 +145,97 @@ background-size: 100%;}
 .bain1{ border-right:1px solid #eeeeee; margin-left:-1px;}
 
 /*我的订单user_order_list.lbi*/
-.order{ width:100%; overflow:hidden; background:#F5F5F5}
-.order_list{ width:100%; overflow:hidden; background:#FFF; margin-bottom:1px;}
-.order_list h2{ width:100%; margin:auto; height:40px; border-bottom:1px solid #eeeeee;font-size:14px; line-height:40px; color:#666; font-weight:normal;padding-left: 10px;}
-.order_list h2:nth-child(2) a {
+.order{ width:100%; overflow:hidden; background:#FFF}
+.order_list{ width:100%; overflow:hidden; background:#FFF; margin-bottom:0px; border-bottom: 1px solid #ccc;}
+.order_list h2{ width:100%; margin:auto; height:40px; border-bottom:1px solid #eeeeee;font-size:14px; line-height:40px; color:#666; font-weight:normal;padding-left: 10px; position: relative; overflow: hidden;}
+.order_list h2:nth-child(3) a {
 	position: relative;
 	display: block;
 }
-.order_list h2:nth-child(2) a span:nth-child(2){
+.order_list .yanquanNo a span:nth-child(2){
 	position: absolute;
 	right: 25px;
 	font-size: 12px;
 }
+.order_list .openShop span:nth-child(2){
+	position: absolute;
+	right: 25px;
+}
+.order_list .openShop a{
+	display: block;
+	width: 100%;
+}
+.order_list .blank{
+	width: 100%;
+	background-color: #eee;
+	height: 12px;
+}
+.order .blank{
+	width: 100%;
+	background-color: #eee;
+	height: 10px;
+}
+.order_list .goodPrice{
+    border-top: 1px solid #eee;
+}
+.order_list .goodPrice span:nth-child(2){
+	position: absolute;
+	right: 25px;
+}
+.order_list .num span:nth-child(2){
+	position: absolute;
+	right: 25px;
+	color: orange;
+}
+.order_list .restNum span:nth-child(2){
+	position: absolute;
+	right: 25px;
+	color: orange;
+}
+.order_list .pay{
+	border: none;
+}
+.order_list .pay span{
+	position: absolute;
+	right: 25px;
+}
+.order_list .pay span em{
+	color: red;
+	font-size: 20px;
+}
 
-
+.order .top_red{
+	width: 100%;
+    height: 35px;
+    overflow: hidden;
+    background-color: red;
+    text-align: center;
+    font-size: 16px;
+    line-height: 33px;
+    color: #fff;
+}
+.order .top_green{
+	width: 100%;
+    height: 35px;
+    overflow: hidden;
+    background-color: #65D144;
+    text-align: center;
+    font-size: 16px;
+    line-height: 33px;
+    color: #fff;
+}
 
 .order_list h2 img{ display:inline-block; width:25px; height:25px; margin-top:-2px}
+.order_list h2 >img{
+	position: absolute;
+	right: 22px;
+	width: 80px;
+	height: 62px;
+	top: 0px;
+}
 .order_list h2 span{ margin-left:8px; display:inline-block; font-size:14px; line-height:40px; color:#000; font-weight:normal}
 .order_list h2 strong{ display:inline-block; float:right; font-size:12px; line-height:40px; color:#F60; font-weight:normal}
-.order_list dl{width:92%; margin:auto; overflow:hidden;border-bottom:1px solid #eeeeee;padding: 10px 20px 10px 15px;background-color: #f6f6f6;}
+.order_list dl{width:92%; margin:auto; overflow:hidden;border-bottom:1px solid #eeeeee;padding: 10px 20px 10px 15px;background-color: #fff;}
 .order_list dl dt{ width:20%; float:left;}
 .order_list dl dt img{ display:block; width:90%; float:left}
 .order_list dl .name{ width:50%; float:left; overflow:hidden;overflow: hidden;-webkit-line-clamp: 2;-webkit-box-orient: vertical;display: -webkit-box;height: 32px;}
@@ -181,8 +243,26 @@ background-size: 100%;}
 .order_list dl .name span{display:block; width:100%; height:15px; line-height:15px; font-size:12px; color:#999; margin-top:5px; overflow:hidden;}
 .order_list dl .pice{ width:30%; float:left; overflow:hidden; font-weight:500; font-size:14px; line-height:1; color:#e41735; text-align:right}
 .order_list dl .pice em{ display:block; width:100%; font-size:12px; font-weight: normal;color:#999; line-height:20px; font-style:normal;}
-.order_list .pic{width:95%; margin:auto; overflow:hidden;border-bottom:1px solid #eeeeee; height:50px; text-align:right; font-size:14px; line-height:50px; color:#000;padding-right: 15px;}
+.order_list .pic{width:95%; margin:auto; overflow:hidden; height:50px; text-align:right; font-size:14px; line-height:50px; color:#000;padding-right: 0px;}
 .order_list .pic strong{color: #e41735;display:inline-block;font-size:16px; line-height:50px; font-weight:normal;}
+.order_list dl .check{
+	position: absolute;
+	width: 80px;
+	height: 62px;
+	right: 25%;
+	top: 50%;
+	margin-top: -31px;
+}
+.order_list dl .check img{
+	width: 100%;
+	height: 100%;
+}
+.order_list .pic a{
+	display: inline-block;
+	height: 50px;
+	width: 40px;
+	text-align: center;
+}
 // 订单详情
 
 
@@ -319,7 +399,7 @@ border-radius: 3px;}
 .sd_img dl dd{ float:left;width:50px; height:50px; margin:5px;}
 .sd_img dl dd img{ width:50px; height:50px;}
 /*----评价comment_order.dwt----*/
-.pj{ width:calc(100% - 20px); margin:auto; padding-top:10px; padding-bottom:10px; background:#FFF}
+.pj{ width:100%; margin:auto; padding-top:10px; padding-bottom:10px; background:#FFF}
 .pj dl{ width:95%; overflow:hidden; margin:auto}
 .pj dl dt{ width:20%; float:left; overflow:hidden;}
 .pj dl dt img{ display:block; width:100%; }
@@ -376,9 +456,9 @@ border-radius: 3px;}
 .p_main{ width:95%;margin:auto; margin-top:15px; overflow:hidden; }
 .pj .inputBorder{ border: 1px solid #DFDFDF; line-height:150%; padding-top:5px; padding-bottom:5px; padding-left: 5px; -webkit-appearance: none; -webkit-box-flex: 1; -webkit-flex: 1; flex: 1; border-radius: 0; -webkit-rtl-ordering: logical; -webkit-user-select: text; cursor: auto; background:#f4f3f3; font-size:14px; width:95%; margin:auto;}
 
-.m_pingjia{display:block; margin:auto; background:#FDA313; font-size:16px; line-height:40px; 
- border:0px; color:#FFF; width:50%; margin:auto;margin-top:10px; margin-bottom:10px;border-radius:5px; }
-.pingfen{ width:100%; padding-top:10px; padding-bottom:10px; overflow:hidden; margin:auto; margin-top:10px; background:#FFF;}
+.m_pingjia{display:block; margin:auto; background:#FF3300; font-size:16px; line-height:40px; 
+ border:0px; color:#FFF; width:100%; margin:auto;margin-top:10px; margin-bottom:10px;border-radius:5px; }
+.pingfen{ width:100%; padding-top:10px; padding-bottom:10px; overflow:hidden; margin:auto; margin-top:10px; background:#FFF; border-top:1px solid #eeeeee}
 .pingfen h2{ width:95%; margin:auto; height:40px; font-size:16px; color:#000; line-height:40px; font-weight:normal;}
 .pingfen ul{ width:95%; margin:auto; overflow:hidden}
 .pingfen ul li{ float:left; font-size:14px; line-height:30px; color:#666; }

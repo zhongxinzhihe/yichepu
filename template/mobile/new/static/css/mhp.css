@@ -111,7 +111,6 @@ a {
 }
 .topShelf .blank .blank_w {
   padding: 5px 15px;
-  background-color: #fff;
 }
 .topShelf .blank .blank_w .blank_con {
   height: 32px;
@@ -124,6 +123,9 @@ a {
   background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#F48D02), to(#EDB60E));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+.topShelf .blank .blank_w .blank_con h3 svg {
+  margin-right: 5px;
 }
 .topShelf .blank .blank_w .blank_con a {
   float: right;
