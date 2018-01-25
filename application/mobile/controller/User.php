@@ -307,8 +307,7 @@ class User extends MobileBase
         //$order_info['total_fee'] = $order_info['goods_price'] + $order_info['shipping_price'] - $order_info['integral_money'] -$order_info['coupon_price'] - $order_info['discount'];
 
         $region_list = get_region_list();
-        $invoice_no = M('DeliveryDoc')->where("order_id", $id)->getField('invoice_no', true);
-        $order_info[invoice_no] = implode(' , ', $invoice_no);
+
         //获取订单操作记录
         $order_action = M('order_action')->where(array('order_id' => $id))->select();
         $this->assign('order_status', C('ORDER_STATUS'));

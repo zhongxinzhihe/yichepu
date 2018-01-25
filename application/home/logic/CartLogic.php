@@ -262,8 +262,7 @@ class CartLogic extends Model
         $_SESSION['shop_id']?$data['shop_id']=$_SESSION['shop_id']:$data['shop_id']=0;
         $data['order_id'] = $order_id = M("Order")->insertGetId($data);
         $order = $data;//M('Order')->where("order_id", $order_id)->find();
-        $coupon = M('CouponList')->where(array('uid'=>$user_id,'id'=>$coupon_id))->find();
-        if (is_array($coupon)&&$order_id) M('CouponList')->where(array('uid'=>$user_id,'id'=>$coupon_id))->save(array('order_id'=>$order_id,'use_time'=>time()));
+     
 
         if(!$order_id)
             return array('status'=>-8,'msg'=>'添加订单失败','result'=>NULL);

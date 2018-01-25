@@ -24,7 +24,7 @@ class Index extends Base {
     public function index(){
         $this->pushVersion();        
         $act_list = session('act_list');
-        $menu_list = getMenuList($act_list);         
+        // $menu_list = getMenuList($act_list);         
         $this->assign('menu_list',$menu_list);
         $admin_info = getAdminInfo(session('admin_id'));
         $order_amount = M('order')->where("order_status=0 and (pay_status=1 or pay_code='cod')")->count();

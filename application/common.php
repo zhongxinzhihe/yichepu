@@ -312,83 +312,7 @@ function send_email($to,$subject='',$content=''){
     return $mail->send();
 } 
 
-/**
- * 检测是否能够发送短信
- * @param unknown $scene
- * @return multitype:number string
- */
-function checkEnableSendSms($scene)
-{
-    
-    $scenes = C('SEND_SCENE');
-    $sceneItem = $scenes[$scene];
-    if (!$sceneItem) {
-        return array("status" => -1, "msg" => "场景参数'scene'错误!");
-    }
-    $key = $sceneItem[2];
-    $sceneName = $sceneItem[0];
-    $config = tpCache('sms');
-    $smsEnable = $config[$key];
 
-    if (!$smsEnable) {
-        return array("status" => 0, "msg" => "['$sceneName']发送短信被关闭'");
-    }
-    //判断是否添加"注册模板"
-    $size = M('sms_template')->where("send_scene", $scene)->count('tpl_id');
-    if (!$size) {
-        return array("status" => -1, "msg" => "请先添加['$sceneName']短信模板");
-    }
-    
-    return array("status"=>1,"msg"=>"可以发送短信");
-}
-
-/**
- * 发送短信逻辑
- * @param unknown $scene
- */
-function sendSms($scene, $sender, $params)
-{
-
-    $smsTemp = M('sms_template')->where("send_scene", $scene)->find();    //用户注册.
-    $code = !empty($params['code']) ? $params['code'] : false;
-    $consignee = !empty($params['consignee']) ? $params['consignee'] : false;
-    $user_name =  !empty($params['user_name']) ? $params['user_name'] : false;
-    $mobile = !empty($params['mobile']) ? $params['mobile'] : false;
-    $order_sn = $params['order_sn'];
-    $session_id = session_id();
-    $config = tpCache('sms');
-    $product = $config['sms_product'];
-
-    $smsParams = array(
-        1 => "{\"code\":\"$code\",\"product\":\"$product\"}",                                                                   //1. 用户注册
-        2 => "{\"code\":\"$code\"}",                                                                                                          //2. 用户找回密码
-        3 => "{\"consignee\":\"$consignee\",\"phone\":\"$mobile\"}",                                                       //3. 客户下单
-        4 => "{\"order_sn\":\"$order_sn\"}",                                                                                               //4. 客户支付
-        5 => "{\"user_name\":\"$user_name\",\"order_sn\":\"$order_sn\",\"consignee\":\"$consignee\"}",  //5.商家发货
-        6 => "{\"user_name\":\"$user_name\",\"code\":\"$code\"}"                                                            //6. 修改手机号码
-    );
-    
-    $smsParam = $smsParams[$scene];
-    //提取发送短信内容
-    $scenes = C('SEND_SCENE');
-    $msg = $scenes[$scene][1];
-    $params_arr = json_decode($smsParam);
-    foreach ($params_arr as $k => $v) {
-        $msg = str_replace('${' . $k . '}', $v, $msg);
-    }
-    
-    //发送记录存储数据库
-    $log_id = M('sms_log')->insertGetId(array('mobile' => $sender, 'code' => $code, 'add_time' => time(), 'session_id' => $session_id, 'status' => 0, 'scene' => $scene, 'msg' => $msg));
-    $msg = $msg. ' 如果非本人操作请您忽略【三品車】';
-    $resp = realSendSMS($sender, $msg);
-    // $resp = realSendSMS($sender, $smsTemp['sms_sign'], $smsParam, $smsTemp['sms_tpl_code']);
-    if ($resp['status'] == 1) {
-        M('sms_log')->where(array('id' => $log_id))->save(array('status' => 1)); //修改发送状态为成功
-    }else{
-        M('sms_log')->where(array('id' => $log_id))->update(array('error_msg'=>$resp['msg'])); //发送失败, 将发送失败信息保存数据库
-    }
-    return $resp;
-}
  function sendAllMsg($num,$tpl_value,$code,$tpl_id)
 {
     $session_id = session_id();
@@ -405,42 +329,6 @@ function sendSms($scene, $sender, $params)
 }
 
 
-// function realSendSMS1($mobile, $msg){
-
-//     $sContent = $msg;
-
-//     $phone =  $mobile;       
-    
-//             $body = array(
-//                 'action' => 'send',
-//                 'userid' => '',
-//                 'account' => 'AB00042',
-//                 'password' => 'Zhangming1750@',
-//                 'mobile' => $phone,
-//                 'extno' => '',
-//                 'content' => $sContent,
-//                 'sendtime' => ''
-//             );
-//             $ch = curl_init();
-//             curl_setopt($ch, CURLOPT_URL, "https://dx.ipyy.net/sms.aspx");
-//             curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
-//             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-//             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-//             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-//             $result = curl_exec($ch);
-//             curl_close($ch);
-            
-//             $result = simplexml_load_string($result);
-//             $sMsg = (string)$result->message;
-//             $returnstatus = (string)$result->returnstatus;
-          
-//             if ($returnstatus=='Success') {
-//                return array('status' => 1, 'msg' => $sMsg);
-//             }else{
-//                  return array('status' => 0, 'msg' => $sMsg);
-//             }
-  
-// }
 
 function realSendSMS($mobile, $tpl_value,$tpl_id)
 {
@@ -992,29 +880,15 @@ function update_pay_status($order_sn,$ext=array(),$share=array())
         buysucess_template($order);//支付成功通知
         // 减少对应商品的库存
         minus_stock($order['order_id']);
-        // 给他升级, 根据order表查看消费记录 给他会员等级升级 修改他的折扣 和 总金额
-        update_user_level($order['user_id']);
         // 记录订单操作日志
         if(array_key_exists('admin_id',$ext)){
             logOrder($order['order_id'],$ext['note'],'付款成功',$ext['admin_id']);
         }else{
             logOrder($order['order_id'],'订单付款成功','付款成功',$order['user_id']);
         }
-        //分销设置
-        M('rebate_log')->where("order_id" ,$order['order_id'])->save(array('status'=>1));
-        // 成为分销商条件
-        $distribut_condition = tpCache('distribut.condition');
-        if($distribut_condition == 1)  // 购买商品付款才可以成为分销商
-            M('users')->where("user_id", $order['user_id'])->save(array('is_distribut'=>1));
         
         //用户支付, 发送短信给商家
-        $res = checkEnableSendSms("4");
-        if(!$res || $res['status'] !=1) return ;
-            
-        $sender = tpCache("shop_info.mobile");
-        if(empty($sender))return;
-        $params = array('order_sn'=>$order_sn);
-        sendSms("4", $sender, $params);
+
     }
    
 
