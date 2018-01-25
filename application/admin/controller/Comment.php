@@ -25,6 +25,8 @@ class Comment extends Base {
         $username = I('nickname','','trim');
         $content = I('content','','trim');
         $where['parent_id'] = 0;
+        $where['goods_id']=I('goods_id/d',0);
+        $goods_id=I('goods_id/d',0);
         if($_SESSION['type']==1) $where['shop_id']=$_SESSION['admin_id'];
         if($username){
             $where['username'] = $username;
@@ -39,10 +41,11 @@ class Comment extends Base {
         $comment_list = $model->where($where)->order('add_time DESC')->limit($Page->firstRow.','.$Page->listRows)->select();
         if(!empty($comment_list))
         {
-            $goods_id_arr = get_arr_column($comment_list, 'goods_id');
-            $goods_list = M('Goods')->where("goods_id", "in" , implode(',', $goods_id_arr))->getField("goods_id,goods_name");
+            // $goods_id_arr = get_arr_column($comment_list, 'goods_id');
+            $goods_list = M('Goods')->where(["goods_id" => $goods_id])->getField("goods_name");
         }
         $this->assign('goods_list',$goods_list);
+        // var_dump($goods_list);die();
         $this->assign('comment_list',$comment_list);
         $this->assign('page',$show);// 赋值分页输出
         $this->assign('pager',$pager);// 赋值分页输出
