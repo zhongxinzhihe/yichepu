@@ -71,9 +71,9 @@ class User extends MobileBase
         // 我的商品收藏
         $comment_count = M('comment')->where("user_id", $this->user_id)->count();   
         // 我的评论数
-        $level_name = M('user_level')->where("level_id", $this->user['level'])->getField('level_name'); // 等级名称
+       
         $order_count = M('order')->where("user_id", $this->user_id)->count(); //我的全部订单 (改)
-        $count_return = M('return_goods')->where("user_id=$this->user_id and status<2")->count();   //退换货数量
+      
         $wait_pay = M('order')->where("user_id=$this->user_id and pay_status =0 and order_status = 0  and pay_code != 'cod'")->count(); //我的待付款 (改)
         $wait_receive = M('order')->where("user_id=$this->user_id and order_status= 1 and shipping_status= 1")->count(); 
         //我的待收货 (改)
@@ -122,50 +122,7 @@ class User extends MobileBase
         return $this->fetch();
     }
 
-    /**
-     * 优惠券
-     */
-    public function coupon()
-    {
-        $logic = new UsersLogic();
-        $data = $logic->get_coupon($this->user_id, input('type'));
-        $coupon_list = $data['result'];
-        $this->assign('coupon_list', $coupon_list);
-        $this->assign('page', $data['show']);
-        if (input('is_ajax')) {
-            return $this->fetch('ajax_coupon_list');
-            exit;
-        }
-        return $this->fetch();
-    }
-
-    /**
-     * 确定订单的使用优惠券
-     * @author lxl
-     * @time 2017
-     */
-    public function checkcoupon()
-    {
-        $cartLogic = new \app\home\logic\CartLogic();
-        // 找出这个用户的优惠券 没过期的  并且 订单金额达到 condition 优惠券指定标准的
-        $result = $cartLogic->cartList($this->user, $this->session_id,1,1); // 获取购物车商品
-        if(I('type') == ''){
-            $where = " c2.uid = {$this->user_id} and ".time()." < c1.use_end_time and c1.condition <= {$result['total_price']['total_fee']} ";
-        }
-        if(I('type') == '1'){
-           $where = " c2.uid = {$this->user_id} and c1.use_end_time < ".time()." or {$result['total_price']['total_fee']}  < c1.condition ";
-        }
-
-        $coupon_list = DB::name('coupon')
-            ->alias('c1')
-            ->field('c1.name,c1.money,c1.condition,c1.use_end_time, c2.*')
-            ->join('coupon_list c2','c2.cid = c1.id and c1.type in(0,1,2,3) and order_id = 0','LEFT')
-            ->where($where)
-            ->select();
-        $this->assign('coupon_list', $coupon_list); // 优惠券列表
-        return $this->fetch();
-    }
-
+    
     /**
      *  登录
      */
@@ -391,112 +348,12 @@ class User extends MobileBase
         $this->success($data['msg']);
     }
 
-    /*
-     * 用户地址列表
-     */
-    public function address_list()
-    {
-        $address_lists = get_user_address_list($this->user_id);
-        $region_list = get_region_list();
-        $this->assign('region_list', $region_list);
-        $this->assign('lists', $address_lists);
-        return $this->fetch();
-    }
-
-    /*
-     * 添加地址
-     */
-    public function add_address()
-    {
-        if (IS_POST) {
-            $logic = new UsersLogic();
-            $data = $logic->add_address($this->user_id, 0, I('post.'));
-            if ($data['status'] != 1)
-                $this->error($data['msg']);
-            elseif (I('post.source') == 'cart2') {
-                header('Location:' . U('/Mobile/Cart/cart2', array('address_id' => $data['result'])));
-                exit;
-            }
-
-            $this->success($data['msg'], U('/Mobile/User/address_list'));
-            exit();
-        }
-        $p = M('region')->where(array('parent_id' => 0, 'level' => 1))->select();
-        $this->assign('province', $p);
-        //return $this->fetch('edit_address');
-        return $this->fetch();
-
-    }
-
-    /*
-     * 地址编辑
-     */
-    public function edit_address()
-    {
-        $id = I('id/d');
-        $address = M('user_address')->where(array('address_id' => $id, 'user_id' => $this->user_id))->find();
-        if (IS_POST) {
-            $logic = new UsersLogic();
-            $data = $logic->add_address($this->user_id, $id, I('post.'));
-            if ($_POST['source'] == 'cart2') {
-                header('Location:' . U('/Mobile/Cart/cart2', array('address_id' => $id)));
-                exit;
-            } else
-                $this->success($data['msg'], U('/Mobile/User/address_list'));
-            exit();
-        }
-        //获取省份
-        $p = M('region')->where(array('parent_id' => 0, 'level' => 1))->select();
-        $c = M('region')->where(array('parent_id' => $address['province'], 'level' => 2))->select();
-        $d = M('region')->where(array('parent_id' => $address['city'], 'level' => 3))->select();
-        if ($address['twon']) {
-            $e = M('region')->where(array('parent_id' => $address['district'], 'level' => 4))->select();
-            $this->assign('twon', $e);
-        }
-        $this->assign('province', $p);
-        $this->assign('city', $c);
-        $this->assign('district', $d);
-        $this->assign('address', $address);
-        return $this->fetch();
-    }
-
-    /*
-     * 设置默认收货地址
-     */
-    public function set_default()
-    {
-        $id = I('get.id/d');
-        $source = I('get.source');
-        M('user_address')->where(array('user_id' => $this->user_id))->save(array('is_default' => 0));
-        $row = M('user_address')->where(array('user_id' => $this->user_id, 'address_id' => $id))->save(array('is_default' => 1));
-        if ($source == 'cart2') {
-            header("Location:" . U('Mobile/Cart/cart2'));
-            exit;
-        } else {
-            $this->redirect('Mobile/User/address_list'); 
-        }
-    }
 
 
-    /*
-     * 地址删除
-     */
-    public function del_address()
-    {
-        $id = I('get.id/d');
 
-        $address = M('user_address')->where("address_id", $id)->find();
-        $row = M('user_address')->where(array('user_id' => $this->user_id, 'address_id' => $id))->delete();
-        // 如果删除的是默认收货地址 则要把第一个地址设置为默认收货地址
-        if ($address['is_default'] == 1) {
-            $address2 = M('user_address')->where("user_id", $this->user_id)->find();
-            $address2 && M('user_address')->where("address_id", $address2['address_id'])->save(array('is_default' => 1));
-        }
-        if (!$row)
-            $this->error('操作失败', U('User/address_list'));
-        else
-            $this->success("操作成功", U('User/address_list'));
-    }
+
+
+
 
     /*
      * 评论晒单

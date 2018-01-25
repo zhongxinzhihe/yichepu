@@ -41,9 +41,9 @@ class UsersLogic extends Model
            $result = array('status'=>-3,'msg'=>'账号异常已被锁定！！！');
         }else{
             //查询用户信息之后, 查询用户的登记昵称
-            $levelId = $user['level'];
-            $levelName = M("user_level")->where("level_id", $levelId)->getField("level_name");
-            $user['level_name'] = $levelName;
+            // $levelId = $user['level'];
+            // $levelName = M("user_level")->where("level_id", $levelId)->getField("level_name");
+            // $user['level_name'] = $levelName;
           
            $result = array('status'=>1,'msg'=>'登陆成功','result'=>$user);
         }

@@ -180,6 +180,9 @@ class Goods extends MobileBase {
      * 商品评论
      */
     public function doComment(){
+        if (IS_POST) {
+            $goods_id = $_POST['goods_id'];
+        }
         
         return $this->fetch();
     }
