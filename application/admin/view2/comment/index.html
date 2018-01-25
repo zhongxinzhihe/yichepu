@@ -1,0 +1,92 @@
+<include file="public/header"/>
+<div id="page-wrapper">
+<div class="header"> 
+  <h1 class="page-header">
+     
+  </h1>      
+</div>
+<div id="page-inner">
+    <div class="row">
+        <div class="col-md-12">
+        <!-- Advanced Tables -->
+            <div class="card">
+<!--            <div class="card-action">
+                    Advanced Tables
+                </div> -->
+                <div class="card-content">
+                    <div class="table-responsive">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                    
+                            </div>
+                            <div class="col-sm-6 table-search">
+                                <form action="/index.php/Admin/goods/goodsList" id="search-form" class="navbar-form form-inline" method="post" >
+                                <div class="ts-la">
+                                    <label>
+                                        <input type="text" placeholder="搜索" name="key_words" id="search" value="">
+                                        <a href="javascript:void(0);" id="text">
+                                            <i class="fa fa-search"></i>
+                                        </a>
+                                    </label>
+                                </div>
+                                <input type="hidden" name="orderby1" value="goods_id" />
+                                <input type="hidden" name="orderby2" value="desc" />
+                            </form>
+                            </div>
+                        </div>
+                        <div id="ajax_return">
+                            <table class="table table-striped table-bordered table-hover" id="newCarTable">
+                                <thead>
+                                    <tr>
+                                        <th class="center" style="min-width: 60px;">评价内容</th>
+                                        <th class="center">是否显示</th>
+                                        <th class="center" style="min-width: 90px;">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  <volist name="comment_list" id="list">
+                                  <tr class="odd gradeX">
+                                    <td class="center">{$list.content}</td>
+                                    <td class="center">
+                                        <div style="text-align: center;">
+                    						<if condition='$list[is_show] eq 1'>
+                      						<span class="yes" onClick="changeTableVal('Comment','comment_id','{$list.comment_id}','is_show',this)" ><i class="fa fa-check-circle"></i>是</span>
+                      						<else />
+                      						<span class="no" onClick="changeTableVal('Comment','comment_id','{$list.comment_id}','is_show',this)" ><i class="fa fa-ban"></i>否</span>
+                    						</if>
+        								</div>
+                                    </td>
+                                    <td class="center">
+                                        <a href="javascript:void(0);" data-href="{:U('Admin/comment/del',array('id'=>$list[comment_id]))}" onclick="del('{$list[comment_id]}',this)" >删除</a> 
+                                    </td>
+                                </tr>
+                                </volist>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-sm-6"></div>
+                            <div class="col-sm-6 table-pagecut">
+                              {$page}
+                            </div>
+                        </div>     
+                        </div>     
+                    </div>
+                </div>
+            </div>
+            <!--End Advanced Tables -->
+        </div>
+    </div>
+<include file="public/footer"/>
+
+<include file="public/table"/>
+        <!-- Custom Js -->
+<script src="__PUBLIC__/static/assets/js/custom-scripts.js"></script>
+<script>
+	// 删除操作
+    function del(id,t) {
+		if(confirm('确定要删除吗?'))
+			location.href = $(t).data('href');
+	}
+</script>
+</body>
+</html>

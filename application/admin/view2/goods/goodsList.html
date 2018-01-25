@@ -79,7 +79,7 @@
                                     <td class="center">{$list.shop_name}</td>
                                     <td class="center">
                                         <a href="{:U('Admin/Goods/addEditGoods',array('id'=>$list['goods_id']))}">编辑</a> /
-                                        <a href="javascript:void(0);" onclick="del('{$list[goods_id]}')">删除</a>
+                                        <a href="javascript:void(0);" onclick="del('{$list[goods_id]}')">删除</a> / <a href="{:U('Admin/Comment/index',array('goods_id'=>$list['goods_id']))}">评价管理</a>
                                     </td>
                                 </tr>
                                 </volist>
