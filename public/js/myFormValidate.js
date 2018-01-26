@@ -94,7 +94,8 @@ function ajaxSubmitForm(formid,submit_url) {
                    time: 3000 //2秒关闭（如果不配置，默认是3秒）
                 });
              // window.location.reload();
-             window.history.go(-1);
+             // window.history.go(-1);
+             window.location.href=document.referrer
             }else{
               layer.msg(res.msg, {
                    icon: 2,   // 成功图标
