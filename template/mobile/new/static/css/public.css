@@ -131,16 +131,16 @@ width: 0;height: 0;border-style: solid;border-color: transparent transparent #56
 // 	background:url(../images/mfooter.png) no-repeat 0px -175px;
 // }
 .discount div svg{
-	fill: red;
+	fill: orange;
 }
 .discount span{
-	color: red;
+	color: orange;
 }
 .Preferred div svg{
-	fill: red;
+	fill: orange;
 }
 .Preferred span{
-	color: red;
+	color: orange;
 }
 
 // .vf_nav ul li a:active .vf_6{
