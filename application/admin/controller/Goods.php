@@ -188,6 +188,7 @@ class Goods extends Base {
         $list = $data
             ->limit($page->firstRow.','.$page->listRows)
             ->where($condition)
+            ->order('goods_id DESC')
             ->select();
 
         $cat_id = I('cat_id');
