@@ -180,7 +180,6 @@ var page=1;
 function ajax_sourch_submit(commentType) {
    $('input[name="ctype"]').val(commentType)
    page=1;
-   alert(commentType)
    ajax_comment(0)
 
    
@@ -193,7 +192,6 @@ function ajax_sourch_submit(commentType) {
       page++
     }
     var commentType = $('input[name="ctype"]').val()
-    alert(commentType)
     $.ajax({
       async:false,
       type: "GET",

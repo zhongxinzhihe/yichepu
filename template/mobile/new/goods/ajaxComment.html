@@ -28,32 +28,16 @@
 	<div class="score">暂时还没有任何用户评论</div>
 </div>
 </if>
-<div class="getmore" style="font-size:.24rem;text-align: center;color:#888;padding:.25rem .24rem .4rem; clear:both">
-    <a href="javascript:void(0)" onClick="ajax_comment(1);">点击加载更多</a>
-  </div>
  <if condition="($count gt $current_count) AND (count($commentlist) eq $page_count)">
 	<div class="getmore" style="font-size:.24rem;text-align: center;color:#888;padding:.25rem .24rem .4rem; clear:both">
-		<a href="javascript:void(0)" onClick="ajax_sourch_submit();">点击加载更多</a>
+		<a href="javascript:void(0)" onClick="ajax_comment(1);">点击加载更多</a>
 	</div>
 	 <elseif condition="($count elt $current_count AND $count gt 0)" />
-	 <div class="score">已显示完所有评论</div>
+	<!--  <div class="score">已显示完所有评论</div> -->
 	 <else />
 </if>
 <script>
-	var  page = {$p};
-	function ajax_sourch_submit() {
-		page += 1;
-		$.ajax({
-			type: "GET",
-			url:"/index.php?m=Mobile&c=Goods&a=ajaxComment&goods_id={$goods_id}&commentType={$commentType}&p="+page,//+tab,
-			success: function (data) {
-				$('.getmore').hide();
-				if ($.trim(data) != ''){
-					$("#commentList").append(data);
-				}
-			}
-		});
-	}
+
 	function  ajax_sourch_submit_hide(){
 		$('.getmore').hide();
 	}
