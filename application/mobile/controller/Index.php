@@ -19,8 +19,15 @@ class Index extends MobileBase {
 
         //轮播
         $banners = M('Ad')->where(array('enabled'=>1))->order('orderby DESC')->select();
+        //特价回馈
+        $where = array();
+        $where['del_status']=0;
+        $where['cat_id']=9;
+        $where['is_on_sale'] = 1;
 
-       $this->assign('banners',$banners);
+        $curings = M('Goods')->where($where)->limit(4)->select();
+        $this->assign('banners',$banners);
+        $this->assign('curings',$curings);
 
         return $this->fetch();
     }
