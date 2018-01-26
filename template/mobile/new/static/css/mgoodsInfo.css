@@ -387,7 +387,8 @@ body {
   margin-right: 0;
 }
 .mgi_detail .comment .comment_con {
-  margin-top: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 .mgi_detail .comment .comment_con .com_tit {
   margin-bottom: 10px;
