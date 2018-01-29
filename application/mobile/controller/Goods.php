@@ -41,7 +41,7 @@ class Goods extends MobileBase {
         $where['cat_id']=array('in',implode(',', $cat_id_arr));
         if(!empty($q)) $where['goods_name']=array('like','%'.$q.'%');
         if($_SESSION['shop_type']==1) $where['shop_id']=$_SESSION['shop_id'];
-        $filter_goods_id = M('goods')->where($where)->cache(true)->getField("goods_id",true); 
+        $filter_goods_id = M('goods')->where($where)->getField("goods_id",true); 
     	
     	$count = count($filter_goods_id);
     	$page = new Page($count,4);
