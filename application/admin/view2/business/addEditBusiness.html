@@ -133,9 +133,6 @@
           </div>
         </dd>
       </dl> 
-
-
- 
       <dl class="row">
         <dt class="tit">
           <label for="t_mane"><em></em>商户类型</label>
@@ -177,7 +174,56 @@
     
 /** 以下是编辑时默认选中某个商品分类*/
 $(document).ready(function(){
+  var provNum="{$data.province}";
+  var cityNum="{$data.city}";
+  var areaNum="{$data.area}";
+  $("select[name='province']").get(0).selectedIndex = provNum - 2 ;
+  $.ajax({
+    url:"{:U('Business/area')}",
+    type:'post',
+    dataType:"json",
+    data:{id:"{$data.province}"},
+    success:function(res){
+      if (res.status==1) {
+        var html = '';
+        var cityCur="";
+        $(res.info).each(function (index,item) {
+          if (item.id==cityNum) {
+            html+= '<option value="'+item.id+'" selected="selected">'+item.name+'</option>';
+          }else{
+            html+= '<option value="'+item.id+'">'+item.name+'</option>';
+          }
+        });
+        $('select[name="city"]').html(html);
+      }else{
+         
+      }
+    }
+  })
+  $.ajax({
+    url:"{:U('Business/area')}",
+    type:'post',
+    dataType:"json",
+    data:{id:"{$data.city}"},
+    success:function (res) {
+      if (res.status==1) {
+        var html = '';
+        $(res.info).each(function (index,item) {
+          if (item.id==areaNum) {
+            html+= '<option value="'+item.id+'" selected="selected">'+item.name+'</option>';
+          }else{
+            html+= '<option value="'+item.id+'">'+item.name+'</option>';
+          }
+        });
+        $('select[name="area"]').html(html);
+      }else{
+         
+      }
+    }
+  });
 	$('#submitBtn').click(function () {
+    const localUrl=window.location.href
+    // console.log(localUrl.lastIndexOf("/id/"))
   $("#err_name1,#err_name2,#err_name3,#err_name4,#err_mobile_name,#err_name5,#shopLogo").hide();
   var form  = $('#business_form');
   var _url = form.attr('action');
@@ -192,9 +238,8 @@ $(document).ready(function(){
     $("#err_name2").html("经度不能为空").show();return false;
   }else if (user_name=="") {
     $("#err_name4").html("商户管理员名称不能为空").show();return false;
-  }else if (password=="") {
-    console.log(32)
-    $("#err_name5").html("密码不能为空").show();return false;
+  }else if (password==""&&localUrl.lastIndexOf("/id/")<0) {
+      $("#err_name5").html("密码不能为空").show();return false;
   }else if (shop_logo=="") {
     $("#shopLogo").show();return false;
   }else{

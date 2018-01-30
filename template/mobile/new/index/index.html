@@ -54,29 +54,20 @@
         </div>
         </volist>                     
     </div>
+    <div class="swiper-pagination"></div>
   </div>
-<!--   <div class="hp_search">
-    <div class="search_bar">
-      <div class="search_bar_c">
-        <div class="s_input">
-          <div class="s_icon"></div>
-          <div class="s_inp">
-            <form action="{:U('Mobile/Goods/search')}">
-              <div class="s_form">
-                <input type="text" placeholder="搜索" name="q">
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
 </div>
-<script type="text/javascript">
-  var mySwiper = new Swiper('.swiper-container',{
+<script>   
+$(function(){
+  var mySwiper = new Swiper ('.swiper-container', {
+    direction: 'horizontal',
     loop: true,
-  autoplay: 3000,
-  });  
+    autoplay:true,
+    pagination: {
+    el: '.swiper-pagination'
+    }
+  })        
+})     
 </script>
 <!-- 门店选择开始 -->
 <section class="shopChose">
