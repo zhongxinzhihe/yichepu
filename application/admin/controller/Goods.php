@@ -208,7 +208,7 @@ class Goods extends Base {
         $GoodsLogic=new GoodsLogic();
         $Goods=new \app\admin\model\Goods();
         $type=I('goods_id')>0?2:1;//标识自动验证时的场景1表示插入2表示更新
-
+               
         //ajax提交验证
         if ((I('is_ajax')==1)&&IS_POST) {
             $data=I('post.');
@@ -238,11 +238,11 @@ class Goods extends Base {
                 //         'goods_price'=>I('shop_price'), // 本店价
                 //         'member_goods_price'=>I('shop_price'), // 会员折扣价                        
                 //     ));                    
-                // } else {
-                //     $Goods->add_time = time();//添加时间
-                //     $Goods->save(); // 写入数据到数据库                    
-                //     $goods_id = $insert_id = $Goods->getLastInsID();
-                // }
+                } else {
+                    $Goods->add_time = time();//添加时间
+                    $Goods->save(); // 写入数据到数据库                    
+                    $goods_id = $insert_id = $Goods->getLastInsID();
+                }
             $Goods->afterSave($goods_id);
             $return_arr = array(
                 'status' => 1,
@@ -250,7 +250,6 @@ class Goods extends Base {
                 'data' => array('url' => U('admin/Goods/goodsList')),
             );
             exit(json_encode($return_arr));
-
         }
         $goodsInfo = M('Goods')->where(array('goods_id'=>I('GET.id', 0),'del_status'=>0))->find();
         $where = array();
@@ -292,7 +291,8 @@ class Goods extends Base {
         // $this->assign('gtags',$gtags);//商品已经添加的标签
         $this->initEditor(); // 编辑器
         return $this->fetch('curingGoods');
-    }
+    
+}
 
 
 
