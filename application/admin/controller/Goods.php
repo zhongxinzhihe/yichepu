@@ -245,9 +245,7 @@ class Goods extends Base {
                 }
             $Goods->afterSave($goods_id);
             $GoodsLogic->saveGoodsAttr($goods_id,$data); // 处理商品 属性
-            $GoodsLogic->saveGoodsProgramme($goods_id,$data);//处理商品金融方案
             $GoodsLogic->saveGoodsTags($goods_id,$data);//处理商品服务范围
-            $GoodsLogic->saveGoodsUserLevel($goods_id,$data);//处理商品会员的可见度
             $GoodsLogic->savaUsedShops($goods_id,$data);//可用门店
             $return_arr = array(
                 'status' => 1,
@@ -258,8 +256,8 @@ class Goods extends Base {
 
         }
         $goodsInfo = M('Goods')->where(array('goods_id'=>I('GET.id', 0),'del_status'=>0))->find();
-        $level_cat = $GoodsLogic->find_parent_cat($goodsInfo['cat_id']); // 获取分类默认选中的下拉框
-        $level_cat2 = $GoodsLogic->find_parent_cat($goodsInfo['extend_cat_id']); // 获取分类默认选中的下拉框
+        // $level_cat = $GoodsLogic->find_parent_cat($goodsInfo['cat_id']); // 获取分类默认选中的下拉框
+        // $level_cat2 = $GoodsLogic->find_parent_cat($goodsInfo['extend_cat_id']); // 获取分类默认选中的下拉框
         $where = array();
         $where['parent_id'] = 0;
         $cat_list = M('goods_category')->where($where)->select(); // 已经改成联动菜单
@@ -268,11 +266,11 @@ class Goods extends Base {
         $goodsType = M("GoodsType")->where($map)->select();
         // $suppliersList = M("suppliers")->select(); 
         $goodsImages = M("GoodsImages")->where('goods_id =' . I('GET.id', 0))->select();
-        $programmes = $GoodsLogic->getGoodsProgramme(I('GET.id', 0));
-        $goodsTag = M('GoodsTag')->where(array('goods_id'=>I('GET.id', 0)))->field('tag_id')->select();
+        // $programmes = $GoodsLogic->getGoodsProgramme(I('GET.id', 0));
+        // $goodsTag = M('GoodsTag')->where(array('goods_id'=>I('GET.id', 0)))->field('tag_id')->select();
         $tags = M('Tag')->where(array('del_status'=>0))->select();
         // $userLevel = M('UserLevel')->select();
-        $goodsLevel =  M('GoodsLevel')->where(array('goods_id'=>I('GET.id', 0)))->select();
+        // $goodsLevel =  M('GoodsLevel')->where(array('goods_id'=>I('GET.id', 0)))->select();
         !empty($goodsInfo['cat_id'])?$cat_id = $goodsInfo['cat_id']:false;
         $gtags = array();
         if (is_array($goodsTag)) {
@@ -299,11 +297,9 @@ class Goods extends Base {
         $this->assign('goodsType', $goodsType);
         $this->assign('goodsInfo', $goodsInfo);  // 商品详情
         $this->assign('goodsImages', $goodsImages);  // 商品相册
-        $this->assign('programmes', $programmes);// 商品金融方案
         $this->assign('cat_id',$cat_id);//当前添加分类的id
-        $this->assign('tags',$tags);//标签
-        $this->assign('gtags',$gtags);//商品已经添加的标签
-        $this->assign('gLevels',$gLevels);//会员等级
+        // $this->assign('tags',$tags);//标签
+        // $this->assign('gtags',$gtags);//商品已经添加的标签
         $this->initEditor(); // 编辑器
         return $this->fetch('curingGoods');
 

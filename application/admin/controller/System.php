@@ -90,8 +90,6 @@ class System extends Base{
 
         }
         $system_nav = array(
-            'http://www.sanpinche.com' => '三品車官网',
-            'http://www.sanpinche.com' => '新联众汇',
             '/index.php?m=Home&c=activity&a=promoteList' => '限时抢购',
             '/index.php?m=Home&c=Activity&a=group_list' => '团购',
             '/index.php?m=Home&c=Goods&a=integralMall' => '积分商城',

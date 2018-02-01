@@ -1461,7 +1461,7 @@ function calcu_goods_price($value=0)
 
  function shop_name($shop_id)
 {
-    if(empty($shop_id)) return '三品車';
+    if(empty($shop_id)) return '壹车仆';
    $shop_name = M('admin')->where(array('admin_id'=>$shop_id))->find();
    return $shop_name['shop_name'];
 }

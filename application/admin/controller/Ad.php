@@ -16,10 +16,10 @@ class Ad extends Base{
            $ad_info['pid'] = $this->request->param('pid');
        $where = array();
        $_SESSION['type']==1?$where['shop_id']=$_SESSION['admin_id']:false;
-        $position = D('ad_position')->where($where)->select();
+        // $position = D('ad_position')->where($where)->select();
         $this->assign('info',$ad_info);
         $this->assign('act',$act);
-        $this->assign('position',$position);
+        // $this->assign('position',$position);
         return $this->fetch();
     }
     
@@ -49,9 +49,9 @@ class Ad extends Base{
                 $list[] = $val;
             }
         }     
-        $ad_position_list = M('AdPosition')->getField("position_id,position_name,is_open");
+        // $ad_position_list = M('AdPosition')->getField("position_id,position_name,is_open");
 
-        $this->assign('ad_position_list',$ad_position_list);//广告位 
+        // $this->assign('ad_position_list',$ad_position_list);//广告位 
         $show = $Page->show();// 分页显示输出
         $this->assign('list',$list);// 赋值数据集
         $this->assign('page',$show);// 赋值分页输出

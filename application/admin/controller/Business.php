@@ -53,7 +53,7 @@ class Business extends Base {
           $_POST['password'] = encrypt($_POST['password']);
       }
       if (false !== D('Admin')->where(array('admin_id'=>$id))->save($_POST)) {
-        M('ShopTag')->where(array('shop_id'=>$id))->delete();
+        // M('ShopTag')->where(array('shop_id'=>$id))->delete();
         $tags = $_POST['tags'];
         if (is_array($tags)){
         foreach ($tags as $key => $tag) {
@@ -61,7 +61,7 @@ class Business extends Base {
             $map['tag_name'] = M('Tag')->where(array('id'=>$tag))->getField('name');
             $map['shop_id'] = $id;
             $map['tag_id'] = $tag;
-            M('ShopTag')->add($map);
+            // M('ShopTag')->add($map);
         }
         }
         exit(json_encode(array('stastus'=>1,'msg'=>'修改成功')));
@@ -87,7 +87,7 @@ class Business extends Base {
             $map['tag_name'] = M('Tag')->where(array('id'=>$tag))->getField('name');
             $map['shop_id'] = $res;
             $map['tag_id'] = $tag;
-            M('ShopTag')->add($map);
+            // M('ShopTag')->add($map);
         }
         }
           exit(json_encode(array('stastus'=>1,'msg'=>'添加成功')));
@@ -98,7 +98,7 @@ class Business extends Base {
     
   }else{
    $shop_admin = D('Admin')->where(array('admin_id'=>I('GET.id',0),'del_status'=>0))->find();
-   $shopTag = M('ShopTag')->where(array('shop_id'=>I('GET.id', 0)))->field('tag_id')->select();
+   // $shopTag = M('ShopTag')->where(array('shop_id'=>I('GET.id', 0)))->field('tag_id')->select();
    $stags = array();
         if (is_array($shopTag)) {
            foreach ($shopTag as $key => $tag) {
@@ -108,10 +108,10 @@ class Business extends Base {
    $this->assign('data',$shop_admin); 
    $this->assign('stags',$stags);
   }
-    $tags = M('Tag')->where(array('del_status'=>0))->select();
+    // $tags = M('Tag')->where(array('del_status'=>0))->select();
     $provinces = M('Area')->where(array('type'=>'1'))->select();
     $this->assign('provinces',$provinces);
-    $this->assign('tags',$tags);
+    // $this->assign('tags',$tags);
     return $this->fetch();
   }
 public function checkBusiness()
@@ -137,8 +137,8 @@ public function doCheckBusiness()
    $result = D('Admin')->where('admin_id='.I('post.id',0))->save(array('check_status'=>$value,'reason'=>I('post.rsn','无')));
   if (!$result)  exit(array('status'=>0,'msg'=>'操作失败'));
   $num = $shop_admin['phone'];
-  if ($value==1)  $msg = "申请入驻三品車成功，登录名是".$shop_admin['user_name'].'【三品車】';
-  if ($value==-1) $msg = "申请入驻三品車失败，请重新认证。【三品車】";
+  if ($value==1)  $msg = "申请入驻壹车仆成功，登录名是".$shop_admin['user_name'].'【壹车仆】';
+  if ($value==-1) $msg = "申请入驻壹车仆失败，请重新认证。【壹车仆】";
  
  sendAllMsg($num,$msg,'');
 exit(json_encode(array('status'=>1,'msg'=>'操作成功')));
