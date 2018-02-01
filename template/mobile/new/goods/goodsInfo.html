@@ -100,10 +100,10 @@ var process_request = "正在处理您的请求...";
   </div>
   <div class="comment" style="display: none;"  >
     <div class="comment_num">
-      <a href="javascript:void(0);" onclick="ajax_sourch_submit(0)">全部(250)</a>
-      <a href="javascript:void(0);" onclick="ajax_sourch_submit(1)">好评(250)</a>
-      <a href="javascript:void(0);" onclick="ajax_sourch_submit(2)">中评(250)</a>
-      <a href="javascript:void(0);" onclick="ajax_sourch_submit(3)">差评(250)</a>
+      <a href="javascript:void(0);" onclick="ajax_sourch_submit(0)">全部({$allcount})</a>
+      <a href="javascript:void(0);" onclick="ajax_sourch_submit(1)">好评({$goodcount})</a>
+      <a href="javascript:void(0);" onclick="ajax_sourch_submit(2)">中评({$commoncount})</a>
+      <a href="javascript:void(0);" onclick="ajax_sourch_submit(3)">差评({$awfulcount})</a>
       <div style="clear: both;"></div>
     </div>
     <div id="commentList">

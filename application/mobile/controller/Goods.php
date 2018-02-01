@@ -106,34 +106,37 @@ class Goods extends MobileBase {
             $this->error('此商品不存在或者已下架');
         }
         //判断是不是分销的商品
-        $share_uid = I('get.share_uid');
-        if(isset($share_uid)&&!empty($share_uid)&&is_numeric($share_uid)&&is_array($share)){
+        // $share_uid = I('get.share_uid');
+        // if(isset($share_uid)&&!empty($share_uid)&&is_numeric($share_uid)&&is_array($share)){
             
-          $_SESSION['share_uid'] = $share_uid;
-          $_SESSION['share_gid'] = $goods_id;
-          $user_id = $_SESSION['user']['user_id'];
-          $views =json_decode($share['views']) ;
-          if(!is_array($views)) $views = array();
-          $views[] = $user_id;
-          $share['views'] = json_encode($views);
-          $share['view_num'] = $share['view_num']+1;
-          $scan['share_id'] = $share['id'];
-          $scan['uid'] = $user_id;
-          $scanData = M('scan_share')->where($scan)->find();
+        //   $_SESSION['share_uid'] = $share_uid;
+        //   $_SESSION['share_gid'] = $goods_id;
+        //   $user_id = $_SESSION['user']['user_id'];
+        //   $views =json_decode($share['views']) ;
+        //   if(!is_array($views)) $views = array();
+        //   $views[] = $user_id;
+        //   $share['views'] = json_encode($views);
+        //   $share['view_num'] = $share['view_num']+1;
+        //   $scan['share_id'] = $share['id'];
+        //   $scan['uid'] = $user_id;
+        //   $scanData = M('scan_share')->where($scan)->find();
 
-          if($scanData){
-            $num = $scanData['scan_num']+1;
-            M('scan_share')->where(array('id'=>$scanData['id']))->save(array('scan_num'=>$num));
+        //   if($scanData){
+        //     $num = $scanData['scan_num']+1;
+        //     M('scan_share')->where(array('id'=>$scanData['id']))->save(array('scan_num'=>$num));
            
-          }else{
-            $scan['add_time'] = time();
-            if(!is_null($scan['uid'])){
-             M('scan_share')->add($scan);
-            }
-          } 
+        //   }else{
+        //     $scan['add_time'] = time();
+        //     if(!is_null($scan['uid'])){
+        //      M('scan_share')->add($scan);
+        //     }
+        //   } 
 
-          $this->assign('first_share',$share_uid);
-        }
+        //   $this->assign('first_share',$share_uid);
+        // }
+        $goodcount = M('Comment')->where(array('goods_id'=>$goods_id,'ctype'=>1))->count();
+        $commoncount =  M('Comment')->where(array('goods_id'=>$goods_id,'ctype'=>2))->count();
+        $awfulcount =  M('Comment')->where(array('goods_id'=>$goods_id,'ctype'=>3))->count();
         $goods_images_list = M('GoodsImages')->where("goods_id", $goods_id)->select(); // 商品 图册
         $cat_id = $goods['cat_id'];
         $this->assign('cases',$cases);//购车方案  
@@ -141,6 +144,10 @@ class Goods extends MobileBase {
         $this->assign('goods_images_list',$goods_images_list);//商品缩略图
         $this->assign('goods',$goods);
         $this->assign('infos',$infos);
+        $this->assign('goodcount',$goodcount);
+        $this->assign('commoncount',$commoncount);
+        $this->assign('awfulcount',$awfulcount);
+        $this->assign('allcount',$awfulcount+$commoncount+$goodcount);
         return $this->fetch();
     }
 
