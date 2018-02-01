@@ -233,20 +233,17 @@ class Goods extends Base {
                 $Goods->edit_time = time();//添加时间
                 $Goods->isUpdate(true)->save(); // 写入数据到数据库                 
                 // 修改商品后购物车的商品价格也修改一下
-                M('cart')->where("goods_id = $goods_id and spec_key = ''")->save(array(
-                        'market_price'=>I('market_price'), //市场价
-                        'goods_price'=>I('shop_price'), // 本店价
-                        'member_goods_price'=>I('shop_price'), // 会员折扣价                        
-                    ));                    
-                } else {
-                    $Goods->add_time = time();//添加时间
-                    $Goods->save(); // 写入数据到数据库                    
-                    $goods_id = $insert_id = $Goods->getLastInsID();
-                }
+                // M('cart')->where("goods_id = $goods_id and spec_key = ''")->save(array(
+                //         'market_price'=>I('market_price'), //市场价
+                //         'goods_price'=>I('shop_price'), // 本店价
+                //         'member_goods_price'=>I('shop_price'), // 会员折扣价                        
+                //     ));                    
+                // } else {
+                //     $Goods->add_time = time();//添加时间
+                //     $Goods->save(); // 写入数据到数据库                    
+                //     $goods_id = $insert_id = $Goods->getLastInsID();
+                // }
             $Goods->afterSave($goods_id);
-            $GoodsLogic->saveGoodsAttr($goods_id,$data); // 处理商品 属性
-            $GoodsLogic->saveGoodsTags($goods_id,$data);//处理商品服务范围
-            $GoodsLogic->savaUsedShops($goods_id,$data);//可用门店
             $return_arr = array(
                 'status' => 1,
                 'msg' => '操作成功',
@@ -256,21 +253,14 @@ class Goods extends Base {
 
         }
         $goodsInfo = M('Goods')->where(array('goods_id'=>I('GET.id', 0),'del_status'=>0))->find();
-        // $level_cat = $GoodsLogic->find_parent_cat($goodsInfo['cat_id']); // 获取分类默认选中的下拉框
-        // $level_cat2 = $GoodsLogic->find_parent_cat($goodsInfo['extend_cat_id']); // 获取分类默认选中的下拉框
         $where = array();
         $where['parent_id'] = 0;
         $cat_list = M('goods_category')->where($where)->select(); // 已经改成联动菜单
         $map = array();
         $_SESSION['type']==1?$map['shop_id']= $_SESSION['admin_id']:false;
         $goodsType = M("GoodsType")->where($map)->select();
-        // $suppliersList = M("suppliers")->select(); 
         $goodsImages = M("GoodsImages")->where('goods_id =' . I('GET.id', 0))->select();
-        // $programmes = $GoodsLogic->getGoodsProgramme(I('GET.id', 0));
-        // $goodsTag = M('GoodsTag')->where(array('goods_id'=>I('GET.id', 0)))->field('tag_id')->select();
         $tags = M('Tag')->where(array('del_status'=>0))->select();
-        // $userLevel = M('UserLevel')->select();
-        // $goodsLevel =  M('GoodsLevel')->where(array('goods_id'=>I('GET.id', 0)))->select();
         !empty($goodsInfo['cat_id'])?$cat_id = $goodsInfo['cat_id']:false;
         $gtags = array();
         if (is_array($goodsTag)) {
@@ -302,8 +292,6 @@ class Goods extends Base {
         // $this->assign('gtags',$gtags);//商品已经添加的标签
         $this->initEditor(); // 编辑器
         return $this->fetch('curingGoods');
-
-
     }
 
 
@@ -551,10 +539,10 @@ class Goods extends Base {
         // 删除此商品        
         // M("Goods")->where('goods_id ='.$goods_id)->save(array('del_status'=>1));
         M("Goods")->where('goods_id ='.$goods_id)->delete();  //商品表
-        M("cart")->where('goods_id ='.$goods_id)->delete();  // 购物车
+        // M("cart")->where('goods_id ='.$goods_id)->delete();  // 购物车
         M("comment")->where('goods_id ='.$goods_id)->delete();  //商品评论
         M("goods_images")->where('goods_id ='.$goods_id)->delete();  //商品相册
-        M("goods_attr")->where('goods_id ='.$goods_id)->delete();  //商品属性             
+        // M("goods_attr")->where('goods_id ='.$goods_id)->delete();  //商品属性             
                      
         $return_arr = array('status' => 1,'msg' => '操作成功','data'  =>'',);   //$return_arr = array('status' => -1,'msg' => '删除失败','data'  =>'',);        
         $this->ajaxReturn($return_arr);
