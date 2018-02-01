@@ -39,16 +39,16 @@ class Goods extends Base {
         }
         $goodsLogic = new \app\home\logic\GoodsLogic();
         $goods_id = I("get.id/d");
-        $where['is_vip'] = I('get.is_vip',0);
+        // $where['is_vip'] = I('get.is_vip',0);
         $where['del_status']=0;
         $where['goods_id'] = $goods_id;
-         if ($where['is_vip']) {
-            $levelsCount = M('GoodsLevel')->where(array('goods_id'=>$goods_id,'level_id'=>$user['level']))->count();
+        //  if ($where['is_vip']) {
+        //     $levelsCount = M('GoodsLevel')->where(array('goods_id'=>$goods_id,'level_id'=>$user['level']))->count();
           
-            if ($levelsCount<1) {
-               $this->error('没有权限查看此商品');
-            }
-        }
+        //     if ($levelsCount<1) {
+        //        $this->error('没有权限查看此商品');
+        //     }
+        // }
         $goods = M('Goods')->where($where)->find();
         
         if(empty($goods) || ($goods['is_on_sale'] == 0)){
@@ -218,7 +218,7 @@ class Goods extends Base {
 
             $where['goods_id'] = array('in',implode(',', $filter_goods_id));
             if($_SESSION['shop_type']==1) $where['shop_id'] = $_SESSION['shop_id'];
-            $where['is_vip']=0;
+            // $where['is_vip']=0;
             $goods_list = M('goods')->where($where)->order("sort desc")->limit($page->firstRow.','.$page->listRows)->select();
             $filter_goods_id2 = get_arr_column($goods_list, 'goods_id');
             if($filter_goods_id2)
@@ -321,11 +321,12 @@ class Goods extends Base {
                
         $where  = array(
             'is_on_sale' => 1,
-            'is_vip'=>0
+            // 'is_vip'=>0
         );
         if($_SESSION['shop_type']==1) $where['shop_id'] = $_SESSION['shop_id'];
         if($type==1){
-          $where = array('g.is_on_sale'=>1,'g.is_vip'=>0);  
+          // $where = array('g.is_on_sale'=>1,'g.is_vip'=>0);  
+          $where = array('g.is_on_sale'=>1);  
           
         } 
         if($_SESSION['shop_type']==1) $where['g.shop_id'] = $_SESSION['shop_id'];

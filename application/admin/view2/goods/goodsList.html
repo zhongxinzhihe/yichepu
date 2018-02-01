@@ -54,7 +54,10 @@
                                   <tr class="odd gradeX">
                                     <td>{$list.goods_id}</td>
                                     <td>{$list.goods_name}</td>
-                                    <td class="center">{$catList[$list[cat_id]][name]}</td>
+                                    <td class="center">
+                                        {$catList[$list[cat_id]][name]}
+                                        <!-- {$list.cat_id} -->
+                                    </td>
                                     <td class="center">{$list.store_count}</td>
                                     <td class="center">
                                         <div class="switch">

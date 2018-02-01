@@ -101,21 +101,12 @@ class Goods extends MobileBase {
         $goods_id = I("get.id/d");
         $where['del_status']=0;
         $where['goods_id'] = $goods_id;
-        $where['is_vip'] = I('get.is_vip',0);
-        if ($where['is_vip']) {
-            $levelsCount = M('GoodsLevel')->where(array('goods_id'=>$goods_id,'level_id'=>$user['level']))->count();
-          
-            if ($levelsCount<1) {
-               $this->error('没有权限查看此商品');
-            }
-        }
         $goods = M('Goods')->where($where)->find();
         if(empty($goods)){
             $this->error('此商品不存在或者已下架');
         }
         //判断是不是分销的商品
         $share_uid = I('get.share_uid');
-        $share = M('Wxshare')->where(array('user_id'=>$share_uid,'goods_id'=>$goods_id))->find();
         if(isset($share_uid)&&!empty($share_uid)&&is_numeric($share_uid)&&is_array($share)){
             
           $_SESSION['share_uid'] = $share_uid;
@@ -126,8 +117,6 @@ class Goods extends MobileBase {
           $views[] = $user_id;
           $share['views'] = json_encode($views);
           $share['view_num'] = $share['view_num']+1;
-           
-          M('Wxshare')->where(array('id'=>$share['id']))->save(array('views'=>$share['views'],'view_num'=>$share['view_num']));
           $scan['share_id'] = $share['id'];
           $scan['uid'] = $user_id;
           $scanData = M('scan_share')->where($scan)->find();
@@ -147,16 +136,7 @@ class Goods extends MobileBase {
         }
         $goods_images_list = M('GoodsImages')->where("goods_id", $goods_id)->select(); // 商品 图册
         $cat_id = $goods['cat_id'];
-        $goodsAttribute =M('Attribute')->alias('a')
-          ->field('a.*,av.id AS attr_val_id,av.attr_val ')
-          ->join('__ATTR_VAL__ av','av.attribute_id = a.id','LEFT')
-          ->where(array('a.cat_id'=>$cat_id,'del_status'=>0,'av.goods_id'=>$goods_id))
-          ->select();
-        $Programme = getProgramme('',$goods_id);
-        $Programme['goods_id'] = $goods_id;  
-        $cases = M('GoodsProgramme')->where($Programme)->select();
         $this->assign('cases',$cases);//购车方案  
-        $this->assign('goodsAttribute',$goodsAttribute);//属性值
         $this->assign('filter_spec',$filter_spec);//规格参数
         $this->assign('goods_images_list',$goods_images_list);//商品缩略图
         $this->assign('goods',$goods);
@@ -335,7 +315,7 @@ class Goods extends MobileBase {
     	$goodsLogic = new \app\home\logic\GoodsLogic(); // 前台商品操作逻辑类
         $_SESSION['shop_id']?$where['shop_id']=$_SESSION['shop_id']:false;
         $where['del_status']=0;
-        $where['is_vip']=0;
+        // $where['is_vip']=0;
     	$filter_goods_id = M('goods')->where($where)->cache(true)->getField("goods_id",true);
 
     	// 过滤帅选的结果集里面找商品
@@ -452,25 +432,25 @@ public function ajaxShare()
         $goods_id = I('post.goods_id');
         $user_id = I('post.user_id');
         $first_share = I('post.first_share','0');
-        $old = M('Wxshare')->where(array('shop_id'=>$shop_id,'goods_id'=>$goods_id,'user_id'=>$user_id))->find();
+        // $old = M('Wxshare')->where(array('shop_id'=>$shop_id,'goods_id'=>$goods_id,'user_id'=>$user_id))->find();
         if($old) exit(json_encode(array('status'=>1,'msg'=>'您已经分享过')));
         $data = I('post.');
         if($first_share==$user_id){$data['first_share']=0;}
         $data['add_time']=time();
-        if(M('Wxshare')->add($data)) {
-            if($data['first_share']!=0){
-               $map['first_id'] = $data['first_share'];
-               $map['second_id'] = $data['user_id'];
-               $result = M('share')->where($map)->find();
-               if (!$result) {
-                   $map['add_time']=time();
-                   M('share')->add($map);
-               }
-            }
-            exit(json_encode(array('status'=>1,'msg'=>'分享成功')));
-        }else{
-            exit(json_encode(array('status'=>0,'msg'=>'分享失败')));
-        }
+        // if(M('Wxshare')->add($data)) {
+        //     if($data['first_share']!=0){
+        //        $map['first_id'] = $data['first_share'];
+        //        $map['second_id'] = $data['user_id'];
+        //        $result = M('share')->where($map)->find();
+        //        if (!$result) {
+        //            $map['add_time']=time();
+        //            M('share')->add($map);
+        //        }
+        //     }
+        //     exit(json_encode(array('status'=>1,'msg'=>'分享成功')));
+        // }else{
+        //     exit(json_encode(array('status'=>0,'msg'=>'分享失败')));
+        // }
 
     }
 }

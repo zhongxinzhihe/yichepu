@@ -192,8 +192,10 @@ class Goods extends Base {
             ->select();
 
         $cat_id = I('cat_id');
+        $catList = D('goods_category')->select();
+        $catList = convert_arr_key($catList, 'id');
+        $this->assign('catList',$catList);
         $this->assign('cat_id',$cat_id);
-
         $this->assign('page',$show);
         $this->assign('goodsList',$list);
         return $this->fetch();

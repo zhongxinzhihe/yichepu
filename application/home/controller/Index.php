@@ -33,7 +33,7 @@ class Index extends Base {
              $where['shop_id'] = $_SESSION['shop_id'];
         }
         $where['is_on_sale']=1;
-         $where['is_vip']=0;
+         // $where['is_vip']=0;
         //新车
         $cat_id_arr = getCatGrandson (138);
         $where['is_recommend']=0;
