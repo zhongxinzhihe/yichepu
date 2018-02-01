@@ -18,7 +18,7 @@ class Index extends MobileBase {
     public function index(){ 
 
         //轮播
-        $banners = M('Ad')->where(array('enabled'=>1))->order('orderby DESC')->select();
+        $banners = M('Ad')->order('orderby DESC')->select();
         //特价回馈
         $where = array();
         $where['del_status']=0;
