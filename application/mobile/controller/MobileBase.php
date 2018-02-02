@@ -37,12 +37,16 @@ class MobileBase extends Controller {
         else 
             cookie('is_mobile','0',3600);
          $this->weixin_config = M('wx_user')->find(); //获取微信配置
+         $usebool = strstr($_SERVER['HTTP_USER_AGENT'],'MicroMessenger') && !isset($_SESSION['use']);
+         $openidbool = strstr($_SERVER['HTTP_USER_AGENT'],'MicroMessenger') && empty($_SESSION['openid']);
+         
         //微信浏览器
-        if(strstr($_SERVER['HTTP_USER_AGENT'],'MicroMessenger') && empty($_SESSION['openid'])){
-           
+        if($usebool||$openidbool){
+           // var_dump(isset($_SESSION['user']));die();
             $this->assign('wechat_config', $this->weixin_config); 
             if(is_array($this->weixin_config) && $this->weixin_config['wait_access'] == 1){
                 $wxuser = $this->GetOpenid(); //授权获取openid以及微信用户信息
+               
                 session('subscribe', $wxuser['subscribe']);// 当前这个用户是否关注了微信公众号
                 //微信自动登录                             
                 $logic = new UsersLogic();
@@ -50,7 +54,6 @@ class MobileBase extends Controller {
                 $data = $logic->thirdLogin($wxuser);                                
                
                 if($data['status'] == 1){
-                    $data['result']['partner'] = M('Partner')->where(array('user_id'=>$data['result']['user_id'],'partner_status'=>1))->find();
                     session('user',$data['result']);
                     $this->goodsInfoScan($_SESSION['user']['user_id']);
                     setcookie('user_id',$data['result']['user_id'],null,'/');
@@ -80,32 +83,6 @@ class MobileBase extends Controller {
     }
     private function goodsInfoScan($uid)
      {
-          $str =  strtolower(MODULE_NAME).strtolower(CONTROLLER_NAME).strtolower(ACTION_NAME);
-          if ($str=='mobilegoodsgoodsinfo') {
-             $goods_id = I("get.id/d");
-             $shop_id = I("get.shop_id/d");
-             $goods = M('Goods')->where("goods_id", $goods_id)->find();
-             if(empty($goods)){
-                 $this->error('此商品不存在或者已下架');
-             }
-             //判断是不是分销的商品
-             $share_uid = I('get.share_uid');
-             $share = M('Wxshare')->where(array('user_id'=>$share_uid,'goods_id'=>$goods_id,'shop_id'=>$shop_id))->find();
-             $scan['share_id'] = $share['id'];
-             $scan['uid'] = $user_id;
-             $scanData = M('scan_share')->where($scan)->find();
-             if($scanData){
-                $num = $scanData['scan_num']+1;
-                M('scan_share')->where(array('id'=>$scanData['id']))->save(array('scan_num'=>$num));
-           
-          }else{
-               $scan['add_time'] = time();
-               if(!is_null($scan['uid'])){
-                M('scan_share')->add($scan);
-               }
-             
-          }
-      }
      }
 
 
@@ -118,8 +95,8 @@ class MobileBase extends Controller {
     // 网页授权登录获取 OpendId
     public function GetOpenid()
     {
-        if($_SESSION['openid'])
-            return $_SESSION['openid'];
+        // if($_SESSION['openid'])
+        //     return $_SESSION['openid'];
         //通过code获得openid
         if (!isset($_GET['code'])){
             //触发微信返回code码
@@ -141,7 +118,7 @@ class MobileBase extends Controller {
 
             $data['oauth'] = 'weixin';
             if(isset($data2['unionid'])){
-            	$data['unionid'] = $data2['unionid'];
+                $data['unionid'] = $data2['unionid'];
             }
             return $data;
         }
@@ -169,8 +146,8 @@ class MobileBase extends Controller {
     public function GetOpenidFromMp($code)
     {
         //通过code获取网页授权access_token 和 openid 。网页授权access_token是一次性的，而基础支持的access_token的是有时间限制的：7200s。
-    	//1、微信网页授权是通过OAuth2.0机制实现的，在用户授权给公众号后，公众号可以获取到一个网页授权特有的接口调用凭证（网页授权access_token），通过网页授权access_token可以进行授权后接口调用，如获取用户基本信息；
-    	//2、其他微信接口，需要通过基础支持中的“获取access_token”接口来获取到的普通access_token调用。
+        //1、微信网页授权是通过OAuth2.0机制实现的，在用户授权给公众号后，公众号可以获取到一个网页授权特有的接口调用凭证（网页授权access_token），通过网页授权access_token可以进行授权后接口调用，如获取用户基本信息；
+        //2、其他微信接口，需要通过基础支持中的“获取access_token”接口来获取到的普通access_token调用。
         $url = $this->__CreateOauthUrlForOpenid($code);       
         $ch = curl_init();//初始化curl        
         curl_setopt($ch, CURLOPT_TIMEOUT, 300);//设置超时
@@ -207,11 +184,11 @@ class MobileBase extends Controller {
         curl_close($ch);
         //获取用户是否关注了微信公众号， 再来判断是否提示用户 关注
         // if(!isset($data['unionid'])){
-        	$access_token2 = $this->get_access_token();//获取基础支持的access_token
-        	$url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=$access_token2&openid=$openid";
-        	$subscribe_info = httpRequest($url,'GET');
-        	$subscribe_info = json_decode($subscribe_info,true);
-        	$data['subscribe'] = $subscribe_info['subscribe'];
+            $access_token2 = $this->get_access_token();//获取基础支持的access_token
+            $url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=$access_token2&openid=$openid";
+            $subscribe_info = httpRequest($url,'GET');
+            $subscribe_info = json_decode($subscribe_info,true);
+            $data['subscribe'] = $subscribe_info['subscribe'];
         // }                
         return $data;
     }

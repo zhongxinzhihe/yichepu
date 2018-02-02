@@ -404,7 +404,6 @@ class Cart extends MobileBase {
       foreach ($data as $key => $value) {
           $distance=getDistance($lat1,$lon1,$value['shop_lat'],$value['shop_lon']);
           $value['distance'] = $distance/1000;
-          // $value['tags'] = M('ShopTag')->where(array('shop_id'=>$value['admin_id']))->field('tag_name')->select();
           $list[$distance] = $value;
          
       }

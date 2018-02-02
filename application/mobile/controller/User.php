@@ -75,9 +75,9 @@ class User extends MobileBase
         $order_count = M('order')->where("user_id", $this->user_id)->count(); //我的全部订单 (改)
       
         $wait_pay = M('order')->where("user_id=$this->user_id and pay_status =0 and order_status = 0  and pay_code != 'cod'")->count(); //我的待付款 (改)
-        $wait_receive = M('order')->where("user_id=$this->user_id and order_status= 1 and shipping_status= 1")->count(); 
+        $wait_receive = M('order')->where("user_id=$this->user_id and order_status= 1")->count(); 
         //我的待收货 (改)
-        $comment = DB::query("select COUNT(1) as comment from __PREFIX__order_goods as og left join __PREFIX__order as o on o.order_id = og.order_id where o.user_id = $this->user_id and og.is_send = 1 and og.is_comment = 0 ");  //我的待评论订单
+        $comment = DB::query("select COUNT(1) as comment from __PREFIX__order_goods as og left join __PREFIX__order as o on o.order_id = og.order_id where o.user_id = $this->user_id  and og.is_comment = 0 ");  //我的待评论订单
         $wait_comment = $comment[0][comment];
         $count_sundry_status = array($wait_pay, $wait_receive, $wait_comment, $count_return);
         $this->assign('level_name', $level_name);
