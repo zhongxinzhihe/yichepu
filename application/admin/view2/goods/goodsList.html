@@ -43,7 +43,6 @@
                                         <th class="center" style="min-width: 75px;">产品分类</th>
                                         <th class="center" style="min-width: 45px;">库存</th>
                                         <th class="center" style="min-width: 60px;">下架/上架</th>
-                                        <th class="center" style="min-width: 75px;">是否推荐</th>
                                         <th class="center" style="min-width: 45px;">排序</th>
                                         <th class="center">商家名称</th>
                                         <th class="center" style="min-width: 90px;">操作</th>
@@ -67,15 +66,6 @@
                                             </label>
                                         </div>
                                     </td>        
-                                    <td class="center">
-                                        <div class="judge">
-                                            <if condition='$list[is_recommend] eq 1'>
-                                                <span class="yes" onClick="changeTableVal('goods','goods_id','{$list.goods_id}','is_recommend',this)" ><i class="fa fa-check-circle"></i>是</span>
-                                            <else />
-                                                <span class="no" onClick="changeTableVal('goods','goods_id','{$list.goods_id}','is_recommend',this)" ><i class="fa fa-ban"></i>否</span>
-                                            </if>
-                                        </div>
-                                    </td>
                                     <td class="center">
                                         <input type="text" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" onpaste="this.value=this.value.replace(/[^\d]/g,'')" onChange="changeTableVal('goods','goods_id','{$list.goods_id}','sort',this)" size="4" value="{$list.sort}">
                                     </td>

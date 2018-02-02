@@ -252,20 +252,20 @@ class Order extends Base {
             exit;
         }
         // 获取省份
-        $province = M('region')->where(array('parent_id'=>0,'level'=>1))->select();
+        // $province = M('region')->where(array('parent_id'=>0,'level'=>1))->select();
         //获取订单城市
-        $city =  M('region')->where(array('parent_id'=>$order['province'],'level'=>2))->select();
+        // $city =  M('region')->where(array('parent_id'=>$order['province'],'level'=>2))->select();
         //获取订单地区
-        $area =  M('region')->where(array('parent_id'=>$order['city'],'level'=>3))->select();
+        // $area =  M('region')->where(array('parent_id'=>$order['city'],'level'=>3))->select();
         //获取支付方式
         $payment_list = M('plugin')->where(array('status'=>1,'type'=>'payment'))->select();
         //获取配送方式
         $shipping_list = M('plugin')->where(array('status'=>1,'type'=>'shipping'))->select();
         
         $this->assign('order',$order);
-        $this->assign('province',$province);
-        $this->assign('city',$city);
-        $this->assign('area',$area);
+        // $this->assign('province',$province);
+        // $this->assign('city',$city);
+        // $this->assign('area',$area);
         $this->assign('orderGoods',$orderGoods);
         $this->assign('shipping_list',$shipping_list);
         $this->assign('payment_list',$payment_list);
@@ -440,8 +440,8 @@ class Order extends Base {
     	$order_id = I('order_id');
         $orderLogic = new OrderLogic();
         $order = $orderLogic->getOrderInfo($order_id);
-        $order['province'] = getRegionName($order['province']);
-        $order['city'] = getRegionName($order['city']);
+        // $order['province'] = getRegionName($order['province']);
+        // $order['city'] = getRegionName($order['city']);
         $order['district'] = getRegionName($order['district']);
         $order['full_address'] = $order['province'].' '.$order['city'].' '.$order['district'].' '. $order['address'];
         $orderGoods = $orderLogic->getOrderGoods($order_id);
@@ -744,29 +744,29 @@ class Order extends Base {
     	$strTable .= '<td style="text-align:center;font-size:12px;width:120px;">订单编号</td>';
     	$strTable .= '<td style="text-align:center;font-size:12px;" width="100">日期</td>';
     	$strTable .= '<td style="text-align:center;font-size:12px;" width="*">收货人</td>';
-    	$strTable .= '<td style="text-align:center;font-size:12px;" width="*">收货地址</td>';
+    	// $strTable .= '<td style="text-align:center;font-size:12px;" width="*">收货地址</td>';
     	$strTable .= '<td style="text-align:center;font-size:12px;" width="*">电话</td>';
     	$strTable .= '<td style="text-align:center;font-size:12px;" width="*">订单金额</td>';
-    	$strTable .= '<td style="text-align:center;font-size:12px;" width="*">实际支付</td>';
+    	// $strTable .= '<td style="text-align:center;font-size:12px;" width="*">实际支付</td>';
     	$strTable .= '<td style="text-align:center;font-size:12px;" width="*">支付方式</td>';
     	$strTable .= '<td style="text-align:center;font-size:12px;" width="*">支付状态</td>';
-    	$strTable .= '<td style="text-align:center;font-size:12px;" width="*">发货状态</td>';
+    	// $strTable .= '<td style="text-align:center;font-size:12px;" width="*">发货状态</td>';
     	$strTable .= '<td style="text-align:center;font-size:12px;" width="*">商品信息</td>';
     	$strTable .= '</tr>';
 	    if(is_array($orderList)){
-	    	$region	= M('region')->getField('id,name');
+	    	// $region	= M('region')->getField('id,name');
 	    	foreach($orderList as $k=>$val){
 	    		$strTable .= '<tr>';
 	    		$strTable .= '<td style="text-align:center;font-size:12px;">&nbsp;'.$val['order_sn'].'</td>';
 	    		$strTable .= '<td style="text-align:left;font-size:12px;">'.$val['create_time'].' </td>';	    		
 	    		$strTable .= '<td style="text-align:left;font-size:12px;">'.$val['consignee'].'</td>';
-                        $strTable .= '<td style="text-align:left;font-size:12px;">'."{$region[$val['province']]},{$region[$val['city']]},{$region[$val['district']]},{$region[$val['twon']]}{$val['address']}".' </td>';                        
+                // $strTable .= '<td style="text-align:left;font-size:12px;">'."{$region[$val['province']]},{$region[$val['city']]},{$region[$val['district']]},{$region[$val['twon']]}{$val['address']}".' </td>';                        
 	    		$strTable .= '<td style="text-align:left;font-size:12px;">'.$val['mobile'].'</td>';
 	    		$strTable .= '<td style="text-align:left;font-size:12px;">'.$val['goods_price'].'</td>';
-	    		$strTable .= '<td style="text-align:left;font-size:12px;">'.$val['order_amount'].'</td>';
+	    		// $strTable .= '<td style="text-align:left;font-size:12px;">'.$val['order_amount'].'</td>';
 	    		$strTable .= '<td style="text-align:left;font-size:12px;">'.$val['pay_name'].'</td>';
 	    		$strTable .= '<td style="text-align:left;font-size:12px;">'.$this->pay_status[$val['pay_status']].'</td>';
-	    		$strTable .= '<td style="text-align:left;font-size:12px;">'.$this->shipping_status[$val['shipping_status']].'</td>';
+	    		// $strTable .= '<td style="text-align:left;font-size:12px;">'.$this->shipping_status[$val['shipping_status']].'</td>';
 	    		$orderGoods = D('order_goods')->where('order_id='.$val['order_id'])->select();
 	    		$strGoods="";
 	    		foreach($orderGoods as $goods){

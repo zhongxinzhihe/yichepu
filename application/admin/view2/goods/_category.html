@@ -1,4 +1,9 @@
 <include file="public/layout" />
+<style>
+  .ncap-form-default dl.row:hover p.notic {
+    color: red;
+}
+</style>
 <body style="overflow: auto;">
 <div id="append_parent"></div>
 <div id="ajaxwaitid"></div>
@@ -6,7 +11,7 @@
   <div class="fixed-bar">
     <div class="item-title"><!-- <a class="back" href="javascript:history.back();" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a> -->
       <div class="subject">
-        <h3>商品分类 - 添加修改分类</h3>
+        <h3>商品分类</h3>
         <h5>添加或编辑商品分类</h5>
       </div>
     </div>
@@ -49,7 +54,7 @@
                 <option value="0">请选择商品分类</option>
             </select>                      
           </div>
-          <p class="notic">最多成为第三级,如果设置为第二级, 只选择第一级即可</p>
+          <p class="notic" style="color: red">最多成为第三级,如果设置为第二级, 只选择第一级即可</p>
         </dd>
       </dl>        
       <dl class="row">

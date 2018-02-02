@@ -89,11 +89,11 @@ body {
 #lunboList tbody tr td {
   line-height: 50px;
 }
-#newCarTable tbody tr td:nth-child(7) {
+#newCarTable tbody tr td:nth-child(6) {
   padding: 0;
   vertical-align: middle!important;
 }
-#newCarTable tbody tr td:nth-child(7) input {
+#newCarTable tbody tr td:nth-child(6) input {
   margin: 0;
   width: 36px;
   padding: 0;
@@ -102,7 +102,7 @@ body {
   border-radius: 2px;
   vertical-align: center;
 }
-#newCarTable tbody tr td:nth-child(7) input[type=text]:focus:not([readonly]) {
+#newCarTable tbody tr td:nth-child(6) input[type=text]:focus:not([readonly]) {
   border: 1px solid #ff5722;
   box-shadow: none;
 }
@@ -138,7 +138,7 @@ body {
   padding: 0;
   vertical-align: middle!important;
 }
-#lunboList tbody tr td:nth-child(4) input {
+#lunboList tbody tr td:nth-child(5) input {
   margin: 0;
   width: 36px;
   padding: 0;
