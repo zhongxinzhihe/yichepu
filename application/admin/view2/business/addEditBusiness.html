@@ -54,6 +54,7 @@
           </select>
           市
           <select name="city" value="{$data.city}">
+            <option value="52">北京</option>
           </select>
           区
           <select name="area" value="{$data.area}">
@@ -174,7 +175,9 @@
     
 /** 以下是编辑时默认选中某个商品分类*/
 $(document).ready(function(){
-  var provNum="{$data.province}";
+  var checkNew=$("input[name='shop_name']").val().length
+  if (checkNew>0) {
+    var provNum="{$data.province}";
   var cityNum="{$data.city}";
   var areaNum="{$data.area}";
   $("select[name='province']").get(0).selectedIndex = provNum - 2 ;
@@ -221,6 +224,9 @@ $(document).ready(function(){
       }
     }
   });
+  }
+  
+  
 	$('#submitBtn').click(function () {
     const localUrl=window.location.href
     // console.log(localUrl.lastIndexOf("/id/"))
@@ -270,6 +276,25 @@ $(document).ready(function(){
             html+= '<option value="'+item.id+'">'+item.name+'</option>';
           });
           $('select[name="city"]').html(html);
+          var valNew=$('select[name="city"]').val();
+          $.ajax({
+            async:false,
+       url:"{:U('Business/area')}",
+       type:'post',
+       dataType:"json",
+       data:{id:valNew},
+       success:function (res) {
+         if (res.status==1) {
+          var html = '';
+          $(res.info).each(function (index,item) {
+            html+= '<option value="'+item.id+'">'+item.name+'</option>';
+          });
+          $('select[name="area"]').html(html);
+         }else{
+         
+         }
+       }
+    });
          }else{
          
          }
