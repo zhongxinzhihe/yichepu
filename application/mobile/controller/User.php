@@ -1069,6 +1069,21 @@ class User extends MobileBase
         return $this->fetch();
     }
 
+        /*
+    *删除订单
+    */
+    public function del_order()
+    {
+        $id = I('post.id/d');
+        $res = M('Order')->where(array('order_id'=>$id))->save(array('user_del'=>1));
+        if ($res!==false) {
+           exit(json_encode(array('status'=>1,'msg'=>'删除成功')));
+        }else{
+            exit(json_encode(array('status'=>0,'msg'=>'删除失败')));
+        }
+        
+    }
+
     /**
      * 删除已取消的订单
      */
