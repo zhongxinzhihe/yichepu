@@ -879,7 +879,7 @@ function update_pay_status($order_sn,$ext=array(),$share=array())
         goods_sn_share($order_sn,$share,$order['order_id']);
         buysucess_template($order);//支付成功通知
         // 减少对应商品的库存
-        minus_stock($order['order_id']);
+        // minus_stock($order['order_id']);
         // 记录订单操作日志
         if(array_key_exists('admin_id',$ext)){
             logOrder($order['order_id'],$ext['note'],'付款成功',$ext['admin_id']);
@@ -1461,7 +1461,7 @@ function calcu_goods_price($value=0)
 
  function shop_name($shop_id)
 {
-    if(empty($shop_id)) return '壹车仆';
+    if(empty($shop_id)) return '三品車';
    $shop_name = M('admin')->where(array('admin_id'=>$shop_id))->find();
    return $shop_name['shop_name'];
 }
@@ -1660,7 +1660,7 @@ function getNonceStr($length = 32)
       $order_id = $order['order_id'];
       $order_goods = M('OrderGoods')->where(array('order_id'=>$order_id,'check_status'=>0))->find();
       $openid = M('Users')->where(array('user_id'=>$order['user_id']))->getField('openid');
-      $goodsinfo = M('Goods')->where(array('goods_id'=>$order_goods['goods_id']))->field('is_ctime,is_appoint')->find();
+      $goodsinfo = M('Goods')->where(array('goods_id'=>$order_goods['goods_id']))->find();
       $data = array();
       $data['url'] = 'http://www.sanpinche.com/Mobile/User/order_detail/id/'.$order_id;
       $data['topcolor'] = '#ff0066';

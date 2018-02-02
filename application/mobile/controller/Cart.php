@@ -270,6 +270,7 @@ class Cart extends MobileBase {
 
      public function submit_order()
     {
+      
       if($this->user_id == 0)
              exit(json_encode(array('status'=>-100,'msg'=>"登录超时请重新登录!",'result'=>null)));
          $result = $this->cartLogic->addOrder($this->user_id,$this->session_id); // 添加订单

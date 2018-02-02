@@ -105,8 +105,8 @@ class CartLogic extends Model
         $anum = $total_price =  $cut_fee = 0;
 
         foreach ($cartList as $k=>$val){
-        	$cartList[$k]['goods_fee'] = $val['goods_num'] * $val['member_goods_price'];
-        	$cartList[$k]['store_count']  = getGoodNum($val['goods_id'],$val['spec_key']); // 最多可购买的库存数量        	
+            $cartList[$k]['goods_fee'] = $val['goods_num'] * $val['member_goods_price'];
+            $cartList[$k]['store_count']  = getGoodNum($val['goods_id'],$val['spec_key']); // 最多可购买的库存数量            
                 $anum += $val['goods_num'];
                 
                 // 如果要求只计算购物车选中商品的价格 和数量  并且  当前商品没选择 则跳过
@@ -114,7 +114,7 @@ class CartLogic extends Model
                     continue;
                 
                 $cut_fee += $val['goods_num'] * $val['market_price'] - $val['goods_num'] * $val['member_goods_price'];                
-        	$total_price += $val['goods_num'] * $val['member_goods_price'];
+            $total_price += $val['goods_num'] * $val['member_goods_price'];
         }
 
         $total_price = array('total_fee' =>$total_price , 'cut_fee' => $cut_fee,'num'=> $anum,); // 总计        
@@ -295,32 +295,32 @@ class CartLogic extends Model
            $data2['give_integral']      = $goods['give_integral']; // 购买商品赠送积分         
            $data2['prom_type']          = $val['prom_type']; // 0 普通订单,1 限时抢购, 2 团购 , 3 促销优惠
            $data2['prom_id']            = $val['prom_id']; // 活动id
-           $data2['is_appoint']            = $goods['is_appoint']; //是否指定消费商家
-           $data2['is_ctime']            = $goods['is_ctime']; //是否指定消费时间
+           // $data2['is_appoint']            = $goods['is_appoint']; //是否指定消费商家
+           // $data2['is_ctime']            = $goods['is_ctime']; //是否指定消费时间
            $order_goods_id              = M("OrderGoods")->insertGetId($data2);
-           if ($data2['is_appoint']==1) {
-                $shops = M('Guseb')->where(array('goods_id'=>$val['goods_id']))->field('shop_id')->select();
+           // if ($data2['is_appoint']==1) {
+           //      $shops = M('Guseb')->where(array('goods_id'=>$val['goods_id']))->field('shop_id')->select();
                
-                if (is_array($shops)) {
-                    foreach ($shops as $key => $value) {
-                        $map = array();
-                        $map['rec_id'] =  $order_goods_id;
-                        $map['shop_id'] = $value['shop_id'];
-                       $res = M('Oguseb')->add($map);
+           //      if (is_array($shops)) {
+           //          foreach ($shops as $key => $value) {
+           //              $map = array();
+           //              $map['rec_id'] =  $order_goods_id;
+           //              $map['shop_id'] = $value['shop_id'];
+           //             $res = M('Oguseb')->add($map);
 
-                    }
-                    # code...
-                }
+           //          }
+           //          # code...
+           //      }
                
-           }
-           if ($data2['is_ctime']==1) {
-               $times = M('ConsumeTime')->where(array('goods_id'=>$val['goods_id']))->find();
-               unset($times['id']);
-               unset($times['goods_id']);
-               $times['rec_id'] =  $order_goods_id;
-              $result = M('Ogtime')->add($times);
+           // }
+           // if ($data2['is_ctime']==1) {
+           //     $times = M('ConsumeTime')->where(array('goods_id'=>$val['goods_id']))->find();
+           //     unset($times['id']);
+           //     unset($times['goods_id']);
+           //     $times['rec_id'] =  $order_goods_id;
+           //    $result = M('Ogtime')->add($times);
                
-           }
+           // }
            // 扣除商品库存  扣除库存移到 付完款后扣除
            //M('Goods')->where("goods_id = ".$val['goods_id'])->setDec('store_count',$val['goods_num']); // 商品减少库存
         } 
@@ -354,15 +354,15 @@ class CartLogic extends Model
         //     $wx_content = "你刚刚下了一笔订单:{$order['order_sn']} 尽快支付,过期失效!";
         //     $jssdk->push_msg($user['openid'],$wx_content);
         // }
-    	//用户下单, 发送短信给商家
-    	$res = checkEnableSendSms("3");
-    	$sender = tpCache("shop_info.mobile");
-    	
-    	if($res && $res['status'] ==1 && !empty($sender)){
-    		 
-    	    $params = array('consignee'=>$order['consignee'] , 'mobile' => $order['mobile']);
-    	    $resp = sendSms("3", $sender, $params);
-    	} 	
+        //用户下单, 发送短信给商家
+        // $res = checkEnableSendSms("3");
+        $sender = tpCache("shop_info.mobile");
+        
+        if($res && $res['status'] ==1 && !empty($sender)){
+             
+            $params = array('consignee'=>$order['consignee'] , 'mobile' => $order['mobile']);
+            $resp = sendSms("3", $sender, $params);
+        }   
         return array('status'=>1,'msg'=>'提交订单成功','result'=>$order_id); // 返回新增的订单id        
     }
     
@@ -401,8 +401,8 @@ class CartLogic extends Model
     */
    public function login_cart_handle($session_id,$user_id)
    {
-	   if(empty($session_id) || empty($user_id))
-	     return false;
+       if(empty($session_id) || empty($user_id))
+         return false;
         // 登录后将购物车的商品的 user_id 改为当前登录的id            
         M('cart')->where("session_id", $session_id)->save(array('user_id'=>$user_id));
                 

@@ -37,12 +37,11 @@ class MobileBase extends Controller {
         else 
             cookie('is_mobile','0',3600);
          $this->weixin_config = M('wx_user')->find(); //获取微信配置
-         $usebool = strstr($_SERVER['HTTP_USER_AGENT'],'MicroMessenger') && !isset($_SESSION['use']);
+         $usebool = strstr($_SERVER['HTTP_USER_AGENT'],'MicroMessenger') && !isset($_SESSION['user']);
          $openidbool = strstr($_SERVER['HTTP_USER_AGENT'],'MicroMessenger') && empty($_SESSION['openid']);
          
         //微信浏览器
         if($usebool||$openidbool){
-           // var_dump(isset($_SESSION['user']));die();
             $this->assign('wechat_config', $this->weixin_config); 
             if(is_array($this->weixin_config) && $this->weixin_config['wait_access'] == 1){
                 $wxuser = $this->GetOpenid(); //授权获取openid以及微信用户信息
