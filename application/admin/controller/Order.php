@@ -145,19 +145,19 @@ class Order extends Base {
         $order = $orderLogic->getOrderInfo($order_id);
         $orderGoods = $orderLogic->getOrderGoods($order_id);
         $button = $orderLogic->getOrderButton($order);
-        // 获取操作记录
-        $action_log = M('order_action')->where(array('order_id'=>$order_id))->order('log_time desc')->select();
+        // // 获取操作记录
+        // $action_log = M('order_action')->where(array('order_id'=>$order_id))->order('log_time desc')->select();
         $userIds = array();
         //查找用户昵称
-        foreach ($action_log as $k => $v){
-            $userIds[$k] = $v['action_user'];
-        }
+        // foreach ($action_log as $k => $v){
+        //     $userIds[$k] = $v['action_user'];
+        // }
         if($userIds && count($userIds) > 0){
             $users = M("users")->where("user_id in (".implode(",",$userIds).")")->getField("user_id , nickname" , true);
         }
         $this->assign('users',$users);
         $this->assign('order',$order);
-        $this->assign('action_log',$action_log);
+        // $this->assign('action_log',$action_log);
         $this->assign('orderGoods',$orderGoods);
         $split = count($orderGoods) >1 ? 1 : 0;
         foreach ($orderGoods as $val){
@@ -442,7 +442,7 @@ class Order extends Base {
         $order = $orderLogic->getOrderInfo($order_id);
         // $order['province'] = getRegionName($order['province']);
         // $order['city'] = getRegionName($order['city']);
-        $order['district'] = getRegionName($order['district']);
+        // $order['district'] = getRegionName($order['district']);
         $order['full_address'] = $order['province'].' '.$order['city'].' '.$order['district'].' '. $order['address'];
         $orderGoods = $orderLogic->getOrderGoods($order_id);
         $shop = tpCache('shop_info');
@@ -469,7 +469,7 @@ class Order extends Base {
 			$this->error('请设置'.$shipping['name'].'打印模板');
 		}
         $shop = tpCache('shop_info');//获取网站信息
-        $shop['province'] = empty($shop['province']) ? '' : getRegionName($shop['province']);
+        $shop['province'] = empty($shop['province']);
         $shop['city'] = empty($shop['city']) ? '' : getRegionName($shop['city']);
         $shop['district'] = empty($shop['district']) ? '' : getRegionName($shop['district']);
 
@@ -799,11 +799,11 @@ class Order extends Base {
     {
         $order = array();
         //  获取省份
-        $province = M('region')->where(array('parent_id'=>0,'level'=>1))->select();
+        // $province = M('region')->where(array('parent_id'=>0,'level'=>1))->select();
         //  获取订单城市
-        $city =  M('region')->where(array('parent_id'=>$order['province'],'level'=>2))->select();
+        // $city =  M('region')->where(array('parent_id'=>$order['province'],'level'=>2))->select();
         //  获取订单地区
-        $area =  M('region')->where(array('parent_id'=>$order['city'],'level'=>3))->select();
+        // $area =  M('region')->where(array('parent_id'=>$order['city'],'level'=>3))->select();
         //  获取配送方式
         $shipping_list = M('plugin')->where(array('status'=>1,'type'=>'shipping'))->select();
         //  获取支付方式

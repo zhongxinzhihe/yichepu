@@ -245,12 +245,8 @@ return [
     'shunfuMchNo'=>'SZSF001-0000003',
     'shunfuKey'=>'5b4a03d5cc3d9c59294b873daf175ade',
     'ORDER_STATUS' =>[
-        0 => '待确认',
-        1 => '已确认',
-        2 => '已收货',
-        3 => '已取消',                
-        4 => '已完成',//评价完
-        5 => '已作废',
+        0 => '未验券',
+        1 => '已验券',
     ],
     'SHIPPING_STATUS' => array(
         0 => '未发货',

@@ -55,7 +55,7 @@
           <div style="text-align: center; min-width: 45px;" class="">{$list.order_amount}</div>
         </td>
          <td align="center" abbr="article_time" axis="col6" class="">
-          <div style="text-align: center; min-width: 45px;" class=""><if condition="$list['check_status'] eq '1'"><span style="color: red">已验完</span><else/><span style="color: #26a69a">未验完</span></if></div>
+          <div style="text-align: center; min-width: 45px;" class=""><if condition="$list['check_status'] eq '1'"><span style="color: red">已验券</span><else/><span style="color: #26a69a">未验券</span></if></div>
         </td>
        <!--  <td align="center" abbr="article_time" axis="col6" class="">
           <div style="text-align: center; min-width: 45px;" class="">{$order_status[$list[order_status]]}<if condition="$list['is_cod'] eq '1'"><span style="color: red">(货到付款)</span></if></div>
@@ -71,10 +71,6 @@
         </td>
         <td align="left" axis="col1" class="handle" align="center">
         		<div style="text-align: left; ">
-        			<a href="{:U('Admin/order/detail',array('order_id'=>$list['order_id']))}">查看</a> / 
-        			<!-- <if condition="($list['order_status'] eq 3) or ($list['order_status'] eq 5)">
-        				<a href="javascript:void(0);" data-href="{:U('Admin/order/delete_order',array('order_id'=>$list['order_id']))}" onclick="del(this)"><i class="fa fa-trash-o"></i>删除</a>
-        			</if> -->
               <a href="javascript:void(0);" data-href="{:U('Admin/order/delete_order',array('order_id'=>$list['order_id']))}" onclick="del(this)">删除</a>
         		</div>
          </td>
@@ -103,7 +99,6 @@
         url:href,
         dataType:'json',
         success:function (res) {
-          
           if (res.status==1) {
               $(obj).parents('tr').remove();
           }else{

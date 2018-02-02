@@ -298,10 +298,10 @@ class OrderLogic extends Model
      * @return string
      */
     public function getAddressName($p=0,$c=0,$d=0){
-        $p = M('region')->where(array('id'=>$p))->field('name')->find();
-        $c = M('region')->where(array('id'=>$c))->field('name')->find();
-        $d = M('region')->where(array('id'=>$d))->field('name')->find();
-        return $p['name'].','.$c['name'].','.$d['name'].',';
+        // $p = M('region')->where(array('id'=>$p))->field('name')->find();
+        // $c = M('region')->where(array('id'=>$c))->field('name')->find();
+        // $d = M('region')->where(array('id'=>$d))->field('name')->find();
+        // return $p['name'].','.$c['name'].','.$d['name'].',';
     }
 
     /**
