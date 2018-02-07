@@ -348,13 +348,6 @@ class User extends MobileBase
         $this->success($data['msg']);
     }
 
-
-
-
-
-
-
-
     /*
      * 评论晒单
      */
