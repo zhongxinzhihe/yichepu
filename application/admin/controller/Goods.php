@@ -227,8 +227,8 @@ class Goods extends Base {
             I('extend_cat_id_3') && ($Goods->extend_cat_id = I('extend_cat_id_3'));
             $Goods->shipping_area_ids = implode(',',I('shipping_area_ids/a',[]));
             $Goods->shipping_area_ids = $Goods->shipping_area_ids ? $Goods->shipping_area_ids : '';
-            $Goods->goods_type = I('goods_type');
-            $Goods->spec_type = $Goods->goods_type; 
+            // $Goods->goods_type = I('goods_type');
+            // $Goods->spec_type = $Goods->goods_type; 
 
             if ($type == 2) {
                 $goods_id = I('goods_id');
