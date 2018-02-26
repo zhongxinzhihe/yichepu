@@ -24,14 +24,16 @@
                             <div class="col-sm-6"></div>
                             <div class="col-sm-6 table-search">
                                 <div class="ts-la">
+                                    <form action="" method="post" id="search_form">
                                     <label>
                                         <div class="btn-group">
                                         </div>
-                                        <input type="search" placeholder="搜索">
-                                        <a href="">
+                                        <input type="text" placeholder="按名称搜索" name="key_words" id="search" value="">
+                                        <a onclick="search_action()">
                                             <i class="fa fa-search"></i>
                                         </a>
                                     </label>
+                                </form>
                                 </div>
                             </div>
                         </div>
@@ -91,6 +93,9 @@
         $('.time').html("--")
     }
 }); 
+    function search_action() {
+       $('#search_form').submit();
+    }
 </script>
         <!-- Custom Js -->
     <script src="__PUBLIC__/static/assets/js/custom-scripts.js"></script> 

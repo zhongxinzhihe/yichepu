@@ -412,7 +412,8 @@ class User extends MobileBase
             //添加评论
             $row = $logic->add_comment($add);
             if ($row['status'] == 1) {
-                $this->success('评论成功', U('/Mobile/Goods/goodsInfo', array('id' => $add['goods_id'])));
+                // $this->success('评论成功', U('/Mobile/Goods/goodsInfo', array('id' => $add['goods_id'])));
+                $this->redirect(U('/Mobile/Goods/goodsInfo',array('id' => $add['goods_id'])),2);
                 exit();
             } else {
                 $this->error($row['msg']);

@@ -128,9 +128,11 @@ class weixin extends Model
 			function(res){
 				//WeixinJSBridge.log(res.err_msg);
 				 if(res.err_msg == "get_brand_wcpay_request:ok") {
+                    alert("支付成功");
 				    location.href='$go_url';
 				 }else{
 				 	//alert(res.err_code+res.err_desc+res.err_msg);
+                    alert("支付失败");
 				    location.href='$back_url';
 				 }
 			}
