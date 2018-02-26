@@ -376,7 +376,7 @@ body {
   margin-right: 10px;
   margin-bottom: 10px;
 }
-.mgi_detail .comment .comment_num a:first-child {
+.mgi_detail .comment .comment_num .current {
   background: -webkit-linear-gradient(left, #FDA412, #FE7026);
   color: #fff;
 }
