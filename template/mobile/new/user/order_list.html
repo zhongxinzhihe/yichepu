@@ -54,7 +54,8 @@
             <volist name="list.goods_list" id="good">
               <dl style="position: relative">  
               <dt>
-                <img src="{$vo.goods_id|getFirstImg=200,200}">
+                <!-- <img src="{$good.goods_id|goods_thum_images=200,200}"> -->
+                <img src="{$good.goods_id|getFirstImg=200,200}">
                 <!-- <img src="__STATIC__/images/right.png" alt=""> -->
               </dt>
               <dd class="name"><strong>{$good.goods_name}</strong>
