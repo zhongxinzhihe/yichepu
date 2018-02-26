@@ -166,6 +166,11 @@ $('.del').click(function(){
     }
   })
 })
+
+//第一次加载去除最后一个list的bottom
+$(function(){
+  $(".order").children("div:last").remove();
+})
 </script>
 </body>
 </html>
