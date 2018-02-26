@@ -249,7 +249,7 @@ public function changeSecret()
     if ($order_goods['check_status']==1) {
        exit(json_encode(array('status'=>0,'msg'=>'该卷已消费过')));
     }
-    $goodsInfo = M('Goods')->where(array('goods_id'=>$order_goods['goods_id']))->field('goods_id,is_appoint,is_ctime,goods_name')->find();
+    $goodsInfo = M('Goods')->where(array('goods_id'=>$order_goods['goods_id']))->field('goods_id,goods_name')->find();
    
     $arr = array('status'=>-1,'shop_names'=>'','range'=>1,'range_time'=>'');
     // $range = 1;//1代表范围正确
@@ -363,6 +363,11 @@ public function changeSecret()
 
   public function checkList()
   {
+    $map = array();
+    $key = I('get.key_words');
+    if ($key) {
+      $map['goods_name'] = array('like',"%$key%");
+    }
     $map['business_id'] = session('admin_id');
     $count = D('CheckOrder')->where($map)->count();
     $page = new Page($count,10);// 实例化分页类 传入总记录数和每页显示的记录数
