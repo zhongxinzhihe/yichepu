@@ -407,8 +407,8 @@ class User extends MobileBase
             $add['content'] = I('content');
             $add['add_time'] = time();
             $add['ip_address'] = getIP();
+            $add['ctype'] = I('ctype');
             $add['user_id'] = $this->user_id;
-
             //添加评论
             $row = $logic->add_comment($add);
             if ($row['status'] == 1) {
