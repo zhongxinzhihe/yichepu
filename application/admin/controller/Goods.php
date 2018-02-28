@@ -118,15 +118,15 @@ class Goods extends Base {
                     }
                 }
 
-                if ($GoodsCategory->id>0&&$GoodsCategory->parent_id==$GoodsCategory->id) {
-                    //编辑
-                    $return_arr=array(
-                        'status'=>-1,
-                        'msg'=>'分佣比例不得超过100%',
-                        'data'=>'',
-                    );
-                    $this->ajaxReturn($return_arr);
-                }
+                // if ($GoodsCategory->id>0&&$GoodsCategory->parent_id==$GoodsCategory->id) {
+                //     //编辑
+                //     $return_arr=array(
+                //         'status'=>-1,
+                //         'msg'=>'分佣比例不得超过100%',
+                //         'data'=>'',
+                //     );
+                //     $this->ajaxReturn($return_arr);
+                // }
                 if ($type==2) {
                     $GoodsCategory
                         ->isUpdate(true)
@@ -259,7 +259,7 @@ class Goods extends Base {
         $cat_list = M('goods_category')->where($where)->select(); // 已经改成联动菜单
         $map = array();
         $_SESSION['type']==1?$map['shop_id']= $_SESSION['admin_id']:false;
-        $goodsType = M("GoodsType")->where($map)->select();
+        // $goodsType = M("GoodsType")->where($map)->select();
         $goodsImages = M("GoodsImages")->where('goods_id =' . I('GET.id', 0))->select();
         $tags = M('Tag')->where(array('del_status'=>0))->select();
         !empty($goodsInfo['cat_id'])?$cat_id = $goodsInfo['cat_id']:false;
@@ -285,7 +285,7 @@ class Goods extends Base {
         $this->assign('level_cat', $level_cat);
         $this->assign('level_cat2', $level_cat2);
         $this->assign('cat_list', $cat_list);
-        $this->assign('goodsType', $goodsType);
+        // $this->assign('goodsType', $goodsType);
         $this->assign('goodsInfo', $goodsInfo);  // 商品详情
         $this->assign('goodsImages', $goodsImages);  // 商品相册
         $this->assign('cat_id',$cat_id);//当前添加分类的id
